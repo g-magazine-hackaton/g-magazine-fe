@@ -6,9 +6,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 
 import HomePage from '@/pages/home';
-import MyPage from '@/pages/myPage';
+import MyPage from '@/pages/my-page';
 import MagazinePage from '@/pages/magazine';
-import NotFoundPage from '@/pages/notFound';
+import NotFoundPage from '@/pages/not-found';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         index: true,
       },
       {
-        path: 'myPage',
+        path: 'my-page',
         element: <MyPage />,
       },
       {

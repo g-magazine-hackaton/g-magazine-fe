@@ -26,7 +26,7 @@ export default function Navbar() {
               <StyledNavLink href="/" title="메인 페이지" />
             </li>
             <li>
-              <StyledNavLink href="myPage" title="마이 페이지" />
+              <StyledNavLink href="my-page" title="마이 페이지" />
             </li>
             <li>
               <StyledNavLink href="magazine" title="메거진 페이지" />
