@@ -5,4 +5,4 @@
 pnpm , vite, react, jotai, typescript, react, emotion, scss, axios etc..
 
 
-모바일 responsive size 360 - 480 추천
+모바일 responsive size 400 - 480 추천
