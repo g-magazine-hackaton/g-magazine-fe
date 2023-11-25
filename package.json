@@ -29,6 +29,8 @@
     "test:cov": "jest --coverage"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "clsx": "^2.0.0",
     "jotai": "^2.5.1",
     "lucide-react": "^0.291.0",

@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import styled from '@emotion/styled';
 import { useAtom } from 'jotai';
 import Navbar from '@/components/navbar';
 
@@ -6,14 +7,29 @@ import { userAtom } from '@/store/user';
 
 function App() {
   const [{ id }] = useAtom(userAtom);
+
+  const Main = styled.main`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0 6px;
+  `;
+
+  const Wrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 48px;
+  `;
+
   return (
-    <>
+    <Main>
       <Navbar />
-      <main className="column flex min-h-screen items-center justify-center">
+      <Wrap>
+        user {id}
         <Outlet />
-        <div>유저: {id}</div>
-      </main>
-    </>
+      </Wrap>
+    </Main>
   );
 }
 

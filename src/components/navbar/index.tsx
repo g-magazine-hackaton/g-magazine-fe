@@ -1,39 +1,62 @@
 import { NavLink } from 'react-router-dom';
+import styled from '@emotion/styled';
 
-function StyledNavLink({ href, title }: { href: string; title: string }) {
-  return (
-    <NavLink
-      to={href}
-      className={({ isActive }) =>
-        isActive
-          ? 'rounded-2xl bg-primary bg-opacity-10 px-4 py-1.5 text-sm'
-          : 'px-4 py-1.5 text-sm font-medium hover:text-primary'
-      }
-    >
-      {title}
-    </NavLink>
-  );
-}
+const StyledNavLink = styled(NavLink)`
+  padding: 4px 8px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: medium;
+  border-radius: 10px;
+  margin: 5px;
+
+  &.active {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+
+  &:hover {
+    color: #007bff;
+  }
+`;
+
+const Header = styled.header`
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  background-color: #fff;
+  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.2);
+  padding: 0 4px;
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+`;
+
+const Nav = styled.ul`
+  display: flex;
+  justify-content: space-between;
+`;
 
 export default function Navbar() {
   return (
-    <header className="fixed h-6 w-full p-10">
-      <div className="flex h-full items-center justify-between">
-        <h1 className="text-lg font-semibold">로켓지송. FrontEnd</h1>
-        <nav>
-          <ul className="flex gap-x-6">
-            <li>
-              <StyledNavLink href="/" title="메인 페이지" />
-            </li>
-            <li>
-              <StyledNavLink href="my-page" title="마이 페이지" />
-            </li>
-            <li>
-              <StyledNavLink href="magazine" title="메거진 페이지" />
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <Header>
+      <h1>🚀 로켓죄송</h1>
+      <nav>
+        <Nav>
+          <li>
+            <StyledNavLink to="/">메인 페이지</StyledNavLink>
+          </li>
+          <li>
+            <StyledNavLink to="my-page">마이 페이지</StyledNavLink>
+          </li>
+          <li>
+            <StyledNavLink to="magazine">메거진 페이지</StyledNavLink>
+          </li>
+        </Nav>
+      </nav>
+    </Header>
   );
 }
