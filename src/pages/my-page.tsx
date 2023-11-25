@@ -1,3 +1,9 @@
+import MyPageProfileComponent from '@/components/ui/profile/mypage';
+
 export default function MyPage() {
-  return <div>마이 페이지 입니다.</div>;
+  return (
+    <div style={{ width: '100%' }}>
+      <MyPageProfileComponent />
+    </div>
+  );
 }

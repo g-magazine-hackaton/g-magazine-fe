@@ -13,11 +13,11 @@ function App() {
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    padding: 0 6px;
   `;
 
   const Wrap = styled.div`
     display: flex;
+    width: 100%;
     flex-direction: column;
     margin-top: 48px;
   `;
@@ -26,7 +26,6 @@ function App() {
     <Main>
       <Navbar />
       <Wrap>
-        user {id}
         <Outlet />
       </Wrap>
     </Main>
