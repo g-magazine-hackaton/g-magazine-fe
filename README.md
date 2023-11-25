@@ -4,4 +4,4 @@
 
 pnpm , vite, react, jotai, typescript, react, emotion, scss, axios etc..
 
-모바일 responsive size 400 - 480 추천
+모바일 responsive size 아이폰 14 프로맥스 추천
