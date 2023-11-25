@@ -38,6 +38,7 @@
     "@typescript-eslint/no-shadow": 0,
     "@typescript-eslint/no-unused-vars": 1,
     "no-restricted-syntax": 0,
+    "react/no-unknown-property": [2, { "ignore": ["css"] }],
     "prettier/prettier": [
       0,
       {
