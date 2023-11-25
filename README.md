@@ -3,3 +3,6 @@
 작업자: 황상한, 김미정, 박우림 <br />
 
 pnpm , vite, react, jotai, typescript, react, emotion, scss, axios etc..
+
+
+모바일 responsive size 360 - 480 추천
