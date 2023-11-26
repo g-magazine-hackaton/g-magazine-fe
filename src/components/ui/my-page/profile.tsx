@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
+import Button from '../button';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -9,13 +11,31 @@ const HeaderWrapper = styled.div`
   color: white;
   padding: 16px 18px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Gmarket Sans;
+`;
+
+const ProfileImageBox = styled.div`
+  position: relative;
+  width: 33%;
+  height: min-content;
+
+  .edit-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 12px;
+    border: none;
+
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
 `;
 
 const ProfileImage = styled.img`
-  width: 33%;
-  height: min-content;
   border-radius: 10px;
-  margin-bottom: 0.2rem;
 `;
 
 const UserInfoArea = styled.div`
@@ -113,10 +133,15 @@ const ContentBox = styled.ul`
 const MyPageProfile = () => {
   return (
     <HeaderWrapper>
-      <ProfileImage
-        src="https://cdn.hankooki.com/news/photo/202311/118934_162711_1700520953.jpg"
-        alt="Profile Image"
-      />
+      <ProfileImageBox>
+        <ProfileImage
+          src="https://cdn.hankooki.com/news/photo/202311/118934_162711_1700520953.jpg"
+          alt="Profile Image"
+        />
+        <Link to="/profile">
+          <Button className="edit-button">수정</Button>
+        </Link>
+      </ProfileImageBox>
       <UserInfoArea>
         <NameBox>
           <span className="club-badge">U클럽</span>
