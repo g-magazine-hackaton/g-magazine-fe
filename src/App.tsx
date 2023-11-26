@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { Global } from '@emotion/react';
 import Navbar from '@/components/navbar';
+import globalStyle from './styles/global';
 
 function App() {
   const Main = styled.main`
@@ -19,6 +21,7 @@ function App() {
 
   return (
     <Main>
+      <Global styles={globalStyle} />
       <Navbar />
       <Wrap>
         <Outlet />
