@@ -2,6 +2,7 @@
 import styled from '@emotion/styled';
 import MyPageProfileComponent from '@/components/ui/my-page/profile';
 import MyPageSection from '@/components/ui/my-page/section';
+import MyPageSubscriberUpdateSlider from '@/components/ui/my-page/subscriber-update-slider';
 
 const UpdateWrap = styled.span`
   padding: 0px 2px;
@@ -23,7 +24,7 @@ const CountWrap = styled.span`
 `;
 
 const UpdateUser = () => <UpdateWrap>new</UpdateWrap>;
-const Count = () => <CountWrap>3</CountWrap>;
+const Count = () => <CountWrap>6</CountWrap>;
 
 const MyPage = () => (
   <>
@@ -33,7 +34,7 @@ const MyPage = () => (
       icon={<UpdateUser />}
       count={<Count />}
     >
-      구독자 업데이트
+      <MyPageSubscriberUpdateSlider />
     </MyPageSection>
 
     <MyPageSection title="마이 메거진">슬라이더</MyPageSection>
