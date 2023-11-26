@@ -7,6 +7,21 @@ const globalStyle = css`
     line-height: 1.5;
     overflow-x: hidden;
     overflow-y: auto;
+    font-family:
+      Pretendard,
+      -apple-system,
+      BlinkMacSystemFont,
+      system-ui,
+      Roboto,
+      'Helvetica Neue',
+      'Segoe UI',
+      'Apple SD Gothic Neo',
+      'Noto Sans KR',
+      'Malgun Gothic',
+      'Apple Color Emoji',
+      'Segoe UI Emoji',
+      'Segoe UI Symbol',
+      sans-serif;
   }
 
   body::-webkit-scrollbar {
@@ -71,24 +86,6 @@ const globalStyle = css`
 
   a:visited {
     color: #111;
-  }
-
-  * {
-    font-family:
-      Pretendard,
-      -apple-system,
-      BlinkMacSystemFont,
-      system-ui,
-      Roboto,
-      'Helvetica Neue',
-      'Segoe UI',
-      'Apple SD Gothic Neo',
-      'Noto Sans KR',
-      'Malgun Gothic',
-      'Apple Color Emoji',
-      'Segoe UI Emoji',
-      'Segoe UI Symbol',
-      sans-serif;
   }
 `;
 
