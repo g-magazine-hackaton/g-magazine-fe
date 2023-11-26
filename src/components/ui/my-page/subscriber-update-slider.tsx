@@ -54,7 +54,7 @@ const sliderStyle = css`
     .user {
       display: flex;
       align-items: center;
-      padding: 0px 2px;
+      margin-left: 4px;
 
       > img {
         height: 16px;
@@ -86,6 +86,7 @@ const Slide = ({ imageSrc, label, userIcon, userName }: SlideProps) => (
     <span className={label === 'Rank' ? 'rank' : ''}>{label}</span>
     <div className="user">
       <img src={userIcon} alt="유저 아이콘" />
+      &nbsp;
       <span>{userName}</span>
     </div>
   </div>

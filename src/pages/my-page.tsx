@@ -8,7 +8,8 @@ const UpdateWrap = styled.span`
   padding: 0px 2px;
   border-radius: 10px;
   border: 2px solid #ff5454;
-  font-size: 14px;
+  line-height: 16px;
+  font-size: 12px;
   margin-right: 6px;
   color: #ff5454;
 `;
