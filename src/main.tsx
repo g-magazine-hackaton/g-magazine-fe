@@ -8,6 +8,7 @@ import App from './App';
 import HomePage from '@/pages/home';
 import MyPage from '@/pages/my-page';
 import MagazinePage from '@/pages/magazine';
+import ProfilePage from '@/pages/profile';
 import NotFoundPage from '@/pages/not-found';
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: 'magazine',
         element: <MagazinePage />,
+      },
+      {
+        path: 'profile',
+        element: <ProfilePage />,
       },
     ],
   },
