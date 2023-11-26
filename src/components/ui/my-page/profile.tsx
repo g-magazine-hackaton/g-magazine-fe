@@ -46,9 +46,13 @@ const NameBox = styled.div`
     align-items: center;
     font-size: 14px;
     font-weight: 600;
-    .icon {
-      height: 18px;
+    > span {
+      background: #ff3399;
+      line-height: 18px;
+      padding: 1px 4px;
+      border-radius: 12px;
       margin-right: 4px;
+      font-size: 12px;
     }
   }
 `;
@@ -116,18 +120,13 @@ const MyPageProfile = () => {
           <span className="club-badge">U클럽</span>
           <div className="nickname">규라니</div>
           <div className="subscriber-count">
-            <img
-              className="icon"
-              alt="Subscriber Icon"
-              src="subscribe-icon.png"
-            />
-            37 명
+            <span>팔로워</span>37명
           </div>
         </NameBox>
         <GreetingBox>👋 헤이 모두들 안녕, 내가 누군지 알아?</GreetingBox>
         <CashBox>
           <span className="cash-amount">
-            <img src="smiley-icon.png" alt="Smiley Cash" />
+            <img src="gold.png" alt="Smiley Cash" />
             125,000P
           </span>
           <CashUseButton>사용하기</CashUseButton>
