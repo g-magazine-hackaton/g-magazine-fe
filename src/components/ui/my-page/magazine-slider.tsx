@@ -1,4 +1,3 @@
-import React from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import styled from '@emotion/styled';
@@ -18,14 +17,20 @@ const StyledSlider = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 96px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    overflow: hidden;
+    aspect-ratio: 1;
 
     > img {
+      width: 100%;
       height: 100%;
       border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover > img {
+      transform: scale(1.05);
     }
   }
 `;

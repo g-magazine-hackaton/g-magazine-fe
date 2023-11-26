@@ -5,7 +5,7 @@ const ButtonWrap = styled.button`
   border-radius: 20px;
   border: none;
   background-color: #f2f2f2;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   margin: 3px;
   cursor: pointer;

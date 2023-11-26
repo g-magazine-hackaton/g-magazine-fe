@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import React from 'react';
 import { css } from '@emotion/react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
@@ -28,6 +26,7 @@ const sliderStyle = css`
     position: relative;
 
     > img {
+      width: 100%;
       height: 90px;
     }
 
@@ -35,8 +34,7 @@ const sliderStyle = css`
       position: absolute;
       top: 4px;
       left: 4px;
-      height: 12px;
-      line-height: 12px;
+      padding: 1px;
       vertical-align: middle;
       color: #fff;
       background-color: #000;
@@ -54,7 +52,6 @@ const sliderStyle = css`
     .user {
       display: flex;
       align-items: center;
-      margin-left: 4px;
 
       > img {
         height: 16px;

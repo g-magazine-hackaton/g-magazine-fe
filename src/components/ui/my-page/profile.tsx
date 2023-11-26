@@ -1,6 +1,4 @@
-/** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled';
-import React from 'react';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -27,32 +25,32 @@ const UserInfoArea = styled.div`
 const NameBox = styled.div`
   display: flex;
   align-items: center;
+  gap: 6px;
   .club-badge {
-    height: 22px;
+    line-height: 22px;
     background-color: rgb(8, 31, 63);
     border-radius: 8px;
-    padding: 0 4px;
+    padding: 0 8px;
     font-size: 12px;
     font-weight: 600;
-    margin-right: 6px;
   }
   .nickname {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 700;
   }
   .subscriber-count {
     margin-left: auto;
     display: flex;
     align-items: center;
+    gap: 4px;
     font-size: 14px;
     font-weight: 600;
     > span {
       background: #ff3399;
       line-height: 18px;
-      padding: 1px 4px;
+      padding: 0 8px;
       border-radius: 12px;
-      margin-right: 4px;
-      font-size: 12px;
+      font-size: 11px;
     }
   }
 `;
@@ -60,6 +58,7 @@ const NameBox = styled.div`
 const GreetingBox = styled.div`
   margin-top: 12px;
   font-size: 15px;
+  word-break: keep-all;
 `;
 
 const CashBox = styled.div`
@@ -70,11 +69,12 @@ const CashBox = styled.div`
   .cash-amount {
     display: flex;
     align-items: center;
+    gap: 8px;
     img {
       width: 30px;
-      margin-right: 4px;
+      height: 30px;
     }
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
   }
 `;
@@ -94,17 +94,19 @@ const CashUseButton = styled.button`
 
 const ContentBox = styled.ul`
   margin-top: 32px;
-  display: flex;
-  justify-content: space-between;
-  li {
-    padding: 0 7px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(72px, auto));
+  gap: 8px;
+  button {
+    width: 100%;
+    padding: 2px 8px;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
     color: #222;
     border: 2px solid #dee2e6;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 14px;
   }
 `;
 
@@ -132,9 +134,15 @@ const MyPageProfile = () => {
           <CashUseButton>사용하기</CashUseButton>
         </CashBox>
         <ContentBox>
-          <li>마이 구독</li>
-          <li>스크랩</li>
-          <li>컨슈머 랭킹</li>
+          <li>
+            <button>마이 구독</button>
+          </li>
+          <li>
+            <button>스크랩</button>
+          </li>
+          <li>
+            <button>컨슈머 랭킹</button>
+          </li>
         </ContentBox>
       </UserInfoArea>
     </HeaderWrapper>

@@ -1,5 +1,4 @@
 /* eslint-disable react/require-default-props */
-/** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled';
 import React, { ReactNode } from 'react';
 
@@ -18,11 +17,12 @@ const SectionWrap = styled.div`
 const TitleArea = styled.div`
   display: flex;
   align-items: center;
+  gap: 6px;
   width: 100%;
   background-color: #fff;
-  padding: 8px 18px;
+  padding: 12px 18px;
   border-bottom: 1px solid #ccc;
-  font-size: 18px;
+  font-size: 16px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
   font-weight: 600;
 `;
