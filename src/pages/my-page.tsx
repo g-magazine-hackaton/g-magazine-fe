@@ -49,14 +49,14 @@ const MyPage = () => {
     <>
       <MyPageProfileComponent />
       <MyPageSection
-        title="메거진 업데이트"
+        title="매거진 업데이트"
         icon={<UpdateUser />}
         count={<Count />}
       >
         <MyPageSubscriberUpdateSlider />
       </MyPageSection>
 
-      <MyPageSection title="마이 메거진" height="428px">
+      <MyPageSection title="마이 매거진" height="428px">
         <MyPageMagazineTab setTabIdx={setTabIdx} tabIdx={tabIdx} />
         <MyPageMagazineSlider MagazineListMockData={chunkedArray} />
       </MyPageSection>

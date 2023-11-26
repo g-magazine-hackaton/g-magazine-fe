@@ -53,7 +53,7 @@ export default function Navbar() {
             <StyledNavLink to="my-page">마이 페이지</StyledNavLink>
           </li>
           <li>
-            <StyledNavLink to="magazine">메거진 페이지</StyledNavLink>
+            <StyledNavLink to="magazine">매거진 페이지</StyledNavLink>
           </li>
         </Nav>
       </nav>
