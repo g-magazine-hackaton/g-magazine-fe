@@ -7,6 +7,7 @@ import App from './App';
 
 import HomePage from '@/pages/home';
 import MyPage from '@/pages/my-page';
+import YourPage from '@/pages/your-page';
 import MagazinePage from '@/pages/magazine';
 import ProfilePage from '@/pages/profile';
 import NotFoundPage from '@/pages/not-found';
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: 'my-page',
         element: <MyPage />,
+      },
+      {
+        path: 'my-page/:id',
+        element: <YourPage />,
       },
       {
         path: 'magazine',
