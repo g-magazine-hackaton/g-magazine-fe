@@ -5,6 +5,7 @@ import React, { ReactNode } from 'react';
 
 interface MyPageSectionProps {
   title: string;
+  height?: string;
   icon?: ReactNode;
   count?: ReactNode;
   children: ReactNode;
@@ -26,8 +27,8 @@ const TitleArea = styled.div`
   font-weight: 600;
 `;
 
-const ContentsArea = styled.div`
-  min-height: 80px;
+const ContentsArea = styled.div<{ height?: string }>`
+  height: ${({ height }) => height || 'auto'};
   padding: 12px 20px;
   background-color: #fff;
 `;
@@ -36,6 +37,7 @@ const MyPageSection: React.FC<MyPageSectionProps> = ({
   title,
   icon,
   count,
+  height,
   children,
 }) => {
   return (
@@ -45,7 +47,7 @@ const MyPageSection: React.FC<MyPageSectionProps> = ({
         {title}
         {count}
       </TitleArea>
-      <ContentsArea>{children}</ContentsArea>
+      <ContentsArea height={height}>{children}</ContentsArea>
     </SectionWrap>
   );
 };
