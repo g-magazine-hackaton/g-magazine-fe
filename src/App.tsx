@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Global } from '@emotion/react';
 import Navbar from '@/components/navbar';
 import globalStyle from './styles/global';
+import BottomNavigation from './components/navbar/BottomNavigation';
 
 function App() {
   const Main = styled.main`
@@ -26,6 +27,7 @@ function App() {
       <Wrap>
         <Outlet />
       </Wrap>
+      <BottomNavigation />
     </Main>
   );
 }
