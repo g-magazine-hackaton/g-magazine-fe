@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
 
-import { ROOT_PATH } from '@/temp/global_variables';
+import { ROOT_PATH } from '@/temp/global-variables';
 
 const StyledNavLink = styled(NavLink)`
   padding: 4px 8px;

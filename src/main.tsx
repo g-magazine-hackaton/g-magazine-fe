@@ -12,7 +12,7 @@ import MagazinePage from '@/pages/magazine';
 import ProfilePage from '@/pages/profile';
 import NotFoundPage from '@/pages/not-found';
 
-import { ROOT_PATH } from '@/temp/global_variables';
+import { ROOT_PATH } from '@/temp/global-variables';
 
 const router = createBrowserRouter([
   {

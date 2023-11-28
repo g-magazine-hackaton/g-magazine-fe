@@ -1,6 +1,6 @@
 import { isRouteErrorResponse, Link, useRouteError } from 'react-router-dom';
 
-import { ROOT_PATH } from '@/temp/global_variables';
+import { ROOT_PATH } from '@/temp/global-variables';
 
 import Button from '@/components/ui/button';
 
