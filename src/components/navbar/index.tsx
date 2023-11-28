@@ -8,7 +8,6 @@ const StyledNavLink = styled(NavLink)`
   font-weight: medium;
   border-radius: 10px;
   margin: 5px;
-  z-index: 999;
 
   &.active {
     background-color: #f0f0f0;
@@ -30,6 +29,7 @@ const Header = styled.header`
   background-color: #fff;
   box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.2);
   padding: 0 4px;
+  z-index: 999;
   h1 {
     font-size: 1.5rem;
     font-weight: 600;
