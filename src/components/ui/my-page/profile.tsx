@@ -147,7 +147,7 @@ const MyPageProfile = () => {
           <span className="club-badge">U클럽</span>
           <div className="nickname">규라니</div>
           <div className="subscriber-count">
-            <span>팔로워</span>37명
+            <span>구독자</span>37명
           </div>
         </NameBox>
         <GreetingBox>👋 헤이 모두들 안녕, 내가 누군지 알아?</GreetingBox>
