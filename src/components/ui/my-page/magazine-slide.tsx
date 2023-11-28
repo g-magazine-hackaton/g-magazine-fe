@@ -2,8 +2,6 @@ import { css } from '@emotion/react';
 import { Fragment } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import { Link } from 'react-router-dom';
-import { MyPageFollower } from '@/temp/my-page-follower';
 
 const sliderStyle = css`
   .keen-slider {
@@ -25,7 +23,7 @@ const sliderStyle = css`
     position: relative;
     overflow: hidden;
 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     > img {
       width: 100%;
       height: 90px;
@@ -44,10 +42,6 @@ const sliderStyle = css`
       width: 40px;
       text-align: center;
       font-weight: 600;
-
-      &.rank {
-        background-color: #f89b00;
-      }
     }
 
     .user {
@@ -77,27 +71,21 @@ const sliderStyle = css`
   }
 `;
 
-interface SlideProps {
-  imageSrc: string;
-  label: string;
-  userName: string;
-}
-
-const Slide = ({ imageSrc, label, userName }: SlideProps) => (
+const Slide = ({ image }: { image: string }) => (
   <div className="keen-slider__slide">
-    <img src={imageSrc} alt="슬라이드 이미지" />
-    <span className={label === 'Rank' ? 'rank' : ''}>{label}</span>
-    <div className="user">
-      <span>{userName}</span>
-    </div>
+    <img src={image} alt="슬라이드 이미지" />
   </div>
 );
 
-const SubscriberUpdateSlider = () => {
+type MagazineSlideItem = {
+  image: string;
+};
+
+const MyPageMagazineSlide = ({ item }: { item: MagazineSlideItem[] }) => {
   const [sliderRef] = useKeenSlider({
     slides: {
-      perView: 4,
-      spacing: 12,
+      perView: 3.8,
+      spacing: 8,
     },
   });
 
@@ -107,15 +95,14 @@ const SubscriberUpdateSlider = () => {
       ref={sliderRef}
       className="keen-slider"
       style={{
-        padding: '10px 0',
+        padding: '10px',
       }}
     >
-      {MyPageFollower.map((slide) => {
+      {item.map((slide, idx) => {
+        const arrIndex = `${idx + 1} my-slide-magazine`;
         return (
-          <Fragment key={slide.userName}>
-            <Link to={slide.link}>
-              <Slide {...slide} />
-            </Link>
+          <Fragment key={arrIndex}>
+            <Slide image={slide.image} />
           </Fragment>
         );
       })}
@@ -123,4 +110,4 @@ const SubscriberUpdateSlider = () => {
   );
 };
 
-export default SubscriberUpdateSlider;
+export default MyPageMagazineSlide;

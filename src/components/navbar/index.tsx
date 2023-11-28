@@ -10,6 +10,7 @@ const StyledNavLink = styled(NavLink)`
   font-weight: medium;
   border-radius: 10px;
   margin: 5px;
+  z-index: 999;
 
   &.active {
     background-color: #f0f0f0;
