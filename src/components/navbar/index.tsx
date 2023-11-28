@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
 
+import { ROOT_PATH } from '@/temp/global_variables';
+
 const StyledNavLink = styled(NavLink)`
   padding: 4px 8px;
   text-decoration: none;
@@ -47,7 +49,7 @@ export default function Navbar() {
       <nav>
         <Nav>
           <li>
-            <StyledNavLink to="/">메인 페이지</StyledNavLink>
+            <StyledNavLink to={ROOT_PATH}>메인 페이지</StyledNavLink>
           </li>
           <li>
             <StyledNavLink to="my-page">마이 페이지</StyledNavLink>

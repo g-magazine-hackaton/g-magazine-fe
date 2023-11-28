@@ -1,5 +1,7 @@
 import { isRouteErrorResponse, Link, useRouteError } from 'react-router-dom';
 
+import { ROOT_PATH } from '@/temp/global_variables';
+
 import Button from '@/components/ui/button';
 
 export default function NotFoundPage() {
@@ -17,7 +19,7 @@ export default function NotFoundPage() {
         <i>{error.statusText || error.message}</i>
       </p>
       <Button>
-        <Link to="/">메인 페이지로 돌아가기</Link>
+        <Link to={ROOT_PATH}>메인 페이지로 돌아가기</Link>
       </Button>
     </div>
   );

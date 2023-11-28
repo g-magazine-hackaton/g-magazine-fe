@@ -12,9 +12,11 @@ import MagazinePage from '@/pages/magazine';
 import ProfilePage from '@/pages/profile';
 import NotFoundPage from '@/pages/not-found';
 
+import { ROOT_PATH } from '@/temp/global_variables';
+
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: ROOT_PATH,
     element: <App />,
     errorElement: <NotFoundPage />,
     children: [
