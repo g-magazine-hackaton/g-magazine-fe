@@ -1,17 +1,17 @@
 {
-  "name": "g-world-fe",
+  "name": "g-magazine-fe",
   "version": "1.0.0",
   "engines": {
     "node": ">= 18.x"
   },
-  "description": "g-world-fe",
+  "description": "g-magazine-fe",
   "keywords": [
-    "g-world",
+    "g-magazine",
     "woorim",
     "sangHan",
     "mijeong"
   ],
-  "homepage": "https://g-world-hackaton.github.io/g-world-fe",
+  "homepage": "https://g-magazine-hackaton.github.io/g-magazine-fe",
   "scripts": {
     "prepare": "husky install",
     "dev": "vite",

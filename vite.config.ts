@@ -28,12 +28,12 @@ export default defineConfig({
             <h1>404 - 존재하지 않는 페이지입니다.</h1>
             
             <p>
-              혹은 "/g-world-fe" 외의 경로를 직접 입력하여 접속을 시도해선 안됩니다. <br>
-              ex: "https://g-world-hackaton.github.io/g-world-fe/my-page" 로 직접 접근.
+              혹은 "/g-magazine-fe" 외의 경로를 직접 입력하여 접속을 시도해선 안됩니다. <br>
+              ex: "https://g-world-hackaton.github.io/g-magazine-fe/my-page" 로 직접 접근.
             </p>
 
             <p>아래 버튼을 누르면 Home으로 이동합니다.</p>
-            <a href="/g-world-fe">Go to Home</a>
+            <a href="/g-magazine-fe">Go to Home</a>
           </body>
           </html>
         `;
