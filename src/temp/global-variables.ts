@@ -1,1 +1,1 @@
-export const ROOT_PATH = '/g-world-fe';
+export const ROOT_PATH = '/g-magazine-fe';
