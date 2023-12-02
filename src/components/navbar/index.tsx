@@ -73,35 +73,31 @@ const Navbar = () => {
     navigate(-1);
   };
 
-  // 기존 탑 네비바 사용
-  if (
-    ['/g-magazine-fe', '/my-page', '/magazine'].find((path) =>
-      pathname.endsWith(path),
-    )
-  )
+  // 상세 네비바 사용
+  if (['/profile', '/write'].find((path) => pathname.endsWith(path)))
     return (
-      <Header>
-        <h1>🚀 로켓죄송</h1>
-        <nav>
-          <Nav>
-            <li>
-              <StyledNavLink to={ROOT_PATH}>메인 페이지</StyledNavLink>
-            </li>
-            <li>
-              <StyledNavLink to="my-page">마이 페이지</StyledNavLink>
-            </li>
-            <li>
-              <StyledNavLink to="magazine">매거진 페이지</StyledNavLink>
-            </li>
-          </Nav>
-        </nav>
+      <Header id="nav">
+        <IoIosArrowBack className="prev-icon" onClick={handlePrev} />
+        <h1 className="title">{title}</h1>
       </Header>
     );
 
   return (
-    <Header id="nav">
-      <IoIosArrowBack className="prev-icon" onClick={handlePrev} />
-      <h1 className="title">{title}</h1>
+    <Header>
+      <h1>🚀 로켓죄송</h1>
+      <nav>
+        <Nav>
+          <li>
+            <StyledNavLink to={ROOT_PATH}>메인 페이지</StyledNavLink>
+          </li>
+          <li>
+            <StyledNavLink to="my-page">마이 페이지</StyledNavLink>
+          </li>
+          <li>
+            <StyledNavLink to="magazine">매거진 페이지</StyledNavLink>
+          </li>
+        </Nav>
+      </nav>
     </Header>
   );
 };
