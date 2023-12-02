@@ -12,6 +12,7 @@ import MagazinePage from '@/pages/magazine';
 import MagazineWritePage from '@/pages/magazine/write';
 import ProfilePage from '@/pages/profile';
 import NotFoundPage from '@/pages/not-found';
+import RankPage from '@/pages/rank';
 
 import { ROOT_PATH } from '@/temp/global-variables';
 
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <ProfilePage />,
+      },
+      {
+        path: 'rank',
+        element: <RankPage />,
       },
     ],
   },

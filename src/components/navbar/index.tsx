@@ -74,7 +74,11 @@ const Navbar = () => {
   };
 
   // 상세 네비바 사용
-  if (['/profile', '/write'].find((path) => pathname.endsWith(path)))
+  if (
+    ['/profile', '/write', '/rank', '/seller'].find((path) =>
+      pathname.endsWith(path),
+    )
+  )
     return (
       <Header id="nav">
         <IoIosArrowBack className="prev-icon" onClick={handlePrev} />

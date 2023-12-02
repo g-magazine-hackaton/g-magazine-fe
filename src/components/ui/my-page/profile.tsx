@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../button';
 import ScrapSheet from '@/components/ui/my-page/scrap-sheet';
+import { ROOT_PATH } from '@/temp/global-variables';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -170,7 +171,9 @@ const MyPageProfile = () => {
             <button onClick={() => setOpen(true)}>스크랩</button>
           </li>
           <li>
-            <button>컨슈머 랭킹</button>
+            <button>
+              <Link to={`${ROOT_PATH}/rank`}>컨슈머 랭킹</Link>
+            </button>
           </li>
         </ContentBox>
       </UserInfoArea>

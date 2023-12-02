@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useSetAtom } from 'jotai';
+import { titleAtom } from '@/store/page-info';
+import { ROOT_PATH } from '@/temp/global-variables';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -100,10 +104,16 @@ const ContentBox = styled.ul`
 
 const YourPageProfile = () => {
   const [isFollow, setIsFollow] = useState(true);
+  const setTitle = useSetAtom(titleAtom);
 
   const onClickFollowToggle = () => {
     setIsFollow(!isFollow);
   };
+
+  useEffect(() => {
+    setTitle('매거진');
+  }, [setTitle]);
+
   return (
     <HeaderWrapper>
       <ProfileImageBox>
@@ -138,7 +148,9 @@ const YourPageProfile = () => {
             </button>
           </li>
           <li>
-            <button>컨슈머 랭킹</button>
+            <button>
+              <Link to={`${ROOT_PATH}/rank`}>컨슈머 랭킹</Link>
+            </button>
           </li>
         </ContentBox>
       </UserInfoArea>
