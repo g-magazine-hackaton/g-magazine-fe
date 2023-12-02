@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props */
 import styled from '@emotion/styled';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, FC } from 'react';
 
 interface MyPageSectionProps {
   title?: string;
@@ -8,12 +8,12 @@ interface MyPageSectionProps {
   icon?: ReactNode;
   count?: ReactNode;
   children: ReactNode;
-  round?: string;
+  round?: 'round' | 'flat';
   mt?: string;
 }
 
-const SectionWrap = styled.div<{ mt?: string }>`
-  margin-top: ${({ mt }) => mt || '20px'};
+const SectionWrap = styled.div<Pick<MyPageSectionProps, 'mt'>>`
+  margin-top: ${({ mt = '20px' }) => mt};
 `;
 
 const TitleArea = styled.div`
@@ -29,38 +29,36 @@ const TitleArea = styled.div`
   font-weight: 600;
 `;
 
-const ContentsArea = styled.div<{ height?: string; round?: string }>`
-  min-height: ${({ height }) => height || 'auto'};
+const ContentsArea = styled.div<Pick<MyPageSectionProps, 'height' | 'round'>>`
+  min-height: ${({ height = 'auto' }) => height};
   padding: 12px 18px;
   background-color: #fff;
   border-radius: ${({ round }) => (round === 'round' ? '40px' : 0)};
   box-shadow: ${({ round }) =>
-    round === 'round' ? '0px 4px 8px rgba(0, 0, 0, 0.6)' : 0};
+    round === 'round' ? '0px 4px 8px rgba(0, 0, 0, 0.6)' : 'none'};
 `;
 
-const MyPageSection: React.FC<MyPageSectionProps> = ({
+const MyPageSection: FC<MyPageSectionProps> = ({
   title,
   icon,
   count,
   height,
   children,
-  round,
+  round = 'flat',
   mt,
-}) => {
-  return (
-    <SectionWrap mt={mt}>
-      {title && (
-        <TitleArea>
-          {icon}
-          {title}
-          {count}
-        </TitleArea>
-      )}
-      <ContentsArea height={height} round={round}>
-        {children}
-      </ContentsArea>
-    </SectionWrap>
-  );
-};
+}) => (
+  <SectionWrap mt={mt}>
+    {title && (
+      <TitleArea>
+        {icon}
+        {title}
+        {count}
+      </TitleArea>
+    )}
+    <ContentsArea height={height} round={round}>
+      {children}
+    </ContentsArea>
+  </SectionWrap>
+);
 
 export default MyPageSection;

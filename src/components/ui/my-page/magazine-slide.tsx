@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { Fragment } from 'react';
+import React, { FC } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 
@@ -71,17 +71,25 @@ const sliderStyle = css`
   }
 `;
 
-const Slide = ({ image }: { image: string }) => (
+interface SlideProps {
+  image: string;
+}
+
+const Slide: FC<SlideProps> = ({ image }) => (
   <div className="keen-slider__slide">
     <img src={image} alt="슬라이드 이미지" />
   </div>
 );
 
-type MagazineSlideItem = {
+interface MagazineSlideItem {
   image: string;
-};
+}
 
-const MyPageMagazineSlide = ({ item }: { item: MagazineSlideItem[] }) => {
+interface MyPageMagazineSlideProps {
+  item: MagazineSlideItem[];
+}
+
+const MyPageMagazineSlide: FC<MyPageMagazineSlideProps> = ({ item }) => {
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3.8,
@@ -98,14 +106,11 @@ const MyPageMagazineSlide = ({ item }: { item: MagazineSlideItem[] }) => {
         padding: '10px',
       }}
     >
-      {item.map((slide, idx) => {
-        const arrIndex = `${idx + 1} my-slide-magazine`;
-        return (
-          <Fragment key={arrIndex}>
-            <Slide image={slide.image} />
-          </Fragment>
-        );
-      })}
+      {item.map((slide, idx) => (
+        <React.Fragment key={`${idx + 1} my-slide-magazine`}>
+          <Slide image={slide.image} />
+        </React.Fragment>
+      ))}
     </div>
   );
 };

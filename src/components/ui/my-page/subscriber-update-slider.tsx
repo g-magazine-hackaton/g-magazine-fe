@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { Fragment } from 'react';
+import { FC, Fragment } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import { Link } from 'react-router-dom';
@@ -83,7 +83,7 @@ interface SlideProps {
   userName: string;
 }
 
-const Slide = ({ imageSrc, label, userName }: SlideProps) => (
+const Slide: FC<SlideProps> = ({ imageSrc, label, userName }) => (
   <div className="keen-slider__slide">
     <img src={imageSrc} alt="슬라이드 이미지" />
     <span className={label === 'Rank' ? 'rank' : ''}>{label}</span>
@@ -93,8 +93,8 @@ const Slide = ({ imageSrc, label, userName }: SlideProps) => (
   </div>
 );
 
-const SubscriberUpdateSlider = () => {
-  const [sliderRef] = useKeenSlider({
+const SubscriberUpdateSlider: FC = () => {
+  const [sliderRef] = useKeenSlider<HTMLDivElement>({
     slides: {
       perView: 4,
       spacing: 12,
@@ -106,19 +106,15 @@ const SubscriberUpdateSlider = () => {
       css={sliderStyle}
       ref={sliderRef}
       className="keen-slider"
-      style={{
-        padding: '10px 0',
-      }}
+      style={{ padding: '10px 0' }}
     >
-      {MyPageFollower.map((slide) => {
-        return (
-          <Fragment key={slide.userName}>
-            <Link to={slide.link}>
-              <Slide {...slide} />
-            </Link>
-          </Fragment>
-        );
-      })}
+      {MyPageFollower.map((slide) => (
+        <Fragment key={slide.userName}>
+          <Link to={slide.link}>
+            <Slide {...slide} />
+          </Link>
+        </Fragment>
+      ))}
     </div>
   );
 };

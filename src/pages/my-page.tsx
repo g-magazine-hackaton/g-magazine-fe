@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import MyPageProfileComponent from '@/components/ui/my-page/profile';
 import MyPageSection from '@/components/ui/my-page/section';
@@ -77,11 +77,11 @@ const Heading = styled.h1`
   }
 `;
 
-const UpdateUser = () => <UpdateWrap>new</UpdateWrap>;
-const Count = () => <CountWrap>3</CountWrap>;
+const UpdateUser: FC = () => <UpdateWrap>new</UpdateWrap>;
+const Count: FC = () => <CountWrap>3</CountWrap>;
 
-const MyPage = () => {
-  const title = [
+const MyPage: FC = () => {
+  const titles = [
     '전체',
     '키즈',
     '건강식품',
@@ -91,6 +91,7 @@ const MyPage = () => {
     '기타',
     '기타',
   ];
+
   return (
     <>
       <MyPageProfileComponent />
@@ -104,20 +105,17 @@ const MyPage = () => {
 
       <MyPageSection height="428px" round="round" mt="32px">
         <Heading>마이 매거진</Heading>
-        {MagazineListMockData.map((item, idx) => {
-          const arrIndex = `${idx + 1} my-magazine`;
-          return (
-            <Fragment key={arrIndex}>
-              <FolderHeader>
-                <span>
-                  <em>{title[idx]}</em> 42개
-                </span>
-                <img src="plus.png" alt="업로드 아이콘" />
-              </FolderHeader>
-              <MyPageMagazineSlide item={item} />
-            </Fragment>
-          );
-        })}
+        {MagazineListMockData.map((item, idx) => (
+          <React.Fragment key={`${idx + 1} my-magazine`}>
+            <FolderHeader>
+              <span>
+                <em>{titles[idx]}</em> 42개
+              </span>
+              <img src="plus.png" alt="업로드 아이콘" />
+            </FolderHeader>
+            <MyPageMagazineSlide item={item} />
+          </React.Fragment>
+        ))}
       </MyPageSection>
     </>
   );
