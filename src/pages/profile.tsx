@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
+import { useSetAtom } from 'jotai';
 import Button from '@/components/ui/button';
 import TextArea from '@/components/ui/textarea';
+import { titleAtom } from '@/store/page-info';
 
 const pageWrapperStyle = css`
   display: flex;
@@ -80,6 +82,7 @@ const editButtonStyle = css`
 `;
 
 const Profile = () => {
+  const setTitle = useSetAtom(titleAtom);
   const [profileData, setProfileData] = useState({
     profileUrl: '',
     nickname: '',
@@ -100,6 +103,8 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    setTitle('프로필 편집');
+
     // TODO: API 연동
     setProfileData({
       profileUrl:
@@ -107,7 +112,7 @@ const Profile = () => {
       nickname: '규라니',
       introduce: '👋 헤이 모두들 안녕, 내가 누군지 알아?',
     });
-  }, []);
+  }, [setTitle]);
 
   return (
     <div css={pageWrapperStyle}>

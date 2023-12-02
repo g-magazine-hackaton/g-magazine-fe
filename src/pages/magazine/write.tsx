@@ -1,13 +1,15 @@
 import { css } from '@emotion/react';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { IoIosAdd, IoIosClose } from 'react-icons/io';
+import { useSetAtom } from 'jotai';
 import Button from '@/components/ui/button';
 import TextArea from '@/components/ui/textarea';
+import { titleAtom } from '@/store/page-info';
 
 const pageWrapperStyle = css`
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  margin: 0 20px;
 `;
 
 const sectionWrapStyle = css`
@@ -52,6 +54,7 @@ const uploadButtonStyle = css`
   font-family: Gmarket Sans;
   font-weight: 700;
   font-size: 15px;
+  margin: 20px 0;
 
   &:hover {
     filter: brightness(0.95);
@@ -192,6 +195,7 @@ const chipSliderWrapStyle = css`
 `;
 
 const MagazineWrite = () => {
+  const setTitle = useSetAtom(titleAtom);
   const [selectedItemData, setSelectedItemData] = useState<{
     imageUrl: string;
     itemName: string;
@@ -234,6 +238,8 @@ const MagazineWrite = () => {
   };
 
   useEffect(() => {
+    setTitle('매거진 업로드');
+
     // TODO: API 호출
     setFolders(['리빙박스', '겨울옷 리뷰', '맛도리 리뷰', '여름 옷']);
     setSelectedItemData({
@@ -244,7 +250,7 @@ const MagazineWrite = () => {
       itemPrice: 94800,
       options: ['L(100)'],
     });
-  }, []);
+  }, [setTitle]);
 
   return (
     <div css={pageWrapperStyle}>
