@@ -74,7 +74,11 @@ const Navbar = () => {
   };
 
   // 기존 탑 네비바 사용
-  if (pathname.endsWith('my-page'))
+  if (
+    ['/g-magazine-fe', '/my-page', '/magazine'].find((path) =>
+      pathname.endsWith(path),
+    )
+  )
     return (
       <Header>
         <h1>🚀 로켓죄송</h1>
