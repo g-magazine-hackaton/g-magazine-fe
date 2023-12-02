@@ -138,7 +138,7 @@ const MyPageProfile = () => {
           src="https://cdn.hankooki.com/news/photo/202311/118934_162711_1700520953.jpg"
           alt="Profile Image"
         />
-        <Link to="/profile">
+        <Link to="../profile">
           <Button className="edit-button">수정</Button>
         </Link>
       </ProfileImageBox>
