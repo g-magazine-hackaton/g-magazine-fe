@@ -2,6 +2,7 @@
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import { useSetAtom } from 'jotai';
+import { MdChangeCircle } from 'react-icons/md';
 import Button from '@/components/ui/button';
 import TextArea from '@/components/ui/textarea';
 import { titleAtom } from '@/store/page-info';
@@ -27,9 +28,13 @@ const photoBoxStyle = css`
     position: absolute;
     top: -8px;
     right: -8px;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
+
+    .upload-icon {
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+    }
 
     .upload-file {
       display: none;
@@ -117,12 +122,9 @@ const Profile = () => {
   return (
     <div css={pageWrapperStyle}>
       <div css={photoBoxStyle}>
-        <img className="profile-photo" src={profileUrl} alt="" />
+        <img className="profile-photo" src={profileUrl} alt="프로필 사진" />
         <label className="photo-upload-button">
-          <img
-            src="//mockupdev.gmarket.co.kr//build/mobile/image/single/home/img_plus.png"
-            alt=""
-          />
+          <MdChangeCircle className="upload-icon" />
           <input
             type="file"
             accept="image/*"
