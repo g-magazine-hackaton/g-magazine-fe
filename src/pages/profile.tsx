@@ -140,7 +140,7 @@ const Profile = () => {
           <TextArea
             className="edit-input-area"
             value={introduce}
-            onChange={({ target }) => handleEditData('introduce', target.value)}
+            onChange={(value) => handleEditData('introduce', value)}
           />
         </li>
       </ul>
