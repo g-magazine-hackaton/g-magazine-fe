@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import MyPageProfileComponent from '@/components/ui/my-page/profile';
 import MyPageSection from '@/components/ui/my-page/section';
 import MyPageSubscriberUpdateSlider from '@/components/ui/my-page/subscriber-update-slider';
@@ -111,7 +112,9 @@ const MyPage: FC = () => {
               <span>
                 <em>{titles[idx]}</em> 42개
               </span>
-              <img src="plus.png" alt="업로드 아이콘" />
+              <Link to="../magazine/write">
+                <img src="plus.png" alt="업로드 아이콘" />
+              </Link>
             </FolderHeader>
             <MyPageMagazineSlide item={item} />
           </React.Fragment>
