@@ -35,19 +35,20 @@ const FolderHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 16px;
+  margin-top: 24px;
   margin-bottom: 2px;
   width: 100%;
   height: 32px;
   padding: 0 12px;
+
   > span {
     font-weight: 600;
-    font-size: 17px;
+    font-size: 16px;
 
     > em {
       display: inline-block;
       padding: 0 6px;
-      background-color: #0028ac;
+      background-color: #7889ff;
       color: #fff;
       border-radius: 6px;
       font-size: 14px;
@@ -60,7 +61,7 @@ const FolderHeader = styled.div`
 
 const Heading = styled.h1`
   display: flex;
-  margin-top: 20px;
+  margin-top: 12px;
   font-size: 18px;
   font-weight: 600;
   color: #000;
@@ -76,7 +77,7 @@ const Heading = styled.h1`
     left: 4px;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-bottom: 6px solid #01a900;
+    border-bottom: 6px solid #000;
   }
 `;
 

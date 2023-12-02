@@ -33,7 +33,7 @@ const ContentsArea = styled.div<Pick<MyPageSectionProps, 'height' | 'round'>>`
   min-height: ${({ height = 'auto' }) => height};
   padding: 12px 18px;
   background-color: #fff;
-  border-radius: ${({ round }) => (round === 'round' ? '40px' : 0)};
+  border-radius: ${({ round }) => (round === 'round' ? '0px' : 0)};
   box-shadow: ${({ round }) =>
     round === 'round' ? '0px 4px 8px rgba(0, 0, 0, 0.6)' : 'none'};
 `;

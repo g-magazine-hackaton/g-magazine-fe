@@ -11,6 +11,7 @@ function App() {
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+    background-color: #fff;
   `;
 
   const Wrap = styled.div`

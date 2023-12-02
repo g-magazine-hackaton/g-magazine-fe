@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../button';
+import ScrapSheet from '@/components/ui/my-page/scrap-sheet';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -131,6 +133,8 @@ const ContentBox = styled.ul`
 `;
 
 const MyPageProfile = () => {
+  const [isOpen, setOpen] = useState(false);
+
   return (
     <HeaderWrapper>
       <ProfileImageBox>
@@ -163,13 +167,14 @@ const MyPageProfile = () => {
             <button>마이 구독</button>
           </li>
           <li>
-            <button>스크랩</button>
+            <button onClick={() => setOpen(true)}>스크랩</button>
           </li>
           <li>
             <button>컨슈머 랭킹</button>
           </li>
         </ContentBox>
       </UserInfoArea>
+      <ScrapSheet isOpen={isOpen} setOpen={setOpen} />
     </HeaderWrapper>
   );
 };
