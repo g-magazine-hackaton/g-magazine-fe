@@ -1,8 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import Lottie from 'react-lottie';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import YourPageProfileComponent from '@/components/ui/your-page/profile';
+import { YourMagazineListMockData } from '@/temp/your-magazine';
+import loadingAnimation from '@/assets/loading.json';
+
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: loadingAnimation,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice',
+  },
+};
+
+const LottieWrapper = styled.div`
+  margin: 12px 0;
+`;
 
 const TabContainer = styled.div`
   display: flex;
@@ -40,7 +56,7 @@ const TabStyle = styled.button<{ active: boolean }>`
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   padding: 10px;
   background-color: #fff;
@@ -48,17 +64,31 @@ const GridContainer = styled.div`
 
 const GridItem = styled.div`
   width: 100%;
-  height: 100px;
+  height: 132px;
   border: 1px solid #ddd;
   display: flex;
   justify-content: center;
   align-items: center;
+  > img {
+    height: 100%;
+    width: 100%;
+  }
 `;
 
-const YourPage = () => {
-  const [tabIdx, setTabIdx] = useState(0);
-  const [items, setItems] = useState(Array.from({ length: 20 }));
-  const [hasMore, setHasMore] = useState(true);
+interface Magazine {
+  category: string;
+  image: string;
+}
+
+const YourPage: React.FC = () => {
+  const [tabIdx, setTabIdx] = useState<number>(0);
+  const [items, setItems] = useState<Magazine[]>([]);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+
+  useEffect(() => {
+    setItems(YourMagazineListMockData.slice(0, 21));
+  }, []);
+
   const tabs = [
     '전체',
     '메종키츠네',
@@ -69,17 +99,21 @@ const YourPage = () => {
   ];
 
   const fetchMoreData = () => {
-    if (items.length >= 60) {
+    if (items.length >= YourMagazineListMockData.length) {
       setHasMore(false);
       return;
     }
     setTimeout(() => {
-      setItems(items.concat(Array.from({ length: 12 })));
-    }, 500);
+      setItems(
+        items.concat(
+          YourMagazineListMockData.slice(items.length, items.length + 21),
+        ),
+      );
+    }, 300);
   };
 
   return (
-    <div>
+    <>
       <YourPageProfileComponent />
       <TabContainer>
         {tabs.map((tab, index) => (
@@ -96,15 +130,21 @@ const YourPage = () => {
         dataLength={items.length}
         next={fetchMoreData}
         hasMore={hasMore}
-        loader={<h4>로딩중</h4>}
+        loader={
+          <LottieWrapper>
+            <Lottie options={defaultOptions} height={36} width={72} />
+          </LottieWrapper>
+        }
       >
         <GridContainer>
-          {items.map((_, index) => (
-            <GridItem key={index}>Item {index + 1}</GridItem>
+          {items.map((item, index) => (
+            <GridItem key={index}>
+              <img src={item.image} alt={item.category} />
+            </GridItem>
           ))}
         </GridContainer>
       </InfiniteScroll>
-    </div>
+    </>
   );
 };
 
