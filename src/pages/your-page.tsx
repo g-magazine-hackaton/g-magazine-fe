@@ -7,6 +7,15 @@ import YourPageProfileComponent from '@/components/ui/your-page/profile';
 import { YourMagazineListMockData } from '@/temp/your-magazine';
 import loadingAnimation from '@/assets/loading.json';
 
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: loadingAnimation,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice',
+  },
+};
+
 const LottieWrapper = styled.div`
   margin: 12px 0;
 `;
@@ -70,15 +79,6 @@ interface Magazine {
   category: string;
   image: string;
 }
-
-const defaultOptions = {
-  loop: true,
-  autoplay: true,
-  animationData: loadingAnimation,
-  rendererSettings: {
-    preserveAspectRatio: 'xMidYMid slice',
-  },
-};
 
 const YourPage: React.FC = () => {
   const [tabIdx, setTabIdx] = useState<number>(0);
