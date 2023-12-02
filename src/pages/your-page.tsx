@@ -71,19 +71,19 @@ interface Magazine {
   image: string;
 }
 
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: loadingAnimation,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice',
+  },
+};
+
 const YourPage: React.FC = () => {
   const [tabIdx, setTabIdx] = useState<number>(0);
   const [items, setItems] = useState<Magazine[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
-
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: loadingAnimation,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  };
 
   useEffect(() => {
     setItems(YourMagazineListMockData.slice(0, 21));
