@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { IoIosAdd, IoIosClose } from 'react-icons/io';
 import { useSetAtom } from 'jotai';
+import classNames from 'classnames';
 import Button from '@/components/ui/button';
 import TextArea from '@/components/ui/textarea';
 import { titleAtom } from '@/store/page-info';
@@ -192,6 +193,11 @@ const chipSliderWrapStyle = css`
     padding: 6px 12px;
     font-family: Gmarket Sans;
     cursor: pointer;
+
+    &.active {
+      background-color: #319795;
+      color: #fff;
+    }
   }
 `;
 
@@ -209,8 +215,9 @@ const MagazineWrite = () => {
       'https://cdn.hankooki.com/news/photo/202311/118934_162711_1700520953.jpg',
     ],
     content: '',
+    folder: '',
   });
-  const { images, content } = data;
+  const { images, content, folder } = data;
   const { imageUrl, itemName, itemPrice, options } = selectedItemData || {};
 
   const handleChangeData = (key: string, value: string | unknown[]) => {
@@ -232,6 +239,10 @@ const MagazineWrite = () => {
 
   const handleClickChangeItem = () => {
     // TODO: API 연동, 팝업 표출
+  };
+
+  const handleClickChip = (folder: string) => {
+    handleChangeData('folder', folder);
   };
 
   const handleWrite = () => {
@@ -311,7 +322,7 @@ const MagazineWrite = () => {
         <TextArea
           rows={4}
           className="content-area"
-          placeholder="구매하신 상품에 대한 내용만 작성 가능하며, 윤리적, 법적, G마켓 내부 규정에 어긋나는 내용을 작성하실 경우 안내 없이 삭제될 수있습니다. (최소 10자)"
+          placeholder="구매하신 상품에 대한 내용만 작성 가능하며, 윤리적, 법적, G마켓 내부 규정에 어긋나는 내용을 작성하실 경우 안내 없이 삭제될 수 있습니다. (최소 10자)"
           value={content}
           onChange={(value) => handleChangeData('content', value)}
         />
@@ -323,9 +334,15 @@ const MagazineWrite = () => {
         </div>
         <div css={chipSliderWrapStyle}>
           {folders.map((text) => (
-            <span key={text} className="chip">
+            <button
+              key={text}
+              className={classNames('chip', {
+                active: folder === text,
+              })}
+              onClick={() => handleClickChip(text)}
+            >
               {text}
-            </span>
+            </button>
           ))}
         </div>
       </div>
