@@ -38,6 +38,7 @@
     "@mui/material": "^5.14.19",
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
+    "dequal": "^2.0.3",
     "framer-motion": "^10.16.12",
     "jotai": "^2.5.1",
     "keen-slider": "^6.8.6",
@@ -49,7 +50,8 @@
     "react-lottie": "^1.2.3",
     "react-modal-sheet": "^2.2.0",
     "react-router-dom": "^6.18.0",
-    "tailwind-merge": "^2.0.0"
+    "tailwind-merge": "^2.0.0",
+    "undici": "^5.28.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
