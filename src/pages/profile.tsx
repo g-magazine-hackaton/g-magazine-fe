@@ -2,6 +2,7 @@
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import Button from '@/components/ui/button';
+import TextArea from '@/components/ui/textarea';
 
 const pageWrapperStyle = css`
   display: flex;
@@ -136,7 +137,7 @@ const Profile = () => {
         </li>
         <li>
           <span className="edit-label">소개</span>
-          <textarea
+          <TextArea
             className="edit-input-area"
             value={introduce}
             onChange={({ target }) => handleEditData('introduce', target.value)}
