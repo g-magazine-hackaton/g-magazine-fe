@@ -9,6 +9,7 @@ import HomePage from '@/pages/home';
 import MyPage from '@/pages/my-page';
 import YourPage from '@/pages/your-page';
 import MagazinePage from '@/pages/magazine';
+import MagazineDetailPage from '@/pages/magazine/detail';
 import MagazineWritePage from '@/pages/magazine/write';
 import ProfilePage from '@/pages/profile';
 import NotFoundPage from '@/pages/not-found';
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: 'magazine',
         element: <MagazinePage />,
+      },
+      {
+        path: 'magazine/:id',
+        element: <MagazineDetailPage />,
       },
       {
         path: 'magazine/write',
