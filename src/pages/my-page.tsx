@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { css } from '@emotion/react';
 import MyPageProfileComponent from '@/components/ui/my-page/profile';
 import MyPageSection from '@/components/ui/my-page/section';
 import MyPageSubscriberUpdateSlider from '@/components/ui/my-page/subscriber-update-slider';
 import MyPageMagazineSlide from '@/components/ui/my-page/magazine-slide';
 import { MagazineListMockData } from '@/temp/magazine';
+import Button from '@/components/ui/button';
 
 const UpdateWrap = styled.span`
   padding: 0px 4px;
@@ -57,7 +59,7 @@ const FolderHeader = styled.div`
 `;
 
 const Heading = styled.h1`
-  display: block;
+  display: flex;
   margin-top: 20px;
   font-size: 18px;
   font-weight: 600;
@@ -78,10 +80,21 @@ const Heading = styled.h1`
   }
 `;
 
+const uploadButtonStyle = css`
+  color: #548ef5;
+  background-color: transparent;
+  padding: 0;
+  margin-left: auto;
+  font-family: Gmarket Sans;
+  font-size: 16px;
+  border-width: 0;
+`;
+
 const UpdateUser: FC = () => <UpdateWrap>new</UpdateWrap>;
 const Count: FC = () => <CountWrap>3</CountWrap>;
 
 const MyPage: FC = () => {
+  const navigate = useNavigate();
   const titles = [
     '전체',
     '키즈',
@@ -92,6 +105,10 @@ const MyPage: FC = () => {
     '기타',
     '기타',
   ];
+
+  const handleGoUpload = () => {
+    navigate('../magazine/write');
+  };
 
   return (
     <>
@@ -105,7 +122,12 @@ const MyPage: FC = () => {
       </MyPageSection>
 
       <MyPageSection height="428px" round="round" mt="32px">
-        <Heading>마이 매거진</Heading>
+        <Heading>
+          <span>마이 매거진</span>
+          <Button css={uploadButtonStyle} onClick={handleGoUpload}>
+            업로드
+          </Button>
+        </Heading>
         {MagazineListMockData.map((item, idx) => (
           <React.Fragment key={`${idx + 1} my-magazine`}>
             <FolderHeader>
