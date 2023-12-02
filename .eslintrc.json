@@ -28,7 +28,6 @@
   "rules": {
     "react/prop-types": 0,
     "react/function-component-definition": 0,
-    "react/no-unknown-property": 0,
     "react/react-in-jsx-scope": 0,
     "import/prefer-default-export": 0,
     "jsx-a11y/label-has-associated-control": 0,
@@ -39,7 +38,8 @@
     "@typescript-eslint/no-unused-vars": 1,
     "no-restricted-syntax": 0,
     "react/no-array-index-key": 0,
-    "react/no-unknown-property": [2, { "ignore": ["css"] }],
+    "react/no-unknown-property": [0, { "ignore": ["css"] }],
+    "react/require-default-props": 0,
     "prettier/prettier": [
       0,
       {
