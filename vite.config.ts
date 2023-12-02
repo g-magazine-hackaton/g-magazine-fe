@@ -41,5 +41,5 @@ export default defineConfig({
       },
     },
   ],
-  base: "./", // 상대 경로 설정
+  base: "/g-magazine-fe/", // 상대 경로 설정
 });

@@ -4,7 +4,7 @@ export const MyPageFollower = [
     label: 'New',
     userIcon: 'user.png',
     userName: '구찌 신세계 본점',
-    link: '/my-page/seller',
+    link: '/g-magazine-fe/my-page/seller',
   },
   {
     imageSrc:
@@ -12,7 +12,7 @@ export const MyPageFollower = [
     label: 'New',
     userIcon: 'user.png',
     userName: '빈폴 의정부점',
-    link: '/my-page/seller',
+    link: '/g-magazine-fe/my-page/seller',
   },
   {
     imageSrc:
@@ -20,6 +20,6 @@ export const MyPageFollower = [
     label: 'New',
     userIcon: 'user.png',
     userName: 'DIOR',
-    link: '/my-page/seller',
+    link: '/g-magazine-fe/my-page/seller',
   },
 ];
