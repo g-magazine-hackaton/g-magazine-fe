@@ -165,7 +165,9 @@ const MyPageProfile = () => {
         </CashBox>
         <ContentBox>
           <li>
-            <button>마이 구독</button>
+            <button>
+              <Link to={`${ROOT_PATH}/subscribe`}>내 구독</Link>
+            </button>
           </li>
           <li>
             <button onClick={() => setOpen(true)}>스크랩</button>

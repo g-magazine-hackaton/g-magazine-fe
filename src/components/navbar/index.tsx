@@ -75,7 +75,7 @@ const Navbar = () => {
 
   // 상세 네비바 사용
   if (
-    ['/profile', '/write', '/rank', '/seller'].find((path) =>
+    ['/profile', '/write', '/rank', '/seller', '/subscribe'].find((path) =>
       pathname.endsWith(path),
     )
   )

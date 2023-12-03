@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSetAtom } from 'jotai';
 import { CiCircleQuestion } from 'react-icons/ci';
+import { HiAdjustmentsVertical } from 'react-icons/hi2';
+
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -36,6 +38,7 @@ const FilterContainer = styled.div`
   padding: 6px 12px;
   border-bottom: 1px solid #eaeaea;
   > strong {
+    margin-left: 4px;
     margin-right: 6px;
   }
 `;
@@ -44,6 +47,7 @@ const Select = styled.select`
   padding: 4px 8px;
   border-radius: 4px;
   border: 1px solid #ddd;
+  background: #fff;
 `;
 
 const PowerWrap = styled.span`
@@ -173,6 +177,7 @@ const FilterUI = () => {
 
   return (
     <FilterContainer>
+      <HiAdjustmentsVertical color="#BDBDBD" size={20} />
       <strong>정렬기준</strong>
       <Select value={filter} onChange={(e) => setFilter(e.target.value)}>
         <option value="mostPopular">컨슈머 랭크</option>
