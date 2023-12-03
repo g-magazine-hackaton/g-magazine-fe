@@ -1,11 +1,14 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { css } from '@emotion/react';
 import { ReactNode, useEffect, useState } from 'react';
+import { useSetAtom } from 'jotai';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { IoIosArrowBack, IoMdHeartEmpty, IoMdHeart } from 'react-icons/io';
 import { LiaCommentDots } from 'react-icons/lia';
 import { GoShareAndroid } from 'react-icons/go';
 import { Pagination } from 'swiper/modules';
+import { titleAtom } from '@/store/page-info';
+
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -160,6 +163,8 @@ const commentWrapStyle = css`
 const MagazineDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const setTitle = useSetAtom(titleAtom);
+
   const [data, setData] = useState<{
     magazine: {
       likedCnt: number;
@@ -220,6 +225,10 @@ const MagazineDetail = () => {
       isLike: true,
     });
   }, [id]);
+
+  useEffect(() => {
+    setTitle('매거진 상세');
+  }, [setTitle]);
 
   return (
     <div>

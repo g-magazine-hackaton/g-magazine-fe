@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
+import { FcFolder } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
 import MyPageProfileComponent from '@/components/ui/my-page/profile';
@@ -36,7 +37,7 @@ const FolderHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 24px;
+  margin-top: 18px;
   margin-bottom: 2px;
   width: 100%;
   height: 32px;
@@ -62,24 +63,14 @@ const FolderHeader = styled.div`
 
 const Heading = styled.h1`
   display: flex;
-  margin-top: 12px;
   font-size: 18px;
+  align-items: center;
   font-weight: 600;
   color: #000;
-  padding: 4px;
+  padding: 8px;
   position: relative;
   border-radius: 50% 0 0 0;
   border-bottom: 1px solid #eee;
-
-  ::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 4px;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 6px solid #000;
-  }
 `;
 
 const uploadButtonStyle = css`
@@ -97,23 +88,18 @@ const Count: FC = () => <CountWrap>3</CountWrap>;
 
 const MyPage: FC = () => {
   const navigate = useNavigate();
-  const titles = [
-    '전체',
-    '키즈',
-    '건강식품',
-    '명품관',
-    '신선상품',
-    '기타',
-    '기타',
-    '기타',
-  ];
+  const titles = ['전체', '키즈', '건강식품', '명품관', '신선상품', '기타'];
 
   const handleGoUpload = () => {
     navigate('../magazine/write');
   };
 
   return (
-    <>
+    <div
+      style={{
+        backgroundColor: '#eee',
+      }}
+    >
       <MyPageProfileComponent />
       <MyPageSection
         title="매거진 업데이트"
@@ -125,7 +111,14 @@ const MyPage: FC = () => {
 
       <MyPageSection height="428px" round="round" mt="32px">
         <Heading>
-          <span>마이 매거진</span>
+          <FcFolder size={24} />
+          <span
+            style={{
+              marginLeft: '6px',
+            }}
+          >
+            마이 매거진
+          </span>
           <Button css={uploadButtonStyle} onClick={handleGoUpload}>
             업로드
           </Button>
@@ -144,8 +137,8 @@ const MyPage: FC = () => {
           </React.Fragment>
         ))}
       </MyPageSection>
-      <Guides />
-    </>
+      {/* <Guides /> */}
+    </div>
   );
 };
 

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { FaUserPlus } from 'react-icons/fa';
 import { useSetAtom } from 'jotai';
 import { titleAtom } from '@/store/page-info';
 import { ROOT_PATH } from '@/temp/global-variables';
@@ -38,7 +39,7 @@ const ProfileImageBox = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  border-radius: 10px;
+  border-radius: 6px;
 `;
 
 const UserInfoArea = styled.div`
@@ -56,6 +57,7 @@ const NameBox = styled.div`
     padding: 0 8px;
     font-size: 12px;
     font-weight: 600;
+    border: 1px solid #fff;
   }
   .nickname {
     font-size: 18px;
@@ -102,6 +104,29 @@ const ContentBox = styled.ul`
   }
 `;
 
+const SubscribeWrap = styled.span`
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+
+  > strong {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 5px;
+  }
+`;
+
+const SubscribeIcon = styled.span`
+  padding: 2px 4px;
+  border-radius: 4px;
+  line-height: 16px;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+  margin-left: 4px;
+  background-color: #ff3399;
+`;
+
 const YourPageProfile = () => {
   const [isFollow, setIsFollow] = useState(true);
   const setTitle = useSetAtom(titleAtom);
@@ -125,10 +150,16 @@ const YourPageProfile = () => {
       <UserInfoArea>
         <NameBox>
           <span className="club-badge">U클럽</span>
-          <div className="nickname">현진현진현진</div>
-          <div className="subscriber-count">
-            <span>팔로워</span>2,109명
-          </div>
+          <div className="nickname">현진현진</div>
+          <SubscribeWrap>
+            <FaUserPlus
+              size={18}
+              color="#fff
+"
+            />
+            <strong>132명</strong>
+            <SubscribeIcon>구독중</SubscribeIcon>
+          </SubscribeWrap>
         </NameBox>
         <GreetingBox>
           G마켓/옥션 9년 경력의 신뢰할 수 있는 직매입 판매자 입니다. <br />

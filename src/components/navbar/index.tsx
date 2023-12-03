@@ -75,9 +75,14 @@ const Navbar = () => {
 
   // 상세 네비바 사용
   if (
-    ['/profile', '/write', '/rank', '/seller', '/subscribe'].find((path) =>
-      pathname.endsWith(path),
-    )
+    [
+      '/profile',
+      '/write',
+      '/rank',
+      '/seller',
+      '/subscribe',
+      '/magazine/1',
+    ].find((path) => pathname.endsWith(path))
   )
     return (
       <Header id="nav">

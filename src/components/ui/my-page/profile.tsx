@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import { VscActivateBreakpoints } from 'react-icons/vsc';
+import { FaUserPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Button from '../button';
 import ScrapSheet from '@/components/ui/my-page/scrap-sheet';
@@ -24,8 +26,8 @@ const ProfileImageBox = styled.div`
 
   .edit-button {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 4px;
+    left: 6px;
     color: #fff;
     padding: 4px 10px;
     font-size: 12px;
@@ -38,7 +40,7 @@ const ProfileImageBox = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  border-radius: 10px;
+  border-radius: 6px;
 `;
 
 const UserInfoArea = styled.div`
@@ -52,6 +54,7 @@ const NameBox = styled.div`
   .club-badge {
     line-height: 22px;
     background-color: rgb(8, 31, 63);
+    border: 1px solid #fff;
     border-radius: 8px;
     padding: 0 8px;
     font-size: 12px;
@@ -85,9 +88,8 @@ const GreetingBox = styled.div`
 `;
 
 const CashBox = styled.div`
-  margin-top: 8px;
+  margin-top: 14px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   .cash-amount {
     display: flex;
@@ -105,32 +107,56 @@ const CashBox = styled.div`
 const CashUseButton = styled.button`
   padding: 0.5rem 1rem;
   background-color: #004aff;
+  margin-left: auto;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-weight: 600;
+  box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 800;
   &:hover {
     background-color: #003aff;
   }
 `;
 
 const ContentBox = styled.ul`
-  margin-top: 32px;
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(72px, auto));
   gap: 8px;
   button {
     width: 100%;
     padding: 2px 8px;
-    border-radius: 8px;
+    border-radius: 6px;
     background-color: #fff;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
     color: #222;
-    border: 2px solid #dee2e6;
     font-weight: 600;
     font-size: 14px;
   }
+`;
+
+const SubscribeWrap = styled.span`
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+
+  > strong {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 5px;
+  }
+`;
+
+const SubscribeIcon = styled.span`
+  padding: 2px 4px;
+  border-radius: 4px;
+  line-height: 16px;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+  margin-left: 4px;
+  background-color: #ff3399;
 `;
 
 const MyPageProfile = () => {
@@ -151,14 +177,25 @@ const MyPageProfile = () => {
         <NameBox>
           <span className="club-badge">U클럽</span>
           <div className="nickname">규라니</div>
-          <div className="subscriber-count">
-            <span>구독자</span>37명
-          </div>
+          <SubscribeWrap>
+            <FaUserPlus
+              size={18}
+              color="#fff
+"
+            />
+            <strong>132명</strong>
+            <SubscribeIcon>구독중</SubscribeIcon>
+          </SubscribeWrap>
         </NameBox>
         <GreetingBox>👋 헤이 모두들 안녕, 내가 누군지 알아?</GreetingBox>
         <CashBox>
-          <span className="cash-amount">
-            <img src="gold.png" alt="Smiley Cash" />
+          <VscActivateBreakpoints size={20} color="gold" />
+          <span
+            className="cash-amount"
+            style={{
+              marginLeft: '4px',
+            }}
+          >
             125,000P
           </span>
           <CashUseButton>사용하기</CashUseButton>

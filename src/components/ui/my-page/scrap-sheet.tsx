@@ -50,7 +50,7 @@ const MasonrySection: React.FC<MasonrySectionProps> = ({ title, data }) => (
   <Box sx={{ width: '100%' }}>
     <SectionTitle>
       {title === 'recent' && <NewWrap>최근</NewWrap>}
-      {title === 'recent' ? '7일의 스크랩' : '전체 스크랩'}
+      {title === 'recent' ? '7일 스크랩' : '전체 스크랩'}
     </SectionTitle>
     <Masonry columns={3} spacing={1}>
       {data.map((x: { image: string }, index: number) => (

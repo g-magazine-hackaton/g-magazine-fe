@@ -10,7 +10,6 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #fff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,12 +18,12 @@
   -webkit-text-size-adjust: 100%;
 
   color: #213547;
-  background-color: #e9ecef;
 }
 
 #root {
   width: 100%;
   min-height: 100vh;
+  background-color: #eee;
 }
 
 body {

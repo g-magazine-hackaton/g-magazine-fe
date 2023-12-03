@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import React, { FC } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
+import { Link } from 'react-router-dom';
 
 const sliderStyle = css`
   .keen-slider {
@@ -24,7 +25,8 @@ const sliderStyle = css`
     overflow: hidden;
 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    > img {
+    img,
+    a {
       width: 100%;
       height: 90px;
     }
@@ -77,7 +79,9 @@ interface SlideProps {
 
 const Slide: FC<SlideProps> = ({ image }) => (
   <div className="keen-slider__slide">
-    <img src={image} alt="슬라이드 이미지" />
+    <Link to="../magazine/1">
+      <img src={image} alt="슬라이드 이미지" />
+    </Link>
   </div>
 );
 
