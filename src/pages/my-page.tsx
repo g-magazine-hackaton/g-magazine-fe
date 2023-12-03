@@ -8,6 +8,7 @@ import MyPageSubscriberUpdateSlider from '@/components/ui/my-page/subscriber-upd
 import MyPageMagazineSlide from '@/components/ui/my-page/magazine-slide';
 import { MagazineListMockData } from '@/temp/magazine';
 import Button from '@/components/ui/button';
+import Guides from '@/components/ui/my-page/Guides';
 
 const UpdateWrap = styled.span`
   padding: 0px 4px;
@@ -143,6 +144,7 @@ const MyPage: FC = () => {
           </React.Fragment>
         ))}
       </MyPageSection>
+      <Guides />
     </>
   );
 };

@@ -24,6 +24,10 @@ const globalStyle = css`
       sans-serif;
   }
 
+  body:has(#portal-root > *) {
+    overflow: hidden;
+  }
+
   body::-webkit-scrollbar {
     display: none;
   }
