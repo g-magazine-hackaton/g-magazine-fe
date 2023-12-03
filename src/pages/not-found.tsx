@@ -19,7 +19,7 @@ export default function NotFoundPage() {
         <i>{error.statusText || error.message}</i>
       </p>
       <Button>
-        <Link to={ROOT_PATH}>메인 페이지로 돌아가기</Link>
+        <Link to={`${ROOT_PATH}/`}>메인 페이지로 돌아가기</Link>
       </Button>
     </div>
   );

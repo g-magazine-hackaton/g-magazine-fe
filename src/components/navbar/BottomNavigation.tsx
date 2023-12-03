@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
+import { ROOT_PATH } from '@/temp/global-variables';
 
 const bottomNavigationStyle = css`
   position: fixed;
@@ -55,13 +56,13 @@ const BottomNavigation = () => {
       <div className="box__bottom-navigation-inner">
         <ul className="list">
           <li className="list-item">
-            <Link to="/" className="link link__home" />
+            <Link to={`${ROOT_PATH}/`} className="link link__home" />
           </li>
           <li className="list-item">
             <Link to="#none" className="link link__search" />
           </li>
           <li className="list-item">
-            <Link to="#none" className="link link__myg" />
+            <Link to="my-page" className="link link__myg" />
           </li>
           <li className="list-item">
             <Link to="#none" className="link link__rvh" />

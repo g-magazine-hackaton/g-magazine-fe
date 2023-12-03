@@ -92,7 +92,7 @@ const Navbar = () => {
       <nav>
         <Nav>
           <li>
-            <StyledNavLink to={ROOT_PATH}>메인 페이지</StyledNavLink>
+            <StyledNavLink to={`${ROOT_PATH}/`}>메인 페이지</StyledNavLink>
           </li>
           <li>
             <StyledNavLink to="my-page">마이 페이지</StyledNavLink>
