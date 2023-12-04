@@ -3,9 +3,15 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { IoIosAdd, IoIosClose } from 'react-icons/io';
 import { useSetAtom } from 'jotai';
 import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
 import Button from '@/components/ui/button';
 import TextArea from '@/components/ui/textarea';
 import { titleAtom } from '@/store/page-info';
+import SelectPopup from '@/components/ui/mazagine/SelectPopup';
+import { formatNumber } from '@/lib/utils';
+import { GoodsInfo, getFolders, postMagazine } from '@/apis/magazine';
+import { uploadImage } from '@/apis/image';
+import { IMAGE_URL } from '@/apis/urls';
 
 const pageWrapperStyle = css`
   display: flex;
@@ -61,9 +67,17 @@ const uploadButtonStyle = css`
   &:hover {
     filter: brightness(0.95);
   }
+
+  &:disabled {
+    background-color: #dedede;
+    color: #fff;
+    border: none;
+    filter: none;
+    cursor: default;
+  }
 `;
 
-const itemInfoWrapStyle = css`
+export const itemInfoWrapStyle = css`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -111,7 +125,6 @@ const itemInfoWrapStyle = css`
         font-size: 16px;
         font-family: 'Gmarket Sans';
         line-height: 22px;
-        color: #000;
         font-weight: 700;
 
         &-unit {
@@ -203,22 +216,26 @@ const chipSliderWrapStyle = css`
 
 const MagazineWrite = () => {
   const setTitle = useSetAtom(titleAtom);
+  const navigate = useNavigate();
   const [selectedItemData, setSelectedItemData] = useState<{
-    imageUrl: string;
-    itemName: string;
-    itemPrice: number;
-    options?: string[];
+    id: string;
+    goodsPhotoUrl: string;
+    goodsName: string;
+    goodsPrice: number;
   } | null>(null);
-  const [folders, setFolders] = useState(['']);
+  const [showPopup, setShowPopup] = useState(false);
+  const [folders, setFolders] = useState<
+    { folderId: string; folderName: string }[]
+  >([]);
   const [data, setData] = useState({
-    images: [
-      'https://cdn.hankooki.com/news/photo/202311/118934_162711_1700520953.jpg',
-    ],
+    images: [],
     content: '',
     folder: '',
   });
   const { images, content, folder } = data;
-  const { imageUrl, itemName, itemPrice, options } = selectedItemData || {};
+  const { goodsPhotoUrl, goodsName, goodsPrice = 0 } = selectedItemData || {};
+  const isWriteAvailable =
+    images.length > 0 && content && folder && selectedItemData;
 
   const handleChangeData = (key: string, value: string | unknown[]) => {
     setData((prev) => ({ ...prev, [key]: value }));
@@ -229,128 +246,163 @@ const MagazineWrite = () => {
     handleChangeData('images', filteredImages);
   };
 
-  const handleUploadImage = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    const file = target.files?.[0];
-    if (!file) return;
-
-    // TODO: 이미지 업로드 API 호출
-    console.log(file);
+  const handleOpenPopup = () => {
+    setShowPopup(true);
   };
 
-  const handleClickChangeItem = () => {
-    // TODO: API 연동, 팝업 표출
+  const handleUploadImage = async ({
+    target,
+  }: ChangeEvent<HTMLInputElement>) => {
+    const uploadedFile = target.files?.[0];
+    if (!uploadedFile) return;
+
+    const {
+      success,
+      files: [file],
+      message,
+    } = await uploadImage(uploadedFile);
+    if (!success) {
+      alert(message);
+      return;
+    }
+
+    handleChangeData('images', [...images, file.replace('uploads', '')]);
   };
 
   const handleClickChip = (folder: string) => {
     handleChangeData('folder', folder);
   };
 
-  const handleWrite = () => {
-    // TODO: API 연동
+  const handleWrite = async () => {
+    const { success, result, message } = await postMagazine({
+      folder,
+      content,
+      goodsId: selectedItemData?.id,
+      images,
+    });
+
+    alert(message);
+    if (success) navigate(`../magazine/${result}`);
+  };
+
+  const handleSelect = (goodsInfo: GoodsInfo) => {
+    setSelectedItemData(goodsInfo);
   };
 
   useEffect(() => {
     setTitle('매거진 업로드');
 
-    // TODO: API 호출
-    setFolders(['리빙박스', '겨울옷 리뷰', '맛도리 리뷰', '여름 옷']);
-    setSelectedItemData({
-      imageUrl:
-        'http://gdimg.gmarket.co.kr/2634329458/still/400?ver=1696386024',
-      itemName:
-        '남자 빅사이즈 오리지널 M1965 밀리터리 피쉬테일 롱 오버핏 개파카 미군 야상 다운라이크 패딩 점퍼',
-      itemPrice: 94800,
-      options: ['L(100)'],
-    });
+    const fetchGetFolders = async () => {
+      const {
+        data: { folders },
+      } = await getFolders();
+      setFolders(folders);
+    };
+    fetchGetFolders();
   }, [setTitle]);
 
   return (
-    <div css={pageWrapperStyle}>
-      <div css={sectionWrapStyle}>
-        <div css={sectionTitleWrapStyle}>
-          <h4 className="title">업로드할 상품 선택</h4>
-          <Button css={changeButtonStyle} onClick={handleClickChangeItem}>
-            변경
-          </Button>
-        </div>
-        <div css={itemInfoWrapStyle}>
-          <div className="image">
-            {imageUrl && <img src={imageUrl} alt="상품 이미지" />}
+    <>
+      <div css={pageWrapperStyle}>
+        <div css={sectionWrapStyle}>
+          <div css={sectionTitleWrapStyle}>
+            <h4 className="title">업로드할 상품 선택</h4>
+            <Button css={changeButtonStyle} onClick={handleOpenPopup}>
+              변경
+            </Button>
           </div>
-          <div className="info-box">
-            {selectedItemData ? (
-              <>
-                <p className="item-name">{itemName}</p>
-                <p className="item-price">
-                  {itemPrice?.toLocaleString()}
-                  <span className="item-price-unit">원</span>
-                </p>
-                <p className="item-option">선택 옵션 : {options?.join(', ')}</p>
-              </>
-            ) : (
-              <>상품을 선택해 주세요</>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div css={sectionWrapStyle}>
-        <div css={sectionTitleWrapStyle}>
-          <h4 className="title">이미지 업로드</h4>
-        </div>
-        <div css={imageSliderWrapStyle}>
-          {images.map((url, i) => (
-            <div className="image-wrap" key={url}>
-              <IoIosClose
-                className="delete-button"
-                onClick={() => handleDeleteImage(i)}
-              />
-              <img src={url} alt={`${i + 1}번째 이미지`} />
+          <div css={itemInfoWrapStyle}>
+            <div className="image">
+              {goodsPhotoUrl && <img src={goodsPhotoUrl} alt="상품 이미지" />}
             </div>
-          ))}
-          <label className="image-wrap">
-            <IoIosAdd className="add-icon" />
-            <input type="file" accept="image/*" onChange={handleUploadImage} />
-          </label>
+            <div className="info-box">
+              {selectedItemData ? (
+                <>
+                  <p className="item-name">{goodsName}</p>
+                  <p className="item-price">
+                    {formatNumber(goodsPrice)}
+                    <span className="item-price-unit">원</span>
+                  </p>
+                </>
+              ) : (
+                <p style={{ textAlign: 'center' }}>상품을 선택해 주세요</p>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div css={sectionWrapStyle}>
-        <div css={sectionTitleWrapStyle}>
-          <h4 className="title">본문 작성하기</h4>
+        <div css={sectionWrapStyle}>
+          <div css={sectionTitleWrapStyle}>
+            <h4 className="title">이미지 업로드</h4>
+          </div>
+          <div css={imageSliderWrapStyle}>
+            {images.map((url, i) => (
+              <div className="image-wrap" key={url}>
+                <IoIosClose
+                  className="delete-button"
+                  onClick={() => handleDeleteImage(i)}
+                />
+                <img src={IMAGE_URL + url} alt={`${i + 1}번째 이미지`} />
+              </div>
+            ))}
+            <label className="image-wrap">
+              <IoIosAdd className="add-icon" />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleUploadImage}
+              />
+            </label>
+          </div>
         </div>
-        <TextArea
-          rows={4}
-          className="content-area"
-          placeholder="구매하신 상품에 대한 내용만 작성 가능하며, 윤리적, 법적, G마켓 내부 규정에 어긋나는 내용을 작성하실 경우 안내 없이 삭제될 수 있습니다. (최소 10자)"
-          value={content}
-          onChange={(value) => handleChangeData('content', value)}
+
+        <div css={sectionWrapStyle}>
+          <div css={sectionTitleWrapStyle}>
+            <h4 className="title">본문 작성하기</h4>
+          </div>
+          <TextArea
+            rows={4}
+            className="content-area"
+            placeholder="구매하신 상품에 대한 내용만 작성 가능하며, 윤리적, 법적, G마켓 내부 규정에 어긋나는 내용을 작성하실 경우 안내 없이 삭제될 수 있습니다. (최소 10자)"
+            value={content}
+            onChange={(value) => handleChangeData('content', value)}
+          />
+        </div>
+
+        <div css={sectionWrapStyle}>
+          <div css={sectionTitleWrapStyle}>
+            <h4 className="title">업로드할 폴더 선택</h4>
+          </div>
+          <div css={chipSliderWrapStyle}>
+            {folders.map(({ folderId, folderName }) => (
+              <button
+                key={folderId}
+                className={classNames('chip', {
+                  active: folder === folderName,
+                })}
+                onClick={() => handleClickChip(folderName)}
+              >
+                {folderName}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <Button
+          css={uploadButtonStyle}
+          disabled={!isWriteAvailable}
+          onClick={handleWrite}
+        >
+          업로드
+        </Button>
+      </div>
+      {showPopup && (
+        <SelectPopup
+          onSelect={handleSelect}
+          onClose={() => setShowPopup(false)}
         />
-      </div>
-
-      <div css={sectionWrapStyle}>
-        <div css={sectionTitleWrapStyle}>
-          <h4 className="title">업로드할 폴더 선택</h4>
-        </div>
-        <div css={chipSliderWrapStyle}>
-          {folders.map((text) => (
-            <button
-              key={text}
-              className={classNames('chip', {
-                active: folder === text,
-              })}
-              onClick={() => handleClickChip(text)}
-            >
-              {text}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <Button css={uploadButtonStyle} onClick={handleWrite}>
-        업로드
-      </Button>
-    </div>
+      )}
+    </>
   );
 };
 
