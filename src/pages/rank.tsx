@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useSetAtom } from 'jotai';
+import { useSetAtom, useAtom } from 'jotai';
 import { CiCircleQuestion } from 'react-icons/ci';
 import { HiAdjustmentsVertical } from 'react-icons/hi2';
 
@@ -9,9 +9,10 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
 import styled from '@emotion/styled';
+import { RankAtom } from '@/store/rank';
 import { titleAtom } from '@/store/page-info';
-import { RankListMockData } from '@/temp/rank';
 import { ROOT_PATH } from '@/temp/global-variables';
+import { fetch } from '@/apis/api';
 
 const PageContainer = styled.div`
   display: flex;
@@ -129,40 +130,41 @@ const StyledSection = styled.div`
 `;
 
 interface IUserProfile {
-  id: string;
-  name: string;
-  isPower: boolean;
-  description: string;
-  profileImageUrl: string;
-  crownIconUrl: string;
+  consumerNickname: string;
+  profileContent: string;
+  profileUrl: string;
 }
 
 interface IRankItemProps {
   user: IUserProfile;
-  onActionClick: (userId: string) => void;
   rank: number;
 }
-const RankItemComponent: React.FC<IRankItemProps> = ({
-  user,
-  onActionClick,
-  rank,
-}) => (
+const RankItemComponent: React.FC<IRankItemProps> = ({ user, rank }) => (
   <RankItem>
     <RankNumber>{rank}</RankNumber>
-    <ProfileImage src={user.profileImageUrl} alt={user.name} />
+    <ProfileImage
+      src={
+        'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
+        user.profileUrl
+      }
+      alt={user.consumerNickname}
+    />
     <div
       style={{ display: 'flex', flexDirection: 'column', marginLeft: '18px' }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <UserName>{user.name}</UserName>
-        <Badge src={user.crownIconUrl} alt={user.name} />
-        {user.isPower && <PowerWrap>파워컨슈머</PowerWrap>}
+        <UserName>{user.consumerNickname}</UserName>
+        <Badge
+          src="https://cdn-icons-png.flaticon.com/512/5899/5899666.png"
+          alt={user.consumerNickname}
+        />
+        <PowerWrap>파워컨슈머</PowerWrap>
       </div>
 
-      <Description>{user.description}</Description>
+      <Description>{user.profileContent}</Description>
     </div>
 
-    <ActionButton onClick={() => onActionClick(user.id)}>
+    <ActionButton>
       <Link to={`${ROOT_PATH}/my-page/seller`}>매거진</Link>
     </ActionButton>
   </RankItem>
@@ -248,16 +250,28 @@ const FilterUI = () => {
 };
 
 const RankPage: React.FC = () => {
-  const [userProfiles, setUserProfiles] = useState<IUserProfile[]>([]);
+  const [rank, setRank] = useAtom(RankAtom);
+  const fetchGetRank = useCallback(async () => {
+    try {
+      const {
+        data: { data, success, message },
+      } = await fetch.get(`/api/api/consumer/rank`);
+      if (success) {
+        setRank(data.consumers);
+      } else {
+        console.log(message);
+      }
+    } catch (error) {
+      console.error('Error', error);
+    }
+  }, [setRank]);
+
   const setTitle = useSetAtom(titleAtom);
 
   useEffect(() => {
-    setUserProfiles(RankListMockData);
+    fetchGetRank();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleActionClick = () => {
-    //
-  };
 
   useEffect(() => {
     setTitle('컨슈머 랭킹');
@@ -266,13 +280,8 @@ const RankPage: React.FC = () => {
   return (
     <PageContainer>
       <FilterUI />
-      {userProfiles.map((user, index) => (
-        <RankItemComponent
-          key={user.id}
-          user={user}
-          onActionClick={handleActionClick}
-          rank={index + 1}
-        />
+      {rank.map((user, index) => (
+        <RankItemComponent key={user.consumerId} user={user} rank={index + 1} />
       ))}
     </PageContainer>
   );

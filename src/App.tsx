@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Global } from '@emotion/react';
+import 'keen-slider/keen-slider.min.css';
 import { useCallback, useLayoutEffect } from 'react';
 import { useSetAtom } from 'jotai';
 import Navbar from '@/components/navbar';

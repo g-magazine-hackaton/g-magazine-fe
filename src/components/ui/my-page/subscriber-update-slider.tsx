@@ -1,9 +1,11 @@
 import { css } from '@emotion/react';
-import { FC, Fragment } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
-import 'keen-slider/keen-slider.min.css';
 import { Link } from 'react-router-dom';
-import { MyPageFollower } from '@/temp/my-page-follower';
+import { useAtom } from 'jotai';
+import { MyMagazineAtom } from '@/store/my-magazine';
+import { fetch } from '@/apis/api';
+import { ROOT_PATH } from '@/temp/global-variables';
 
 const sliderStyle = css`
   .keen-slider {
@@ -78,43 +80,74 @@ const sliderStyle = css`
 `;
 
 interface SlideProps {
-  imageSrc: string;
+  photoUrls: string;
   label: string;
-  userName: string;
+  magazineContent: string;
 }
 
-const Slide: FC<SlideProps> = ({ imageSrc, label, userName }) => (
+const Slide: FC<SlideProps> = ({
+  photoUrls,
+  label = 'new',
+  magazineContent,
+}) => (
   <div className="keen-slider__slide">
-    <img src={imageSrc} alt="슬라이드 이미지" />
+    <img
+      src={
+        'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
+        photoUrls
+      }
+      alt="슬라이드 이미지"
+    />
     <span className={label === 'Rank' ? 'rank' : ''}>{label}</span>
     <div className="user">
-      <span>{userName}</span>
+      <span>{magazineContent}</span>
     </div>
   </div>
 );
 
 const SubscriberUpdateSlider: FC = () => {
+  const [myMagazine, setMyMagazine] = useAtom(MyMagazineAtom);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     slides: {
       perView: 4,
-      spacing: 12,
+      spacing: 10,
     },
   });
 
+  const fetchGetMyMagazine = async () => {
+    try {
+      const {
+        data: { data, success, message },
+      } = await fetch.get(`/api/api/magazine/all?consumerId=consumer1`);
+      if (success) {
+        setMyMagazine(data.magazines);
+        setIsDataLoaded(true);
+      } else {
+        console.log(message);
+      }
+    } catch (error) {
+      console.error('Error', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchGetMyMagazine();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
-    <div
-      css={sliderStyle}
-      ref={sliderRef}
-      className="keen-slider"
-      style={{ padding: '10px 0' }}
-    >
-      {MyPageFollower.map((slide) => (
-        <Fragment key={slide.userName}>
-          <Link to={slide.link}>
-            <Slide {...slide} />
-          </Link>
-        </Fragment>
-      ))}
+    <div css={sliderStyle} style={{ padding: '10px 0' }}>
+      {isDataLoaded && (
+        <div ref={sliderRef} className="keen-slider">
+          {myMagazine.map((slide) => (
+            <Fragment key={slide.magazineContent}>
+              <Link to={`${ROOT_PATH}/my-page/seller`}>
+                <Slide {...slide} />
+              </Link>
+            </Fragment>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

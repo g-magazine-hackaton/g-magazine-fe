@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import React, { FC } from 'react';
+
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import { Link } from 'react-router-dom';
@@ -74,19 +75,19 @@ const sliderStyle = css`
 `;
 
 interface SlideProps {
-  image: string;
+  photoUrls: string;
 }
 
-const Slide: FC<SlideProps> = ({ image }) => (
+const Slide: FC<SlideProps> = ({ photoUrls }) => (
   <div className="keen-slider__slide">
     <Link to="../magazine/1">
-      <img src={image} alt="슬라이드 이미지" />
+      <img src={photoUrls} alt="슬라이드 이미지" />
     </Link>
   </div>
 );
 
 interface MagazineSlideItem {
-  image: string;
+  photoUrls: string;
 }
 
 interface MyPageMagazineSlideProps {
@@ -112,7 +113,12 @@ const MyPageMagazineSlide: FC<MyPageMagazineSlideProps> = ({ item }) => {
     >
       {item.map((slide, idx) => (
         <React.Fragment key={`${idx + 1} my-slide-magazine`}>
-          <Slide image={slide.image} />
+          <Slide
+            photoUrls={
+              'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
+              slide.photoUrls
+            }
+          />
         </React.Fragment>
       ))}
     </div>

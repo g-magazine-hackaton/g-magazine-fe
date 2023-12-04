@@ -1,13 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useLayoutEffect } from 'react';
+import { useAtom } from 'jotai';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { FcFolder } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
-import { css } from '@emotion/react';
+import { FolderAtom } from '@/store/folder';
+import { MyMagazineAtom } from '@/store/my-magazine';
+import { fetch } from '@/apis/api';
 import MyPageProfileComponent from '@/components/ui/my-page/profile';
 import MyPageSection from '@/components/ui/my-page/section';
 import MyPageSubscriberUpdateSlider from '@/components/ui/my-page/subscriber-update-slider';
 import MyPageMagazineSlide from '@/components/ui/my-page/magazine-slide';
-import { MagazineListMockData } from '@/temp/magazine';
 import Button from '@/components/ui/button';
 import Guides from '@/components/ui/my-page/Guides';
 
@@ -84,14 +87,39 @@ const uploadButtonStyle = css`
 `;
 
 const UpdateUser: FC = () => <UpdateWrap>new</UpdateWrap>;
-const Count: FC = () => <CountWrap>3</CountWrap>;
+const Count: FC = () => <CountWrap>5</CountWrap>;
 
 const MyPage: FC = () => {
   const navigate = useNavigate();
-  const titles = ['전체', '키즈', '건강식품', '명품관', '신선상품', '기타'];
+  const [myFolder, setMyFolder] = useAtom(FolderAtom);
+  const [myMagazine, setMyMagazine] = useAtom(MyMagazineAtom);
+
+  const fetchGetMyPageProfile = async () => {
+    try {
+      const {
+        data: { data, success, message },
+      } = await fetch.get(`/api/api/magazine/folders?consumerId=consumer1`);
+      if (success) {
+        setMyFolder(data.folders);
+      } else {
+        console.log(message);
+      }
+    } catch (error) {
+      console.error('Error', error);
+    }
+  };
+
+  useLayoutEffect(() => {
+    fetchGetMyPageProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleGoUpload = () => {
     navigate('../magazine/write');
+  };
+
+  const getMagazinesForFolder = (folderId) => {
+    return myMagazine.filter((magazine) => magazine.folderId === folderId);
   };
 
   return (
@@ -123,19 +151,24 @@ const MyPage: FC = () => {
             업로드
           </Button>
         </Heading>
-        {MagazineListMockData.map((item, idx) => (
-          <React.Fragment key={`${idx + 1} my-magazine`}>
-            <FolderHeader>
-              <span>
-                <em>{titles[idx]}</em> 42개
-              </span>
-              <Link to="../magazine/write">
-                <img src="plus.png" alt="업로드 아이콘" />
-              </Link>
-            </FolderHeader>
-            <MyPageMagazineSlide item={item} />
-          </React.Fragment>
-        ))}
+        {myFolder.length > 0 &&
+          myFolder?.map((item, idx) => {
+            const filteredMagazines = getMagazinesForFolder(item.folderId);
+            return (
+              <React.Fragment key={`${idx + 1} my-magazine`}>
+                <FolderHeader>
+                  <span>
+                    <em>{myFolder[idx]?.folderName}</em>{' '}
+                    {filteredMagazines.length}개
+                  </span>
+                  <Link to="../magazine/write">
+                    <img src="plus.png" alt="업로드 아이콘" />
+                  </Link>
+                </FolderHeader>
+                <MyPageMagazineSlide item={filteredMagazines} />
+              </React.Fragment>
+            );
+          })}
       </MyPageSection>
       {/* <Guides /> */}
     </div>

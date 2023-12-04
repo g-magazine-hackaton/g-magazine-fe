@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSetAtom } from 'jotai';
+import { useSetAtom, useAtom, useAtomValue } from 'jotai';
+
 import { HiAdjustmentsVertical } from 'react-icons/hi2';
 import { FaUserPlus } from 'react-icons/fa';
 import styled from '@emotion/styled';
 import { titleAtom } from '@/store/page-info';
-import { SubscribeListMockData } from '@/temp/subscribe';
+import { MyProfileAtom } from '@/store/my-profile';
 import { ROOT_PATH } from '@/temp/global-variables';
+import { MyFollowingAtom } from '@/store/my-following';
+import { fetch } from '@/apis/api';
 
 const PageContainer = styled.div`
   display: flex;
@@ -112,37 +115,39 @@ const ActionButton = styled.button`
 `;
 
 interface IUserProfile {
-  id: string;
-  name: string;
-  isPower: boolean;
-  description: string;
-  profileImageUrl: string;
-  crownIconUrl?: string;
+  profileContent: string;
+  consumerNickname: string;
+  profileUrl: string;
 }
 
 interface ISubscribeItemProps {
   user: IUserProfile;
-  onActionClick: (userId: string) => void;
 }
-const SubscribeItemComponent: React.FC<ISubscribeItemProps> = ({
-  user,
-  onActionClick,
-}) => (
+const SubscribeItemComponent: React.FC<ISubscribeItemProps> = ({ user }) => (
   <SubscribeItem>
-    <ProfileImage src={user.profileImageUrl} alt={user.name} />
+    <ProfileImage
+      src={
+        'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
+        user.profileUrl
+      }
+      alt={user.consumerNickname}
+    />
     <div
       style={{ display: 'flex', flexDirection: 'column', marginLeft: '18px' }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <UserName>{user.name}</UserName>
-        {user.crownIconUrl && <Badge src={user.crownIconUrl} alt={user.name} />}
-        {user.isPower && <PowerWrap>파워컨슈머</PowerWrap>}
+        <UserName>{user.consumerNickname}</UserName>
+        <Badge
+          src="https://cdn-icons-png.flaticon.com/512/5899/5899666.png"
+          alt={user.consumerNickname}
+        />
+        <PowerWrap>파워컨슈머</PowerWrap>
       </div>
 
-      <Description>{user.description}</Description>
+      <Description>{user.profileContent}</Description>
     </div>
 
-    <ActionButton onClick={() => onActionClick(user.id)}>
+    <ActionButton>
       <Link to={`${ROOT_PATH}/my-page/seller`}>매거진</Link>
     </ActionButton>
   </SubscribeItem>
@@ -150,6 +155,7 @@ const SubscribeItemComponent: React.FC<ISubscribeItemProps> = ({
 
 const FilterUI = () => {
   const [filter, setFilter] = useState('recent');
+  const myProfile = useAtomValue(MyProfileAtom);
 
   return (
     <FilterContainer>
@@ -169,7 +175,7 @@ const FilterUI = () => {
           color="#BDBDBD
 "
         />
-        <strong>132명</strong>
+        <strong>{myProfile.followingConsumerIds.length} 명</strong>
         <SubscribeIcon>구독중</SubscribeIcon>
       </SubscribeWrap>
     </FilterContainer>
@@ -177,30 +183,38 @@ const FilterUI = () => {
 };
 
 const SubScribePage: React.FC = () => {
-  const [userProfiles, setUserProfiles] = useState<IUserProfile[]>([]);
   const setTitle = useSetAtom(titleAtom);
-
-  useEffect(() => {
-    setUserProfiles(SubscribeListMockData);
-  }, []);
-
-  const handleActionClick = () => {
-    //
-  };
+  const [following, setFollowing] = useAtom(MyFollowingAtom);
 
   useEffect(() => {
     setTitle('내 구독');
   }, [setTitle]);
 
+  const fetchGetMyPageProfile = async () => {
+    try {
+      const {
+        data: { data, success, message },
+      } = await fetch.get(`/api/api/consumer/followings?consumerId=consumer1`);
+      if (success) {
+        setFollowing(data.consumer);
+      } else {
+        console.log(message);
+      }
+    } catch (error) {
+      console.error('Error', error);
+    }
+  };
+
+  useLayoutEffect(() => {
+    fetchGetMyPageProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <PageContainer>
       <FilterUI />
-      {userProfiles.map((user) => (
-        <SubscribeItemComponent
-          key={user.id}
-          user={user}
-          onActionClick={handleActionClick}
-        />
+      {following.map((user) => (
+        <SubscribeItemComponent key={user.consumerId} user={user} />
       ))}
     </PageContainer>
   );
