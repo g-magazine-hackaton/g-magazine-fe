@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Sheet from 'react-modal-sheet';
 import styled from '@emotion/styled';
 import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry';
+import { useAtom } from 'jotai';
 import { Box } from '@mui/material';
 import { styled as muiStyled } from '@mui/material/styles';
-import { ScrapListMockData } from '@/temp/scrap';
+import { MyMagazineAtom } from '@/store/my-magazine';
+import { ScrapAtom } from '@/store/scrap';
+import { fetch } from '@/apis/api';
 
 interface MasonrySectionProps {
   title: 'recent' | 'all';
@@ -53,9 +56,9 @@ const MasonrySection: React.FC<MasonrySectionProps> = ({ title, data }) => (
       {title === 'recent' ? '7일 스크랩' : '전체 스크랩'}
     </SectionTitle>
     <Masonry columns={3} spacing={1}>
-      {data.map((x: { image: string }, index: number) => (
+      {data.map((x: { photoUrls: string }, index: number) => (
         <Item key={index}>
-          <ImageContainer src={x.image} alt={x.image} />
+          <ImageContainer src={x.photoUrls} alt={x.photoUrls} />
         </Item>
       ))}
     </Masonry>
@@ -68,6 +71,32 @@ interface ScrapSheetProps {
 }
 
 const ScrapSheet: React.FC<ScrapSheetProps> = ({ isOpen, setOpen }) => {
+  const [myMagazine, setMyMagazine] = useAtom(MyMagazineAtom);
+  const [myScrap, setMyScrap] = useAtom(ScrapAtom);
+
+  const filteredData = myMagazine.filter((item) =>
+    myScrap.includes(item.magazineId),
+  );
+
+  const fetchGetMyScrap = async () => {
+    try {
+      const {
+        data: { data, success, message },
+      } = await fetch.get(`/api/api/consumer/consumer1/scraps`);
+      if (success) {
+        setMyScrap(data.scrappedMagazineIds);
+      } else {
+        console.log(message);
+      }
+    } catch (error) {
+      console.error('Error', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchGetMyScrap();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Sheet
       isOpen={isOpen}
@@ -77,8 +106,8 @@ const ScrapSheet: React.FC<ScrapSheetProps> = ({ isOpen, setOpen }) => {
       <Sheet.Container>
         <Sheet.Header />
         <Sheet.Scroller>
-          <MasonrySection title="recent" data={ScrapListMockData[0]} />
-          <MasonrySection title="all" data={ScrapListMockData[1]} />
+          {/* <MasonrySection title="recent" data={ScrapListMockData[0]} /> */}
+          <MasonrySection title="all" data={filteredData} />
         </Sheet.Scroller>
       </Sheet.Container>
       <Sheet.Backdrop />
