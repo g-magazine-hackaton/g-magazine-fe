@@ -27,6 +27,7 @@
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
     "no-console": 0,
+    "no-alert": 0,
     "react/prop-types": 0,
     "react/function-component-definition": 0,
     "react/react-in-jsx-scope": 0,
