@@ -44,6 +44,11 @@ export default defineConfig({
   base: "/g-magazine-fe/",
   server: {
     proxy: {
+      '/uploads':{
+        target: 'http://localhost:7001/uploads/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/\/uploads/, '')
+      },
       '/api': {
         target: 'http://localhost:7001',
         changeOrigin: true,
