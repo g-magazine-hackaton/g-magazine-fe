@@ -45,3 +45,19 @@ export const postMagazine = async ({ folder, content, goodsId, images }) => {
     return { success: false, message: '매거진 작성에 실패했습니다.' };
   }
 };
+
+export const getMagazineDetail = async (magazineId: string) => {
+  try {
+    const { data } = await fetch.get(
+      `/api/api/magazine/detail?consumerId=consumer1&magazineId=${magazineId}`,
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return {
+      success: false,
+      message: '데이터 로딩에 실패했습니다. 다시 시도해 주세요.',
+      data: null,
+    };
+  }
+};

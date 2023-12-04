@@ -11,6 +11,8 @@ import { titleAtom } from '@/store/page-info';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { getMagazineDetail } from '@/apis/magazine';
+import { IMAGE_URL } from '@/apis/urls';
 
 const imageSliderWrapStyle = css`
   position: relative;
@@ -125,6 +127,7 @@ const contentWrapStyle = css`
 
     .comment {
       display: flex;
+      align-items: center;
       gap: 8px;
 
       &-user {
@@ -199,31 +202,15 @@ const MagazineDetail = () => {
 
   useEffect(() => {
     if (!id) return;
-    // TODO: API 연동
-    console.log(id);
-
-    setData({
-      magazine: {
-        magazineContent: '조거팬트로 하루를 따듯하게!!',
-        likedCnt: 10,
-        photoUrls: [
-          'https://gdimg.gmarket.co.kr/3330745185/still/600?ver=1701531366',
-          'https://gdimg.gmarket.co.kr/3330745185/still/600?ver=1701531367',
-        ],
-      },
-      goods: [
-        {
-          goodsName:
-            '주문폭주 워밍밍크조거팬츠 융기모팬츠/겨울팬츠/한파팬츠/여자겨울팬츠',
-          goodsPrice: 17600,
-          goodsPageUrl:
-            'https://item.gmarket.co.kr/Item?goodscode=3293205512&ver=20231201',
-          goodsPhotoUrl:
-            'https://gdimg.gmarket.co.kr/3330745185/still/600?ver=1701531366',
-        },
-      ],
-      isLike: true,
-    });
+    const fetchGetMagazineDetail = async () => {
+      const { success, message, data } = await getMagazineDetail(id);
+      if (!success) {
+        alert(message);
+        return;
+      }
+      setData(data);
+    };
+    fetchGetMagazineDetail();
   }, [id]);
 
   useEffect(() => {
@@ -242,7 +229,7 @@ const MagazineDetail = () => {
           {photoUrls.map((imageUrl, i) => (
             <SwiperSlide key={imageUrl}>
               <img
-                src={imageUrl}
+                src={IMAGE_URL + imageUrl}
                 alt={`${i + 1}번째 이미지`}
                 className="image"
               />
@@ -253,7 +240,9 @@ const MagazineDetail = () => {
       <Link to={goodsPageUrl}>
         <div css={productInfoStyle}>
           <div className="image">
-            {goodsPhotoUrl && <img src={goodsPhotoUrl} alt="상품 이미지" />}
+            {goodsPhotoUrl && (
+              <img src={IMAGE_URL + goodsPhotoUrl} alt="상품 이미지" />
+            )}
           </div>
           <div className="info-box">
             <p className="item-price">
