@@ -28,3 +28,20 @@ export const getFolders = async () => {
     return { success: false, data: [] };
   }
 };
+
+export const postMagazine = async ({ folder, content, goodsId, images }) => {
+  try {
+    const { data } = await fetch.post('/api/api/magazine/save', {
+      consumerId: 'consumer1',
+      magazineContent: content,
+      folderId: folder,
+      goodsIds: [goodsId],
+      photoUrls: images,
+      upDt: new Date(),
+    });
+    return data;
+  } catch (e) {
+    console.error(e);
+    return { success: false, message: '매거진 작성에 실패했습니다.' };
+  }
+};
