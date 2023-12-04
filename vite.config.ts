@@ -41,5 +41,14 @@ export default defineConfig({
       },
     },
   ],
-  base: "/g-magazine-fe/", // 상대 경로 설정
+  base: "/g-magazine-fe/",
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:7001',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  },
 });

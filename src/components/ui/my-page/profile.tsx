@@ -1,11 +1,17 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import { useAtom } from 'jotai';
+import React, { useState, useLayoutEffect } from 'react';
+
 import { VscActivateBreakpoints } from 'react-icons/vsc';
 import { FaUserPlus } from 'react-icons/fa';
+
 import { Link } from 'react-router-dom';
 import Button from '../button';
 import ScrapSheet from '@/components/ui/my-page/scrap-sheet';
+import { MyProfileAtom } from '@/store/my-profile';
+import { fetch } from '@/apis/api';
 import { ROOT_PATH } from '@/temp/global-variables';
+import { formatNumber } from '@/lib/utils';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -161,6 +167,27 @@ const SubscribeIcon = styled.span`
 
 const MyPageProfile = () => {
   const [isOpen, setOpen] = useState(false);
+  const [myProfile, setMyProfile] = useAtom(MyProfileAtom);
+
+  const fetchGetMyPage = async () => {
+    try {
+      const {
+        data: { data, success, message },
+      } = await fetch.get(`/api/api/consumer/me?consumerId=consumer1`);
+      if (success) {
+        setMyProfile(data.consumer);
+      } else {
+        console.log(message);
+      }
+    } catch (error) {
+      console.error('Error', error);
+    }
+  };
+
+  useLayoutEffect(() => {
+    fetchGetMyPage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <HeaderWrapper>
@@ -176,18 +203,16 @@ const MyPageProfile = () => {
       <UserInfoArea>
         <NameBox>
           <span className="club-badge">U클럽</span>
-          <div className="nickname">규라니</div>
+          <div className="nickname">{myProfile.consumerNickname}</div>
           <SubscribeWrap>
-            <FaUserPlus
-              size={18}
-              color="#fff
-"
-            />
-            <strong>132명</strong>
+            <FaUserPlus size={18} color="#fff" />
+            <strong>
+              {formatNumber(myProfile.followerConsumerIds?.length)} 명
+            </strong>
             <SubscribeIcon>구독중</SubscribeIcon>
           </SubscribeWrap>
         </NameBox>
-        <GreetingBox>👋 헤이 모두들 안녕, 내가 누군지 알아?</GreetingBox>
+        <GreetingBox>{myProfile.profileContent}</GreetingBox>
         <CashBox>
           <VscActivateBreakpoints size={20} color="gold" />
           <span
@@ -196,7 +221,7 @@ const MyPageProfile = () => {
               marginLeft: '4px',
             }}
           >
-            125,000P
+            {formatNumber(myProfile.consumerScore)} P
           </span>
           <CashUseButton>사용하기</CashUseButton>
         </CashBox>
