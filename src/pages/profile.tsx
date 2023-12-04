@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { MdChangeCircle } from 'react-icons/md';
 import Button from '@/components/ui/button';
 import TextArea from '@/components/ui/textarea';
 import { titleAtom } from '@/store/page-info';
 import { MyProfileAtom } from '@/store/my-profile';
+import { uploadImage } from '@/apis/image';
 
 const pageWrapperStyle = css`
   display: flex;
@@ -88,44 +89,59 @@ const editButtonStyle = css`
 `;
 
 const Profile = () => {
-  const myProfile = useAtomValue(MyProfileAtom);
-  console.log({ myProfile });
+  const [myProfile, setMyProfile] = useAtom(MyProfileAtom);
   const setTitle = useSetAtom(titleAtom);
-  const [profileData, setProfileData] = useState({
-    profileUrl: '',
+  const [editProfileData, setEditProfileData] = useState({
+    imageUrl: '',
     nickname: '',
     introduce: '',
   });
-  const { profileUrl, nickname, introduce } = profileData;
+  const { imageUrl, nickname, introduce } = editProfileData;
 
-  const handleUpload = () => {
+  const handleUpload = async ({ target }) => {
+    const uploadedFile = target.files[0];
     // TODO: API 연동
+    const {
+      success,
+      files: [file],
+      message,
+    } = await uploadImage(uploadedFile);
+    if (!success) {
+      alert(message);
+      return;
+    }
+    setEditProfileData((prev) => ({ ...prev, imageUrl: `/${file}` }));
   };
 
   const handleEdit = () => {
     // TODO: API 연동
+    setMyProfile((prev) => ({
+      ...prev,
+      profileUrl: imageUrl,
+      consumerNickname: nickname,
+      profileContent: introduce,
+    }));
   };
 
   const handleEditData = (key: string, value: unknown) => {
-    setProfileData((prev) => ({ ...prev, [key]: value }));
+    setEditProfileData((prev) => ({ ...prev, [key]: value }));
   };
 
   useEffect(() => {
     setTitle('프로필 편집');
 
-    // TODO: API 연동
-    setProfileData({
-      profileUrl:
-        'https://cdn.hankooki.com/news/photo/202311/118934_162711_1700520953.jpg',
-      nickname: '규라니',
-      introduce: '👋 헤이 모두들 안녕, 내가 누군지 알아?',
+    const { consumerNickname, profileContent, profileUrl } = myProfile;
+    setEditProfileData({
+      imageUrl: profileUrl || '',
+      nickname: consumerNickname,
+      introduce: profileContent,
     });
-  }, [setTitle]);
+  }, [myProfile, setTitle]);
 
   return (
     <div css={pageWrapperStyle}>
       <div css={photoBoxStyle}>
-        <img className="profile-photo" src={profileUrl} alt="프로필 사진" />
+        <img className="profile-photo" src={imageUrl} alt="프로필 사진" />
         <label className="photo-upload-button">
           <MdChangeCircle className="upload-icon" />
           <input
