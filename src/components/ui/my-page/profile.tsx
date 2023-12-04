@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { useAtom } from 'jotai';
-import React, { useState, useLayoutEffect } from 'react';
+import { useAtomValue } from 'jotai';
+import React, { useState } from 'react';
 
 import { VscActivateBreakpoints } from 'react-icons/vsc';
 import { FaUserPlus } from 'react-icons/fa';
@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import Button from '../button';
 import ScrapSheet from '@/components/ui/my-page/scrap-sheet';
 import { MyProfileAtom } from '@/store/my-profile';
-import { fetch } from '@/apis/api';
 import { ROOT_PATH } from '@/temp/global-variables';
 import { formatNumber } from '@/lib/utils';
 
@@ -167,27 +166,7 @@ const SubscribeIcon = styled.span`
 
 const MyPageProfile = () => {
   const [isOpen, setOpen] = useState(false);
-  const [myProfile, setMyProfile] = useAtom(MyProfileAtom);
-
-  const fetchGetMyPageProfile = async () => {
-    try {
-      const {
-        data: { data, success, message },
-      } = await fetch.get(`/api/api/consumer/me?consumerId=consumer1`);
-      if (success) {
-        setMyProfile(data.consumer);
-      } else {
-        console.log(message);
-      }
-    } catch (error) {
-      console.error('Error', error);
-    }
-  };
-
-  useLayoutEffect(() => {
-    fetchGetMyPageProfile();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const myProfile = useAtomValue(MyProfileAtom);
 
   return (
     <HeaderWrapper>
