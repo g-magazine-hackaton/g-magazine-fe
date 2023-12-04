@@ -169,7 +169,7 @@ const MyPageProfile = () => {
   const [isOpen, setOpen] = useState(false);
   const [myProfile, setMyProfile] = useAtom(MyProfileAtom);
 
-  const fetchGetMyPage = async () => {
+  const fetchGetMyPageProfile = async () => {
     try {
       const {
         data: { data, success, message },
@@ -185,7 +185,7 @@ const MyPageProfile = () => {
   };
 
   useLayoutEffect(() => {
-    fetchGetMyPage();
+    fetchGetMyPageProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -193,7 +193,10 @@ const MyPageProfile = () => {
     <HeaderWrapper>
       <ProfileImageBox>
         <ProfileImage
-          src="https://cdn.hankooki.com/news/photo/202311/118934_162711_1700520953.jpg"
+          src={
+            'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
+            myProfile.profileUrl
+          }
           alt="Profile Image"
         />
         <Link to="../profile">

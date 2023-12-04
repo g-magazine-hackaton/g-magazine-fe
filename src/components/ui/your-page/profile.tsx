@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { FaUserPlus } from 'react-icons/fa';
-import { useSetAtom } from 'jotai';
+import { useSetAtom, useAtom } from 'jotai';
+import { YourProfileAtom } from '@/store/your-profile';
 import { titleAtom } from '@/store/page-info';
 import { ROOT_PATH } from '@/temp/global-variables';
+import { fetch } from '@/apis/api';
+import { formatNumber } from '@/lib/utils';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -40,6 +43,7 @@ const ProfileImageBox = styled.div`
 
 const ProfileImage = styled.img`
   border-radius: 6px;
+  min-height: 100px;
 `;
 
 const UserInfoArea = styled.div`
@@ -84,6 +88,7 @@ const GreetingBox = styled.div`
   margin-top: 12px;
   font-size: 15px;
   word-break: keep-all;
+  min-height: 72px;
 `;
 
 const ContentBox = styled.ul`
@@ -129,6 +134,7 @@ const SubscribeIcon = styled.span`
 
 const YourPageProfile = () => {
   const [isFollow, setIsFollow] = useState(true);
+  const [yourProfile, setYourProfile] = useAtom(YourProfileAtom);
   const setTitle = useSetAtom(titleAtom);
 
   const onClickFollowToggle = () => {
@@ -139,33 +145,57 @@ const YourPageProfile = () => {
     setTitle('매거진');
   }, [setTitle]);
 
+  const fetchGetYourPageProfile = async () => {
+    try {
+      const {
+        data: { data, success, message },
+      } = await fetch.get(
+        `/api/api/consumer/detail?consumerId=consumer2&myId=consumer1`,
+      );
+      if (success) {
+        setIsFollow(data.isFollow);
+        setYourProfile(data.consumer);
+      } else {
+        console.log(message);
+      }
+    } catch (error) {
+      console.error('Error', error);
+    }
+  };
+
+  useLayoutEffect(() => {
+    fetchGetYourPageProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <HeaderWrapper>
       <ProfileImageBox>
         <ProfileImage
-          src="https://i.namu.wiki/i/iJ6OjdyZXJ8CFJxGXccAczCMUXLGAIcuVXkMKNK82N9QRtzUZnIFQShk0kvxznTGRynmKGriR49ixH464rGw2w.webp"
+          src={
+            'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
+            yourProfile.profileUrl
+          }
           alt="Profile Image"
         />
       </ProfileImageBox>
       <UserInfoArea>
         <NameBox>
           <span className="club-badge">U클럽</span>
-          <div className="nickname">현진현진</div>
+          <div className="nickname">{yourProfile.consumerNickname}</div>
           <SubscribeWrap>
             <FaUserPlus
               size={18}
               color="#fff
 "
             />
-            <strong>132명</strong>
+            <strong>
+              {formatNumber(yourProfile.followerConsumerIds?.length)} 명
+            </strong>
             <SubscribeIcon>구독중</SubscribeIcon>
           </SubscribeWrap>
         </NameBox>
-        <GreetingBox>
-          G마켓/옥션 9년 경력의 신뢰할 수 있는 직매입 판매자 입니다. <br />
-          주요 판매 상품: 메종 키츠네, 디올, 구찌 많은 문의 바랍니다.
-          <br /> 연락처: 010-1234-1234
-        </GreetingBox>
+        <GreetingBox>{yourProfile.profileContent}</GreetingBox>
         <ContentBox>
           <li>
             <button
