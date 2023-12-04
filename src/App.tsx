@@ -1,10 +1,13 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Global } from '@emotion/react';
-import { useEffect } from 'react';
+import { useCallback, useLayoutEffect } from 'react';
+import { useSetAtom } from 'jotai';
 import Navbar from '@/components/navbar';
 import globalStyle from './styles/global';
 import BottomNavigation from './components/navbar/BottomNavigation';
+import { MyProfileAtom } from '@/store/my-profile';
+import { fetch } from '@/apis/api';
 
 const Main = styled.main`
   display: flex;
@@ -23,10 +26,26 @@ const Wrap = styled.div`
 
 function App() {
   const { pathname } = useLocation();
+  const setMyProfile = useSetAtom(MyProfileAtom);
+  const fetchGetMyPageProfile = useCallback(async () => {
+    try {
+      const {
+        data: { data, success, message },
+      } = await fetch.get(`/api/api/consumer/me?consumerId=consumer1`);
+      if (success) {
+        setMyProfile(data.consumer);
+      } else {
+        console.log(message);
+      }
+    } catch (error) {
+      console.error('Error', error);
+    }
+  }, [setMyProfile]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [pathname]);
+    fetchGetMyPageProfile();
+  }, [fetchGetMyPageProfile, pathname]);
 
   return (
     <Main>

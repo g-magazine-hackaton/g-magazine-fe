@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { MdChangeCircle } from 'react-icons/md';
 import Button from '@/components/ui/button';
 import TextArea from '@/components/ui/textarea';
 import { titleAtom } from '@/store/page-info';
+import { MyProfileAtom } from '@/store/my-profile';
 
 const pageWrapperStyle = css`
   display: flex;
@@ -87,6 +88,8 @@ const editButtonStyle = css`
 `;
 
 const Profile = () => {
+  const myProfile = useAtomValue(MyProfileAtom);
+  console.log({ myProfile });
   const setTitle = useSetAtom(titleAtom);
   const [profileData, setProfileData] = useState({
     profileUrl: '',
