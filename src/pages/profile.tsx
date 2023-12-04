@@ -8,6 +8,7 @@ import TextArea from '@/components/ui/textarea';
 import { titleAtom } from '@/store/page-info';
 import { MyProfileAtom } from '@/store/my-profile';
 import { uploadImage } from '@/apis/image';
+import { IMAGE_URL } from '@/apis/urls';
 
 const pageWrapperStyle = css`
   display: flex;
@@ -100,7 +101,6 @@ const Profile = () => {
 
   const handleUpload = async ({ target }) => {
     const uploadedFile = target.files[0];
-    // TODO: API 연동
     const {
       success,
       files: [file],
@@ -110,7 +110,10 @@ const Profile = () => {
       alert(message);
       return;
     }
-    setEditProfileData((prev) => ({ ...prev, imageUrl: `/${file}` }));
+    setEditProfileData((prev) => ({
+      ...prev,
+      imageUrl: file.replace('uploads', ''),
+    }));
   };
 
   const handleEdit = () => {
@@ -141,7 +144,11 @@ const Profile = () => {
   return (
     <div css={pageWrapperStyle}>
       <div css={photoBoxStyle}>
-        <img className="profile-photo" src={imageUrl} alt="프로필 사진" />
+        <img
+          className="profile-photo"
+          src={IMAGE_URL + imageUrl}
+          alt="프로필 사진"
+        />
         <label className="photo-upload-button">
           <MdChangeCircle className="upload-icon" />
           <input
