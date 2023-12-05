@@ -9,6 +9,7 @@ import { titleAtom } from '@/store/page-info';
 import { MyProfileAtom } from '@/store/my-profile';
 import { uploadImage } from '@/apis/image';
 import Image from '@/components/ui/image';
+import { postProfile } from '@/apis/profile';
 
 const pageWrapperStyle = css`
   display: flex;
@@ -116,8 +117,16 @@ const Profile = () => {
     }));
   };
 
-  const handleEdit = () => {
-    // TODO: API 연동
+  const handleEdit = async () => {
+    const { success, message } = await postProfile({
+      nickName: nickname,
+      content: introduce,
+      photoUrl: imageUrl,
+    });
+    if (!success) {
+      alert(message);
+      return;
+    }
     setMyProfile((prev) => ({
       ...prev,
       profileUrl: imageUrl,
