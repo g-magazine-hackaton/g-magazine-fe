@@ -27,6 +27,7 @@ const TitleArea = styled.div`
   font-size: 18px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
   font-weight: 600;
+  font-family: Gmarket Sans;
 `;
 
 const ContentsArea = styled.div<Pick<MyPageSectionProps, 'height' | 'round'>>`

@@ -215,6 +215,7 @@ const SubScribePage: React.FC = () => {
           display: 'flex',
           padding: '10px 20px',
           borderBottom: '1px solid #eaeaea',
+          fontFamily: 'Gmarket Sans',
         }}
       >
         <div

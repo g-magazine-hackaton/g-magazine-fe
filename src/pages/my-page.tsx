@@ -46,6 +46,7 @@ const FolderHeader = styled.div`
   width: 100%;
   height: 32px;
   padding: 0 12px;
+  font-family: Gmarket Sans;
 
   > span {
     font-weight: 600;
@@ -75,6 +76,7 @@ const Heading = styled.h1`
   position: relative;
   border-radius: 50% 0 0 0;
   border-bottom: 1px solid #eee;
+  font-family: Gmarket Sans;
 `;
 
 const uploadButtonStyle = css`
