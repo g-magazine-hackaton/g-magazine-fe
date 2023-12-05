@@ -11,7 +11,7 @@ import { titleAtom } from '@/store/page-info';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { getMagazineDetail } from '@/apis/magazine';
+import { getMagazineDetail, postLike } from '@/apis/magazine';
 import { IMAGE_URL } from '@/apis/urls';
 
 const imageSliderWrapStyle = css`
@@ -170,10 +170,10 @@ const MagazineDetail = () => {
 
   const [data, setData] = useState<{
     magazine: {
-      likedCnt: number;
-      magazineContent: string | ReactNode;
-      photoUrls: string[];
-    } | null;
+      likedCnt?: number;
+      magazineContent?: string | ReactNode;
+      photoUrls?: string[];
+    };
     goods: {
       goodsPageUrl: string;
       goodsPhotoUrl: string;
@@ -182,18 +182,25 @@ const MagazineDetail = () => {
     }[];
     isLike: boolean;
   }>({
-    magazine: null,
+    magazine: {},
     goods: [],
     isLike: false,
   });
 
   const { magazine, goods, isLike } = data;
-  const { likedCnt, magazineContent, photoUrls = [] } = magazine || {};
+  const { likedCnt = 0, magazineContent, photoUrls = [] } = magazine || {};
   const { goodsPageUrl, goodsPhotoUrl, goodsPrice, goodsName } = goods[0] || {};
   const LinkIcon = isLike ? IoMdHeart : IoMdHeartEmpty;
 
-  const handleToggleLike = () => {
-    setData((prev) => ({ ...prev, isLike: !isLike }));
+  const handleToggleLike = async () => {
+    const toggledLike = !isLike;
+    const { success } = await postLike({ id, isLike: toggledLike });
+    if (!success) return;
+    setData((prev) => ({
+      ...prev,
+      isLike: toggledLike,
+      magazine: { ...magazine, likedCnt: likedCnt + (toggledLike ? 1 : -1) },
+    }));
   };
 
   const handlePrev = () => {

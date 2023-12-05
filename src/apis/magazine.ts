@@ -61,3 +61,17 @@ export const getMagazineDetail = async (magazineId: string) => {
     };
   }
 };
+
+export const postLike = async ({ id, isLike }) => {
+  try {
+    const { data } = await fetch.post('/api/api/magazine/like', {
+      consumerId: 'consumer1',
+      magazineId: id,
+      isPlus: isLike,
+    });
+    return data;
+  } catch (e) {
+    console.error(e);
+    return { success: false, message: '매거진 작성에 실패했습니다.' };
+  }
+};
