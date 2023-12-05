@@ -23,7 +23,6 @@ const FilterContainer = styled.div`
   align-items: center;
   background: #f7f7f7;
   padding: 6px 12px;
-  border-bottom: 1px solid #eaeaea;
   > strong {
     margin-left: 6px;
     margin-right: 8px;
@@ -49,10 +48,11 @@ const PowerWrap = styled.span`
 `;
 
 const SubscribeWrap = styled.span`
-  margin-left: auto;
   display: flex;
+  width: 50%;
   align-items: center;
-
+  justify-content: center;
+  color: #000;
   > strong {
     font-size: 14px;
     font-weight: 600;
@@ -198,13 +198,33 @@ const SubScribePage: React.FC = () => {
 
   return (
     <PageContainer>
-      <div>
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          padding: '10px 20px',
+          borderBottom: '1px solid #eaeaea',
+        }}
+      >
+        <div
+          style={{
+            width: '50%',
+            textAlign: 'center',
+            color: '#9E9E9E',
+            fontWeight: 600,
+          }}
+        >
+          추천 컨슈머
+        </div>
+        <span
+          style={{
+            color: '#ccc',
+          }}
+        >
+          |
+        </span>
         <SubscribeWrap>
-          <FaUserPlus
-            size={18}
-            color="#BDBDBD
-"
-          />
+          <FaUserPlus size={18} color="#000" />
           <strong>{myProfile?.followingConsumerIds?.length} 명</strong>
           <SubscribeIcon>구독중</SubscribeIcon>
         </SubscribeWrap>
