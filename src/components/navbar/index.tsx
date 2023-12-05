@@ -110,6 +110,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const title = useAtomValue(titleAtom);
   const [isScrollTop, setIsScrollTop] = useState(true);
+  console.log(title);
 
   // 상세 네비바 사용
   const showTitle = !![
@@ -118,8 +119,8 @@ const Navbar = () => {
     '/rank',
     '/seller',
     '/subscribe',
-    '/magazine/1',
-  ].find((path) => pathname.endsWith(path));
+    '/magazine/',
+  ].find((path) => pathname.includes(path));
   const iconColor = showTitle ? '#000' : '#fff';
 
   const handlePrev = () => {
