@@ -34,6 +34,7 @@ const ProfileImageBox = styled.div`
     top: 4px;
     left: 6px;
     color: #fff;
+    background-color: #081f3f;
     padding: 4px 10px;
     font-size: 12px;
     border: none;

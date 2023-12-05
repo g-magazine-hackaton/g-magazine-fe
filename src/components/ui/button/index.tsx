@@ -8,7 +8,7 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const defaultClassName =
-    'cursor-pointer rounded-lg border border-transparent bg-[#f9f9f9] px-5 py-2 font-medium hover:border-primary focus:outline-1 dark:bg-[#1a1a1a]';
+    'cursor-pointer rounded-lg border border-transparent px-5 py-2 font-medium hover:border-primary focus:outline-1';
   const buttonClassName = [defaultClassName, className].join(' ');
   return (
     <button {...props} className={buttonClassName}>
