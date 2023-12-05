@@ -12,7 +12,7 @@ import Image from '@/components/ui/image';
 
 const TabContainer = styled.div`
   display: flex;
-  padding: 9px 0;
+  padding: 2px 0;
   padding-left: 12px;
   margin-top: 12px;
   overflow: auto hidden;
@@ -34,21 +34,20 @@ const TabStyle = styled.button<{ active: boolean }>`
   justify-content: center;
   height: 32px;
   padding: 0px 11px;
-  border: 1px solid rgb(0, 0, 0);
+  border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
-  color: rgb(0, 0, 0);
   font-weight: 600;
   margin-right: 8px;
   background-color: ${(props) => (props.active ? '#222' : '#fff')};
-  color: ${(props) => (props.active ? '#fff' : '#222')};
+  color: ${(props) => (props.active ? '#fff' : '#757575')};
   font-family: Gmarket Sans;
 `;
 
 const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 4px;
   padding: 10px;
   background-color: #fff;
 `;
@@ -56,7 +55,6 @@ const GridContainer = styled.div`
 const GridItem = styled.div`
   width: 100%;
   height: 132px;
-  border: 1px solid #ddd;
   display: flex;
   justify-content: center;
   align-items: center;

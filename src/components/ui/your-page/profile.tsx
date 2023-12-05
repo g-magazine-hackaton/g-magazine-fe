@@ -10,13 +10,14 @@ import { formatNumber } from '@/lib/utils';
 import { postFollow } from '@/apis/consumer';
 import { MyProfileAtom } from '@/store/my-profile';
 import Image from '../image';
+import { IMAGE_URL } from '@/apis/urls';
 
 const HeaderWrapper = styled.div`
   display: flex;
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #007aff;
+  background-image: linear-gradient(170deg, #497cff 26%, #002041 79%);
   color: white;
   padding: 16px 18px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -47,6 +48,7 @@ const imageStyle = css`
   border-radius: 6px;
   width: 100%;
   height: 100%;
+  max-height: 132px;
 `;
 
 const UserInfoArea = styled.div`
@@ -60,16 +62,13 @@ const NameBox = styled.div`
   .club-badge {
     line-height: 22px;
     background-color: rgb(8, 31, 63);
+    border: 1px solid #fff;
     border-radius: 8px;
     padding: 0 8px;
     font-size: 12px;
     font-weight: 600;
-    border: 1px solid #fff;
   }
-  .nickname {
-    font-size: 18px;
-    font-weight: 700;
-  }
+
   .subscriber-count {
     margin-left: auto;
     display: flex;
@@ -78,7 +77,6 @@ const NameBox = styled.div`
     font-size: 14px;
     font-weight: 600;
     > span {
-      background: #ff3399;
       line-height: 18px;
       padding: 0 8px;
       border-radius: 12px;
@@ -88,14 +86,21 @@ const NameBox = styled.div`
 `;
 
 const GreetingBox = styled.div`
+  width: 100%;
   margin-top: 12px;
   font-size: 15px;
   word-break: keep-all;
-  min-height: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  .nickname {
+    display: flex;
+    font-size: 18px;
+    font-weight: 700;
+  }
 `;
-
 const ContentBox = styled.ul`
-  margin-top: 12px;
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(72px, auto));
   gap: 8px;
@@ -128,11 +133,10 @@ const SubscribeIcon = styled.span`
   padding: 2px 4px;
   border-radius: 4px;
   line-height: 16px;
-  font-size: 13px;
+  font-size: 14px;
   color: #fff;
   font-weight: 600;
-  margin-left: 4px;
-  background-color: #ff3399;
+  margin-right: 3px;
 `;
 
 const YourPageProfile = () => {
@@ -196,20 +200,30 @@ const YourPageProfile = () => {
       <UserInfoArea>
         <NameBox>
           <span className="club-badge">U클럽</span>
-          <div className="nickname">{yourProfile.consumerNickname}</div>
+          <strong>{formatNumber(yourProfile.consumerScore)}P</strong>
           <SubscribeWrap>
-            <FaUserPlus
-              size={18}
-              color="#fff
-"
-            />
+            <SubscribeIcon>구독자</SubscribeIcon>
+            <FaUserPlus size={16} color="#fff" />
             <strong>
-              {formatNumber(yourProfile.followerConsumerIds?.length)} 명
+              {formatNumber(yourProfile.followerConsumerIds?.length)}
             </strong>
-            <SubscribeIcon>구독중</SubscribeIcon>
+            명
           </SubscribeWrap>
         </NameBox>
-        <GreetingBox>{yourProfile.profileContent}</GreetingBox>
+        <GreetingBox>
+          <div className="nickname">
+            {yourProfile.consumerNickname}
+            <img
+              src={IMAGE_URL + yourProfile.consumerRankImageUrl}
+              alt={yourProfile.consumerNickname}
+              style={{
+                width: '24px',
+                marginLeft: '4px',
+              }}
+            />
+          </div>
+          {yourProfile.profileContent}
+        </GreetingBox>
         <ContentBox>
           <li>
             <button
@@ -219,7 +233,7 @@ const YourPageProfile = () => {
                 color: isFollow ? '#fff' : '#222',
               }}
             >
-              {isFollow ? '구독중' : '구독 취소하기'}
+              {isFollow ? '구독중' : '구독하기'}
             </button>
           </li>
         </ContentBox>

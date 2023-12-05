@@ -87,6 +87,11 @@ const UserName = styled.span`
 
 const Description = styled.span`
   color: grey;
+  width: 90%;
+  word-break: keep-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const Badge = styled.img`
@@ -97,9 +102,10 @@ const Badge = styled.img`
 
 const ActionButton = styled.button`
   background-color: #007bff;
+  min-width: 72px;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.8rem;
   border-radius: 4px;
   margin-left: auto;
   cursor: pointer;

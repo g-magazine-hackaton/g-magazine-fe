@@ -10,6 +10,7 @@ import { MyProfileAtom } from '@/store/my-profile';
 import { ROOT_PATH } from '@/temp/global-variables';
 import { formatNumber } from '@/lib/utils';
 import Image from '../image';
+import { IMAGE_URL } from '@/apis/urls';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -72,11 +73,15 @@ const NameBox = styled.div`
 `;
 
 const GreetingBox = styled.div`
+  width: 100%;
   margin-top: 12px;
   font-size: 15px;
   word-break: keep-all;
-
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   .nickname {
+    display: flex;
     font-size: 18px;
     font-weight: 700;
   }
@@ -153,6 +158,14 @@ const MyPageProfile = () => {
         <GreetingBox>
           <div className="nickname">
             {myProfile.consumerNickname || '규라니'}
+            <img
+              src={IMAGE_URL + myProfile.consumerRankImageUrl}
+              alt={myProfile.consumerNickname}
+              style={{
+                width: '24px',
+                marginLeft: '4px',
+              }}
+            />
           </div>
           {myProfile.profileContent || ''}
         </GreetingBox>
