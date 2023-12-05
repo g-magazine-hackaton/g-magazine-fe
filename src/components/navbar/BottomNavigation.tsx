@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { ROOT_PATH } from '@/temp/global-variables';
 
 const bottomNavigationStyle = css`
@@ -23,29 +23,33 @@ const bottomNavigationStyle = css`
       display: block;
       width: 48px;
       height: 48px;
-      background: url(//mockupdev.gmarket.co.kr/build/mobile/image/sprite/gnb/sp-gnb.png?v=1700614126178)
+      background: url(//script.gmarket.co.kr/build/mobile/image/sprite/gnb/sp-gnb.png?v=1701154578432)
         no-repeat;
       background-size: 290px 256px;
     }
 
     .link__home {
-      background-position: -108px 0px;
+      background-position: -108px -50px;
 
-      &--active {
-        background-position: -108px -50px;
+      &.active {
+        background-position: 0px -108px;
       }
     }
 
     .link__search {
-      background-position: -208px -150px;
+      background-position: -108px 0px;
     }
 
     .link__myg {
-      background-position: -158px -50px;
+      background-position: 0px -158px;
+
+      &.active {
+        background-position: -50px -158px;
+      }
     }
 
     .link__rvh {
-      background-position: 0px -158px;
+      background-position: -100px -158px;
     }
   }
 `;
@@ -56,16 +60,16 @@ const BottomNavigation = () => {
       <div className="box__bottom-navigation-inner">
         <ul className="list">
           <li className="list-item">
-            <Link to={`${ROOT_PATH}/`} className="link link__home" />
+            <NavLink to={`${ROOT_PATH}/`} className="link link__home" />
           </li>
           <li className="list-item">
-            <Link to="#none" className="link link__search" />
+            <NavLink to="#none" className="link link__search" />
           </li>
           <li className="list-item">
-            <Link to="my-page" className="link link__myg" />
+            <NavLink to="my-page" className="link link__myg" />
           </li>
           <li className="list-item">
-            <Link to="#none" className="link link__rvh" />
+            <NavLink to="#none" className="link link__rvh" />
           </li>
         </ul>
       </div>
