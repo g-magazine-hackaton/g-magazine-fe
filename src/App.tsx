@@ -22,7 +22,7 @@ const Wrap = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
-  margin: 0 0 48px 0;
+  margin: 48px 0;
 `;
 
 function App() {
