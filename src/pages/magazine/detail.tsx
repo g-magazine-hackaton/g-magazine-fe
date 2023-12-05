@@ -224,6 +224,7 @@ const MagazineDetail = () => {
   useEffect(() => {
     setTitle('매거진 상세');
   }, [setTitle]);
+  console.log({ goodsPhotoUrl });
 
   return (
     <div>
@@ -248,7 +249,9 @@ const MagazineDetail = () => {
       <Link to={goodsPageUrl}>
         <div css={productInfoStyle}>
           <div className="image">
-            {goodsPhotoUrl && <Image src={goodsPhotoUrl} alt="상품 이미지" />}
+            {goodsPhotoUrl && (
+              <Image src={goodsPhotoUrl.split(',')[0]} alt="상품 이미지" />
+            )}
           </div>
           <div className="info-box">
             <p className="item-price">
