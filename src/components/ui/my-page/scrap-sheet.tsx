@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect } from 'react';
+import React, { useEffect, SyntheticEvent } from 'react';
 import Sheet from 'react-modal-sheet';
 import styled from '@emotion/styled';
 import Paper from '@mui/material/Paper';
@@ -10,6 +10,7 @@ import { styled as muiStyled } from '@mui/material/styles';
 import { MyMagazineAtom } from '@/store/my-magazine';
 import { ScrapAtom } from '@/store/scrap';
 import { fetch } from '@/apis/api';
+import { IMAGE_URL } from '@/apis/urls';
 
 interface MasonrySectionProps {
   title: 'recent' | 'all';
@@ -37,28 +38,51 @@ const SectionTitle = styled.div`
   width: 100%;
   font-size: 20px;
   font-weight: 600;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 8px;
   text-align: center;
-  border-bottom: 1px solid #eee;
   padding: 8px 0;
 `;
 
 const ImageContainer = styled.img`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+`;
+
+const ImageWarp = styled.div`
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    background-color: rgba(0, 0, 0, 0.04);
+  }
 `;
 
 const MasonrySection: React.FC<MasonrySectionProps> = ({ title, data }) => (
-  <Box sx={{ width: '100%' }}>
-    <SectionTitle>
-      {title === 'recent' && <NewWrap>최근</NewWrap>}
-      {title === 'recent' ? '7일 스크랩' : '전체 스크랩'}
-    </SectionTitle>
+  <Box sx={{ width: '100%', margin: '0 4px' }}>
+    <SectionTitle>나의 스크랩</SectionTitle>
     <Masonry columns={3} spacing={1}>
       {data.map((x: { photoUrls: string }, index: number) => (
         <Item key={index}>
-          <ImageContainer src={x.photoUrls} alt={x.photoUrls} />
+          <ImageWarp>
+            <ImageContainer
+              src={IMAGE_URL + x.photoUrls}
+              alt={x.photoUrls}
+              onError={(e) => {
+                (e.target as any).src =
+                  'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg';
+              }}
+            />
+          </ImageWarp>
         </Item>
       ))}
     </Masonry>

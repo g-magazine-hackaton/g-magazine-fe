@@ -1,4 +1,4 @@
-import React, { FC, useLayoutEffect } from 'react';
+import React, { FC, useLayoutEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -92,6 +92,7 @@ const Count: FC = () => <CountWrap>5</CountWrap>;
 const MyPage: FC = () => {
   const navigate = useNavigate();
   const [myFolder, setMyFolder] = useAtom(FolderAtom);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [myMagazine, setMyMagazine] = useAtom(MyMagazineAtom);
 
   const fetchGetMyPageProfile = async () => {
@@ -101,6 +102,7 @@ const MyPage: FC = () => {
       } = await fetch.get(`/api/api/magazine/folders?consumerId=consumer1`);
       if (success) {
         setMyFolder(data.folders);
+        setIsDataLoaded(true);
       } else {
         console.log(message);
       }
@@ -165,7 +167,10 @@ const MyPage: FC = () => {
                     <img src="plus.png" alt="업로드 아이콘" />
                   </Link>
                 </FolderHeader>
-                <MyPageMagazineSlide item={filteredMagazines} />
+                <MyPageMagazineSlide
+                  item={filteredMagazines}
+                  isDataLoaded={isDataLoaded}
+                />
               </React.Fragment>
             );
           })}

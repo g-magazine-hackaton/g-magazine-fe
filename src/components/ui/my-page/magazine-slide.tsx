@@ -92,35 +92,41 @@ interface MagazineSlideItem {
 
 interface MyPageMagazineSlideProps {
   item: MagazineSlideItem[];
+  isDataLoaded: boolean;
 }
 
-const MyPageMagazineSlide: FC<MyPageMagazineSlideProps> = ({ item }) => {
+const MyPageMagazineSlide: FC<MyPageMagazineSlideProps> = ({
+  item,
+  isDataLoaded,
+}) => {
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3.8,
       spacing: 8,
     },
   });
-
   return (
-    <div
-      css={sliderStyle}
-      ref={sliderRef}
-      className="keen-slider"
-      style={{
-        padding: '10px',
-      }}
-    >
-      {item.map((slide, idx) => (
-        <React.Fragment key={`${idx + 1} my-slide-magazine`}>
-          <Slide
-            photoUrls={
-              'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
-              slide.photoUrls
-            }
-          />
-        </React.Fragment>
-      ))}
+    <div css={sliderStyle}>
+      {isDataLoaded && (
+        <div
+          ref={sliderRef}
+          className="keen-slider"
+          style={{
+            padding: '10px',
+          }}
+        >
+          {item.map((slide, idx) => (
+            <React.Fragment key={`${idx + 1} my-slide-magazine`}>
+              <Slide
+                photoUrls={
+                  'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
+                  slide.photoUrls
+                }
+              />
+            </React.Fragment>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
