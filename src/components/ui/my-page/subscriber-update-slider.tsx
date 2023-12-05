@@ -3,10 +3,11 @@ import { FC, Fragment, useEffect, useState } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import { Link } from 'react-router-dom';
 import { useAtom } from 'jotai';
-import { MyMagazineAtom } from '@/store/my-magazine';
+import { MySubScriberUpdate } from '@/store/my-subscriber-update';
 import { fetch } from '@/apis/api';
 import { ROOT_PATH } from '@/temp/global-variables';
 import Image from '../image';
+import { IMAGE_URL } from '@/apis/urls';
 
 const sliderStyle = css`
   .keen-slider {
@@ -83,30 +84,30 @@ const sliderStyle = css`
 const imageStyle = css`
   width: 100%;
   border-radius: 0;
+  height: 90px;
 `;
 
 interface SlideProps {
-  photoUrls: string;
+  profileUrl: string;
   label: string;
-  magazineContent: string;
+  consumerNickname: string;
 }
 
 const Slide: FC<SlideProps> = ({
-  photoUrls,
+  profileUrl,
   label = 'new',
-  magazineContent,
+  consumerNickname,
 }) => (
   <div className="keen-slider__slide">
-    <Image src={photoUrls} alt="슬라이드 이미지" css={imageStyle} />
-    <span className={label === 'Rank' ? 'rank' : ''}>{label}</span>
+    <Image src={profileUrl} alt="슬라이드 이미지" css={imageStyle} />
     <div className="user">
-      <span>{magazineContent}</span>
+      <span>{consumerNickname}</span>
     </div>
   </div>
 );
 
 const SubscriberUpdateSlider: FC = () => {
-  const [myMagazine, setMyMagazine] = useAtom(MyMagazineAtom);
+  const [updatMagazine, setUpdateMagazine] = useAtom(MySubScriberUpdate);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     slides: {
@@ -119,9 +120,11 @@ const SubscriberUpdateSlider: FC = () => {
     try {
       const {
         data: { data, success, message },
-      } = await fetch.get(`/api/api/magazine/all?consumerId=consumer1`);
+      } = await fetch.get(
+        `/api/api/consumer/followings/recent-update?consumerId=consumer1`,
+      );
       if (success) {
-        setMyMagazine(data.magazines);
+        setUpdateMagazine(data.consumer);
         setIsDataLoaded(true);
       } else {
         console.log(message);
@@ -139,8 +142,8 @@ const SubscriberUpdateSlider: FC = () => {
     <div css={sliderStyle} style={{ padding: '10px 0' }}>
       {isDataLoaded && (
         <div ref={sliderRef} className="keen-slider">
-          {myMagazine.map((slide) => (
-            <Fragment key={slide.magazineContent}>
+          {updatMagazine.map((slide) => (
+            <Fragment key={slide.consumerNickname}>
               <Link to={`${ROOT_PATH}/my-page/seller`}>
                 <Slide {...slide} />
               </Link>

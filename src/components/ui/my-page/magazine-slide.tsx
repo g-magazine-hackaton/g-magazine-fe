@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 
 import { useKeenSlider } from 'keen-slider/react';
-import 'keen-slider/keen-slider.min.css';
 import { Link } from 'react-router-dom';
 import Image from '../image';
+import { IMAGE_URL } from '@/apis/urls';
 
 const sliderStyle = css`
   .keen-slider {
@@ -108,9 +108,10 @@ const MyPageMagazineSlide: FC<MyPageMagazineSlideProps> = ({
     },
   });
   return (
-    <div css={sliderStyle}>
+    <div>
       {isDataLoaded && (
         <div
+          css={sliderStyle}
           ref={sliderRef}
           className="keen-slider"
           style={{
@@ -119,7 +120,7 @@ const MyPageMagazineSlide: FC<MyPageMagazineSlideProps> = ({
         >
           {item.map((slide, idx) => (
             <React.Fragment key={`${idx + 1} my-slide-magazine`}>
-              <Slide photoUrls={slide.photoUrls} />
+              <Slide photoUrls={IMAGE_URL + slide.photoUrls} />
             </React.Fragment>
           ))}
         </div>

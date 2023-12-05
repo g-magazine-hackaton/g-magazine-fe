@@ -88,7 +88,6 @@ const uploadButtonStyle = css`
 `;
 
 const UpdateUser: FC = () => <UpdateWrap>new</UpdateWrap>;
-const Count: FC = () => <CountWrap>5</CountWrap>;
 
 const MyPage: FC = () => {
   const navigate = useNavigate();
@@ -103,6 +102,21 @@ const MyPage: FC = () => {
       } = await fetch.get(`/api/api/magazine/folders?consumerId=consumer1`);
       if (success) {
         setMyFolder(data.folders);
+      } else {
+        console.log(message);
+      }
+    } catch (error) {
+      console.error('Error', error);
+    }
+  };
+
+  const fetchGetMyMagazines = async () => {
+    try {
+      const {
+        data: { data, success, message },
+      } = await fetch.get(`/api/api/magazine/all?consumerId=consumer1`);
+      if (success) {
+        setMyMagazine(data.magazines);
         setIsDataLoaded(true);
       } else {
         console.log(message);
@@ -114,6 +128,7 @@ const MyPage: FC = () => {
 
   useLayoutEffect(() => {
     fetchGetMyPageProfile();
+    fetchGetMyMagazines();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -132,11 +147,7 @@ const MyPage: FC = () => {
       }}
     >
       <MyPageProfileComponent />
-      <MyPageSection
-        title="매거진 업데이트"
-        icon={<UpdateUser />}
-        count={<Count />}
-      >
+      <MyPageSection title="매거진 업데이트" icon={<UpdateUser />}>
         <MyPageSubscriberUpdateSlider />
       </MyPageSection>
 

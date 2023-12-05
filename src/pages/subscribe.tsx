@@ -150,7 +150,6 @@ const SubscribeItemComponent: React.FC<ISubscribeItemProps> = ({ user }) => (
 
 const FilterUI = () => {
   const [filter, setFilter] = useState('recent');
-  const myProfile = useAtomValue(MyProfileAtom);
 
   return (
     <FilterContainer>
@@ -164,15 +163,6 @@ const FilterUI = () => {
         <option value="recent">최신순</option>
         <option value="rank">랭킹순</option>
       </Select>
-      <SubscribeWrap>
-        <FaUserPlus
-          size={18}
-          color="#BDBDBD
-"
-        />
-        <strong>{myProfile.followingConsumerIds.length} 명</strong>
-        <SubscribeIcon>구독중</SubscribeIcon>
-      </SubscribeWrap>
     </FilterContainer>
   );
 };
@@ -180,6 +170,7 @@ const FilterUI = () => {
 const SubScribePage: React.FC = () => {
   const setTitle = useSetAtom(titleAtom);
   const [following, setFollowing] = useAtom(MyFollowingAtom);
+  const myProfile = useAtomValue(MyProfileAtom);
 
   useEffect(() => {
     setTitle('내 구독');
@@ -207,6 +198,17 @@ const SubScribePage: React.FC = () => {
 
   return (
     <PageContainer>
+      <div>
+        <SubscribeWrap>
+          <FaUserPlus
+            size={18}
+            color="#BDBDBD
+"
+          />
+          <strong>{myProfile?.followingConsumerIds?.length} 명</strong>
+          <SubscribeIcon>구독중</SubscribeIcon>
+        </SubscribeWrap>
+      </div>
       <FilterUI />
       {following.map((user) => (
         <SubscribeItemComponent key={user.consumerId} user={user} />

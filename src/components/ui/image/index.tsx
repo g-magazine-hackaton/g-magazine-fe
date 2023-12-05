@@ -39,8 +39,10 @@ const Image = ({
   alt = '',
   isLazy = false,
   css,
+  height,
   className = '',
 }: {
+  height?: string;
   src: string;
   alt?: string;
   isLazy?: boolean;
@@ -61,6 +63,9 @@ const Image = ({
       onError={(e) => {
         (e.target as HTMLImageElement).src =
           'https://pics.gmarket.co.kr/pc/single/kr/snowwhite/common/no_image_itemcard_300x300.png';
+      }}
+      style={{
+        height,
       }}
     />
   </div>
