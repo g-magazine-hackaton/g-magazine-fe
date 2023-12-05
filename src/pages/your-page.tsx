@@ -118,7 +118,7 @@ const YourPage: React.FC = () => {
           <TabStyle
             key={tab.id}
             onClick={() => setTabIdx(tab.folderId)}
-            active={index + 1 === Number(tabIdx)}
+            active={tabIdx === tab.folderId}
           >
             {tab.folderName}
           </TabStyle>
