@@ -142,6 +142,7 @@ const SubscribeIcon = styled.span`
 const YourPageProfile = () => {
   const [isFollow, setIsFollow] = useState(true);
   const { consumerId: myId } = useAtomValue(MyProfileAtom);
+  const [count, setCount] = useState(0);
   const [yourProfile, setYourProfile] = useAtom(YourProfileAtom);
   const setTitle = useSetAtom(titleAtom);
 
@@ -152,7 +153,13 @@ const YourPageProfile = () => {
       isFollow: toggledFollow,
     });
     if (!success) return;
+
     setIsFollow(toggledFollow);
+    if (toggledFollow) {
+      setCount(count + 1);
+    } else {
+      setCount(count - 1);
+    }
     setYourProfile((prev) => ({
       ...prev,
       followerConsumerIds: toggledFollow
@@ -160,10 +167,6 @@ const YourPageProfile = () => {
         : yourProfile.followerConsumerIds?.filter((id: string) => id === myId),
     }));
   };
-
-  useEffect(() => {
-    setTitle('매거진');
-  }, [setTitle]);
 
   const fetchGetYourPageProfile = async () => {
     try {
@@ -173,6 +176,7 @@ const YourPageProfile = () => {
         `/api/api/consumer/detail?consumerId=consumer2&myId=consumer1`,
       );
       if (success) {
+        setCount(data.consumer.followerConsumerIds?.length);
         setIsFollow(data.isFollow);
         setYourProfile(data.consumer);
       } else {
@@ -182,6 +186,10 @@ const YourPageProfile = () => {
       console.error('Error', error);
     }
   };
+
+  useEffect(() => {
+    setTitle('매거진');
+  }, [setTitle]);
 
   useLayoutEffect(() => {
     fetchGetYourPageProfile();
@@ -204,10 +212,7 @@ const YourPageProfile = () => {
           <SubscribeWrap>
             <SubscribeIcon>구독자</SubscribeIcon>
             <FaUserPlus size={16} color="#fff" />
-            <strong>
-              {formatNumber(yourProfile.followerConsumerIds?.length)}
-            </strong>
-            명
+            <strong>{formatNumber(count)}</strong>명
           </SubscribeWrap>
         </NameBox>
         <GreetingBox>
