@@ -50,7 +50,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/g-magazine-fe\/fonts/, '')
       },
       '/uploads':{
-        target: 'http://localhost:7001/uploads/',
+        target: 'http://13.125.206.214:7001/uploads/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/\/uploads/, '')
       },
