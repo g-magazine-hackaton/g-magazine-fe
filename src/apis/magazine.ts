@@ -1,3 +1,4 @@
+import { formatDate } from '@/lib/utils';
 import { fetch } from './api';
 
 export type GoodsInfo = {
@@ -38,7 +39,7 @@ export const postMagazine = async ({ folder, content, goodsId, images }) => {
       folderId: folder,
       goodsIds: [goodsId],
       photoUrls: images,
-      upDt: new Date(),
+      upDt: formatDate(),
     });
     return data;
   } catch (e) {

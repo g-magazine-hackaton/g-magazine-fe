@@ -1,3 +1,4 @@
+import { formatDate } from '@/lib/utils';
 import { fetch } from './api';
 
 export const postProfile = async ({ nickName, content, photoUrl }) => {
@@ -7,7 +8,7 @@ export const postProfile = async ({ nickName, content, photoUrl }) => {
       nickName,
       content,
       photoUrl,
-      upDt: new Date(),
+      upDt: formatDate(),
     });
     return data;
   } catch (e) {
