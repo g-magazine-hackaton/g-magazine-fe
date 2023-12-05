@@ -392,9 +392,9 @@ const MagazineWrite = () => {
               <button
                 key={folderId}
                 className={classNames('chip', {
-                  active: folder === folderName,
+                  active: folder === folderId,
                 })}
-                onClick={() => handleClickChip(folderName)}
+                onClick={() => handleClickChip(folderId)}
               >
                 {folderName}
               </button>
