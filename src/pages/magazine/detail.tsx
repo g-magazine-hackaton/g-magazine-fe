@@ -144,6 +144,10 @@ const contentWrapStyle = css`
     font-family: Gmarket Sans;
   }
 
+  .content {
+    min-height: 80px;
+  }
+
   .comment-text {
     color: #8e8e8e;
   }
@@ -226,7 +230,6 @@ const MagazineDetail = () => {
   useEffect(() => {
     setTitle('매거진 상세');
   }, [setTitle]);
-  console.log({ goodsPhotoUrl });
 
   return (
     <div>
