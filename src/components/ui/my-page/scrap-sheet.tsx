@@ -10,7 +10,7 @@ import { styled as muiStyled } from '@mui/material/styles';
 import { MyMagazineAtom } from '@/store/my-magazine';
 import { ScrapAtom } from '@/store/scrap';
 import { fetch } from '@/apis/api';
-import { IMAGE_URL } from '@/apis/urls';
+import Image from '../image';
 
 interface MasonrySectionProps {
   title: 'recent' | 'all';
@@ -20,16 +20,6 @@ interface MasonrySectionProps {
 const Item = muiStyled(Paper)(() => ({
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
 }));
-
-const NewWrap = styled.span`
-  padding: 4px 6px;
-  border-radius: 4px;
-  line-height: 16px;
-  font-size: 14px;
-  color: #fff;
-  background-color: #000;
-  margin-right: 4px;
-`;
 
 const SectionTitle = styled.div`
   display: flex;
@@ -41,11 +31,6 @@ const SectionTitle = styled.div`
   margin-bottom: 8px;
   text-align: center;
   padding: 8px 0;
-`;
-
-const ImageContainer = styled.img`
-  width: 100%;
-  /* height: 100%; */
 `;
 
 const ImageWarp = styled.div`
@@ -65,6 +50,10 @@ const ImageWarp = styled.div`
     content: '';
     background-color: rgba(0, 0, 0, 0.04);
   }
+
+  > .image {
+    width: 100%;
+  }
 `;
 
 const MasonrySection: React.FC<MasonrySectionProps> = ({ title, data }) => (
@@ -74,14 +63,7 @@ const MasonrySection: React.FC<MasonrySectionProps> = ({ title, data }) => (
       {data.map((x: { photoUrls: string }, index: number) => (
         <Item key={index}>
           <ImageWarp>
-            <ImageContainer
-              src={IMAGE_URL + x.photoUrls}
-              alt={x.photoUrls}
-              onError={(e) => {
-                (e.target as any).src =
-                  'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg';
-              }}
-            />
+            <Image src={x.photoUrls} alt={x.photoUrls} className="image" />
           </ImageWarp>
         </Item>
       ))}

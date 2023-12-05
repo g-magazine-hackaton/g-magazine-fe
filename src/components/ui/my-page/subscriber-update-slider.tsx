@@ -6,6 +6,7 @@ import { useAtom } from 'jotai';
 import { MyMagazineAtom } from '@/store/my-magazine';
 import { fetch } from '@/apis/api';
 import { ROOT_PATH } from '@/temp/global-variables';
+import Image from '../image';
 
 const sliderStyle = css`
   .keen-slider {
@@ -79,6 +80,10 @@ const sliderStyle = css`
   }
 `;
 
+const imageStyle = css`
+  width: 100%;
+`;
+
 interface SlideProps {
   photoUrls: string;
   label: string;
@@ -91,13 +96,7 @@ const Slide: FC<SlideProps> = ({
   magazineContent,
 }) => (
   <div className="keen-slider__slide">
-    <img
-      src={
-        'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
-        photoUrls
-      }
-      alt="슬라이드 이미지"
-    />
+    <Image src={photoUrls} alt="슬라이드 이미지" css={imageStyle} />
     <span className={label === 'Rank' ? 'rank' : ''}>{label}</span>
     <div className="user">
       <span>{magazineContent}</span>

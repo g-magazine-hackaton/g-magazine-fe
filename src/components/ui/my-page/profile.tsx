@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useAtomValue } from 'jotai';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { VscActivateBreakpoints } from 'react-icons/vsc';
 import { FaUserPlus } from 'react-icons/fa';
@@ -11,6 +11,7 @@ import ScrapSheet from '@/components/ui/my-page/scrap-sheet';
 import { MyProfileAtom } from '@/store/my-profile';
 import { ROOT_PATH } from '@/temp/global-variables';
 import { formatNumber } from '@/lib/utils';
+import { IMAGE_URL } from '@/apis/urls';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -173,10 +174,7 @@ const MyPageProfile = () => {
     <HeaderWrapper>
       <ProfileImageBox>
         <ProfileImage
-          src={
-            'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
-            myProfile.profileUrl
-          }
+          src={IMAGE_URL + myProfile.profileUrl}
           alt="Profile Image"
         />
         <Link to="../profile">

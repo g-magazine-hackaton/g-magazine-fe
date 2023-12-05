@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import Image from '../image';
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 const mockData = [
@@ -73,36 +74,6 @@ const mainCarouselStyle = css`
       white-space: normal;
       display: inline-block;
 
-      .gds-thumbnail__image {
-        overflow: hidden;
-        display: block;
-        position: relative;
-        height: 0;
-        padding-bottom: 100%;
-        background: #eee;
-        border-radius: 8px;
-
-        &::after {
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          background: rgba(0, 0, 0, 0.04);
-          border-radius: 8px;
-          content: '';
-        }
-
-        img {
-          transform: translate(-50%, -50%);
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 100%;
-          border-radius: 8px;
-        }
-      }
-
       .gds-item-card__info {
         padding: 6px 14px 0 2px;
 
@@ -141,6 +112,26 @@ const mainCarouselStyle = css`
   }
 `;
 
+const imageStyle = css`
+  overflow: hidden;
+  display: block;
+  position: relative;
+  height: 0;
+  padding-bottom: 100%;
+  background: #eee;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+
+  img {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 8px;
+  }
+`;
+
 const MainCarousel = () => {
   return (
     <div className="box__item-wrap" css={mainCarouselStyle}>
@@ -152,9 +143,7 @@ const MainCarousel = () => {
           <li key={i} className="gds-item-group__item">
             <a href="#" className="gds-item-card">
               <div className="gds-thumbnail">
-                <span className="gds-thumbnail__image">
-                  <img className="image" src={imageUrl} alt={itemName} />
-                </span>
+                <Image src={imageUrl} alt={itemName} css={imageStyle} />
               </div>
               <div className="gds-item-card__info">
                 <div className="gds-item-card__info-inner">

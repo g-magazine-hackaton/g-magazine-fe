@@ -5,7 +5,7 @@ import Portal from '../portal';
 import { GoodsInfo, getGoods } from '@/apis/magazine';
 import { formatNumber } from '@/lib/utils';
 import { itemInfoWrapStyle } from '@/pages/magazine/write';
-import { IMAGE_URL } from '@/apis/urls';
+import Image from '../image';
 
 const popupStyle = css`
   backdrop-filter: brightness(0.7);
@@ -72,7 +72,7 @@ const popupInnerStyle = css`
 const itemInfoListStyle = css`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
   margin: 0 10px;
 `;
 
@@ -105,12 +105,12 @@ const SelectPopup = ({ onSelect, onClose }) => {
           <div className="popup-body">
             <ul css={itemInfoListStyle}>
               {goods.map(({ id, goodsName, goodsPhotoUrl, goodsPrice }) => {
-                const imageUrl = IMAGE_URL + goodsPhotoUrl.split(',')[0];
+                const imageUrl = goodsPhotoUrl.split(',')[0];
                 return (
                   <li key={id} css={itemInfoWrapStyle}>
                     <div className="image">
                       {goodsPhotoUrl && (
-                        <img src={imageUrl} alt="상품 이미지" />
+                        <Image src={imageUrl} alt="상품 이미지" isLazy />
                       )}
                     </div>
                     <div className="info-box">

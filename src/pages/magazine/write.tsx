@@ -11,7 +11,7 @@ import SelectPopup from '@/components/ui/mazagine/SelectPopup';
 import { formatNumber } from '@/lib/utils';
 import { GoodsInfo, getFolders, postMagazine } from '@/apis/magazine';
 import { uploadImage } from '@/apis/image';
-import { IMAGE_URL } from '@/apis/urls';
+import Image from '@/components/ui/image';
 
 const pageWrapperStyle = css`
   display: flex;
@@ -179,12 +179,6 @@ const imageSliderWrapStyle = css`
       background-color: #fff;
     }
 
-    > img {
-      width: inherit;
-      height: inherit;
-      border-radius: 10px;
-    }
-
     > input {
       display: none;
     }
@@ -313,7 +307,9 @@ const MagazineWrite = () => {
           </div>
           <div css={itemInfoWrapStyle}>
             <div className="image">
-              {goodsPhotoUrl && <img src={goodsPhotoUrl} alt="상품 이미지" />}
+              {goodsPhotoUrl && (
+                <Image src={goodsPhotoUrl} alt="상품 이미지" isLazy />
+              )}
             </div>
             <div className="info-box">
               {selectedItemData ? (
@@ -342,7 +338,7 @@ const MagazineWrite = () => {
                   className="delete-button"
                   onClick={() => handleDeleteImage(i)}
                 />
-                <img src={IMAGE_URL + url} alt={`${i + 1}번째 이미지`} />
+                <Image src={url} alt={`${i + 1}번째 이미지`} isLazy />
               </div>
             ))}
             <label className="image-wrap">

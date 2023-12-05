@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import { Link } from 'react-router-dom';
+import Image from '../image';
 
 const sliderStyle = css`
   .keen-slider {
@@ -26,8 +27,8 @@ const sliderStyle = css`
     overflow: hidden;
 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    img,
-    a {
+    a,
+    .image {
       width: 100%;
       height: 90px;
     }
@@ -81,7 +82,7 @@ interface SlideProps {
 const Slide: FC<SlideProps> = ({ photoUrls }) => (
   <div className="keen-slider__slide">
     <Link to="../magazine/1">
-      <img src={photoUrls} alt="슬라이드 이미지" />
+      <Image src={photoUrls} alt="슬라이드 이미지" className="image" />
     </Link>
   </div>
 );
@@ -117,12 +118,7 @@ const MyPageMagazineSlide: FC<MyPageMagazineSlideProps> = ({
         >
           {item.map((slide, idx) => (
             <React.Fragment key={`${idx + 1} my-slide-magazine`}>
-              <Slide
-                photoUrls={
-                  'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
-                  slide.photoUrls
-                }
-              />
+              <Slide photoUrls={slide.photoUrls} />
             </React.Fragment>
           ))}
         </div>

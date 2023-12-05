@@ -9,10 +9,12 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { RankAtom } from '@/store/rank';
 import { titleAtom } from '@/store/page-info';
 import { ROOT_PATH } from '@/temp/global-variables';
 import { fetch } from '@/apis/api';
+import Image from '@/components/ui/image';
 
 const PageContainer = styled.div`
   display: flex;
@@ -78,12 +80,6 @@ const RankItem = styled.li`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
-const ProfileImage = styled.img`
-  border-radius: 50%;
-  width: 52px;
-  height: 52px;
-`;
-
 const UserName = styled.span`
   font-weight: 600;
   font-size: 18px;
@@ -129,6 +125,12 @@ const StyledSection = styled.div`
   }
 `;
 
+const imageStyle = css`
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+`;
+
 interface IUserProfile {
   consumerNickname: string;
   profileContent: string;
@@ -142,13 +144,7 @@ interface IRankItemProps {
 const RankItemComponent: React.FC<IRankItemProps> = ({ user, rank }) => (
   <RankItem>
     <RankNumber>{rank}</RankNumber>
-    <ProfileImage
-      src={
-        'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
-        user.profileUrl
-      }
-      alt={user.consumerNickname}
-    />
+    <Image css={imageStyle} src={user.profileUrl} alt={user.consumerNickname} />
     <div
       style={{ display: 'flex', flexDirection: 'column', marginLeft: '18px' }}
     >

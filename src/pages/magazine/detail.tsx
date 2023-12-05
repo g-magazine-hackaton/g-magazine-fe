@@ -12,7 +12,7 @@ import { titleAtom } from '@/store/page-info';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { getMagazineDetail, postLike } from '@/apis/magazine';
-import { IMAGE_URL } from '@/apis/urls';
+import Image from '@/components/ui/image';
 
 const imageSliderWrapStyle = css`
   position: relative;
@@ -20,6 +20,7 @@ const imageSliderWrapStyle = css`
   .image {
     width: 100vw;
     height: 100vw;
+    border-radius: 0;
   }
 
   .prev-icon {
@@ -235,8 +236,8 @@ const MagazineDetail = () => {
         <Swiper pagination modules={[Pagination]}>
           {photoUrls.map((imageUrl, i) => (
             <SwiperSlide key={imageUrl}>
-              <img
-                src={IMAGE_URL + imageUrl}
+              <Image
+                src={imageUrl}
                 alt={`${i + 1}번째 이미지`}
                 className="image"
               />
@@ -247,9 +248,7 @@ const MagazineDetail = () => {
       <Link to={goodsPageUrl}>
         <div css={productInfoStyle}>
           <div className="image">
-            {goodsPhotoUrl && (
-              <img src={IMAGE_URL + goodsPhotoUrl} alt="상품 이미지" />
-            )}
+            {goodsPhotoUrl && <Image src={goodsPhotoUrl} alt="상품 이미지" />}
           </div>
           <div className="info-box">
             <p className="item-price">
@@ -279,10 +278,10 @@ const MagazineDetail = () => {
         <p className="comment-text">댓글 13개 모두 보기</p>
       </div>
       <div css={commentWrapStyle}>
-        <img
+        <Image
           src="https://cdn.hankooki.com/news/photo/202311/118934_162711_1700520953.jpg"
-          alt=""
           className="profile-image"
+          isLazy
         />
         <input className="comment-input" placeholder="댓글 남기기.." />
       </div>

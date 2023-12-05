@@ -2,12 +2,15 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { FaUserPlus } from 'react-icons/fa';
-import { useSetAtom, useAtom } from 'jotai';
+import { useSetAtom, useAtom, useAtomValue } from 'jotai';
 import { YourProfileAtom } from '@/store/your-profile';
 import { titleAtom } from '@/store/page-info';
 import { ROOT_PATH } from '@/temp/global-variables';
 import { fetch } from '@/apis/api';
 import { formatNumber } from '@/lib/utils';
+import { postFollow } from '@/apis/consumer';
+import { MyProfileAtom } from '@/store/my-profile';
+import { IMAGE_URL } from '@/apis/urls';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -134,12 +137,25 @@ const SubscribeIcon = styled.span`
 
 const YourPageProfile = () => {
   const [isFollow, setIsFollow] = useState(true);
+  const { consumerId: myId } = useAtomValue(MyProfileAtom);
   const [yourProfile, setYourProfile] = useAtom(YourProfileAtom);
   const setTitle = useSetAtom(titleAtom);
 
-  const onClickFollowToggle = () => {
-    setIsFollow(!isFollow);
+  const onClickFollowToggle = async () => {
+    const toggledFollow = !isFollow;
+    const { success } = await postFollow({
+      consumerId: yourProfile.consumerId,
+    });
+    if (!success) return;
+    setIsFollow(toggledFollow);
+    setYourProfile((prev) => ({
+      ...prev,
+      followerConsumerIds: toggledFollow
+        ? [...yourProfile.followerConsumerIds, myId]
+        : yourProfile.followerConsumerIds?.filter((id: string) => id === myId),
+    }));
   };
+  console.log(yourProfile.followerConsumerIds);
 
   useEffect(() => {
     setTitle('매거진');
@@ -172,10 +188,7 @@ const YourPageProfile = () => {
     <HeaderWrapper>
       <ProfileImageBox>
         <ProfileImage
-          src={
-            'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
-            yourProfile.profileUrl
-          }
+          src={IMAGE_URL + yourProfile.profileUrl}
           alt="Profile Image"
         />
       </ProfileImageBox>

@@ -8,7 +8,7 @@ import TextArea from '@/components/ui/textarea';
 import { titleAtom } from '@/store/page-info';
 import { MyProfileAtom } from '@/store/my-profile';
 import { uploadImage } from '@/apis/image';
-import { IMAGE_URL } from '@/apis/urls';
+import Image from '@/components/ui/image';
 
 const pageWrapperStyle = css`
   display: flex;
@@ -144,11 +144,7 @@ const Profile = () => {
   return (
     <div css={pageWrapperStyle}>
       <div css={photoBoxStyle}>
-        <img
-          className="profile-photo"
-          src={IMAGE_URL + imageUrl}
-          alt="프로필 사진"
-        />
+        <Image className="profile-photo" src={imageUrl} alt="프로필 사진" />
         <label className="photo-upload-button">
           <MdChangeCircle className="upload-icon" />
           <input

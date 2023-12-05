@@ -4,11 +4,11 @@ import { useAtom } from 'jotai';
 import styled from '@emotion/styled';
 
 import YourPageProfileComponent from '@/components/ui/your-page/profile';
-import { IMAGE_URL } from '@/apis/urls';
 
 import { FolderAtom } from '@/store/folder';
 import { fetch } from '@/apis/api';
 import { YourMagazineAtom } from '@/store/your-magazine';
+import Image from '@/components/ui/image';
 
 const TabContainer = styled.div`
   display: flex;
@@ -59,7 +59,8 @@ const GridItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  > img {
+
+  > .image {
     height: 100%;
     width: 100%;
   }
@@ -128,7 +129,11 @@ const YourPage: React.FC = () => {
       <GridContainer>
         {getMagazinesForFolder().map((item, index) => (
           <GridItem key={index}>
-            <img src={IMAGE_URL + item.photoUrls[0]} alt={item.category} />
+            <Image
+              src={item.photoUrls[0]}
+              alt={item.category}
+              className="image"
+            />
           </GridItem>
         ))}
       </GridContainer>
