@@ -64,7 +64,7 @@ const editTableStyle = css`
       max-width: 64px;
       width: 100%;
       display: inline-block;
-      font-weight: 500;
+      font-weight: 7s00;
     }
 
     .edit-input-area {
@@ -179,6 +179,7 @@ const Profile = () => {
             className="edit-input-area"
             value={introduce}
             onChange={(value) => handleEditData('introduce', value)}
+            rows={7}
           />
         </li>
       </ul>
