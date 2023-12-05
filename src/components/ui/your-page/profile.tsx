@@ -1,12 +1,10 @@
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { FaUserPlus } from 'react-icons/fa';
 import { useSetAtom, useAtom, useAtomValue } from 'jotai';
 import { css } from '@emotion/react';
 import { YourProfileAtom } from '@/store/your-profile';
 import { titleAtom } from '@/store/page-info';
-import { ROOT_PATH } from '@/temp/global-variables';
 import { fetch } from '@/apis/api';
 import { formatNumber } from '@/lib/utils';
 import { postFollow } from '@/apis/consumer';
@@ -158,7 +156,6 @@ const YourPageProfile = () => {
         : yourProfile.followerConsumerIds?.filter((id: string) => id === myId),
     }));
   };
-  console.log(yourProfile.followerConsumerIds);
 
   useEffect(() => {
     setTitle('매거진');
@@ -222,12 +219,7 @@ const YourPageProfile = () => {
                 color: isFollow ? '#fff' : '#222',
               }}
             >
-              {isFollow ? '팔로우 중' : '팔로우 하기'}
-            </button>
-          </li>
-          <li>
-            <button>
-              <Link to={`${ROOT_PATH}/rank`}>컨슈머 랭킹</Link>
+              {isFollow ? '구독중' : '구독 취소하기'}
             </button>
           </li>
         </ContentBox>

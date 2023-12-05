@@ -42,6 +42,7 @@ const TabStyle = styled.button<{ active: boolean }>`
   margin-right: 8px;
   background-color: ${(props) => (props.active ? '#222' : '#fff')};
   color: ${(props) => (props.active ? '#fff' : '#222')};
+  font-family: Gmarket Sans;
 `;
 
 const GridContainer = styled.div`
