@@ -55,7 +55,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/\/uploads/, '')
       },
       '/api': {
-        target: 'http://localhost:7001',
+        target: 'http://13.125.206.214:7001',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
