@@ -145,6 +145,7 @@ const YourPageProfile = () => {
     const toggledFollow = !isFollow;
     const { success } = await postFollow({
       consumerId: yourProfile.consumerId,
+      isFollow: toggledFollow,
     });
     if (!success) return;
     setIsFollow(toggledFollow);

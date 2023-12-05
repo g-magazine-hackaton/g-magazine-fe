@@ -10,6 +10,7 @@ import { MyProfileAtom } from '@/store/my-profile';
 import { ROOT_PATH } from '@/temp/global-variables';
 import { MyFollowingAtom } from '@/store/my-following';
 import { fetch } from '@/apis/api';
+import { IMAGE_URL } from '@/apis/urls';
 
 const PageContainer = styled.div`
   display: flex;
@@ -126,10 +127,7 @@ interface ISubscribeItemProps {
 const SubscribeItemComponent: React.FC<ISubscribeItemProps> = ({ user }) => (
   <SubscribeItem>
     <ProfileImage
-      src={
-        'https://image.ytn.co.kr/general/jpg/2023/0805/202308050900012419_d.jpg' ||
-        user.profileUrl
-      }
+      src={IMAGE_URL + user.profileUrl}
       alt={user.consumerNickname}
     />
     <div
@@ -137,10 +135,7 @@ const SubscribeItemComponent: React.FC<ISubscribeItemProps> = ({ user }) => (
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <UserName>{user.consumerNickname}</UserName>
-        <Badge
-          src="https://cdn-icons-png.flaticon.com/512/5899/5899666.png"
-          alt={user.consumerNickname}
-        />
+        <Badge src={IMAGE_URL + user.profileUrl} alt={user.consumerNickname} />
         <PowerWrap>파워컨슈머</PowerWrap>
       </div>
 
