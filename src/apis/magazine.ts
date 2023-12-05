@@ -5,6 +5,7 @@ export type GoodsInfo = {
   goodsName: string;
   goodsPhotoUrl: string;
   goodsPrice: number;
+  goodsSelectedOption: string;
 };
 
 export const getGoods = async () => {

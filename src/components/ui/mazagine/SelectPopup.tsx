@@ -104,38 +104,47 @@ const SelectPopup = ({ onSelect, onClose }) => {
           </div>
           <div className="popup-body">
             <ul css={itemInfoListStyle}>
-              {goods.map(({ id, goodsName, goodsPhotoUrl, goodsPrice }) => {
-                const imageUrl = goodsPhotoUrl.split(',')[0];
-                return (
-                  <li key={id} css={itemInfoWrapStyle}>
-                    <div className="image">
-                      {goodsPhotoUrl && (
-                        <Image src={imageUrl} alt="상품 이미지" isLazy />
-                      )}
-                    </div>
-                    <div className="info-box">
-                      <p className="item-name">{goodsName}</p>
-                      <p className="item-price">
-                        {formatNumber(goodsPrice)}
-                        <span className="item-price-unit">원</span>
-                      </p>
-                    </div>
-                    <button
-                      className="select-button"
-                      onClick={() => {
-                        handleSelect({
-                          id,
-                          goodsName,
-                          goodsPhotoUrl: imageUrl,
-                          goodsPrice,
-                        });
-                      }}
-                    >
-                      선택
-                    </button>
-                  </li>
-                );
-              })}
+              {goods?.map(
+                ({
+                  id,
+                  goodsName,
+                  goodsPhotoUrl,
+                  goodsPrice,
+                  goodsSelectedOption,
+                }) => {
+                  const imageUrl = goodsPhotoUrl.split(',')[0];
+                  return (
+                    <li key={id} css={itemInfoWrapStyle}>
+                      <div className="image">
+                        {goodsPhotoUrl && (
+                          <Image src={imageUrl} alt="상품 이미지" isLazy />
+                        )}
+                      </div>
+                      <div className="info-box">
+                        <p className="item-name">{goodsName}</p>
+                        <p className="item-price">
+                          {formatNumber(goodsPrice)}
+                          <span className="item-price-unit">원</span>
+                        </p>
+                      </div>
+                      <button
+                        className="select-button"
+                        onClick={() => {
+                          handleSelect({
+                            id,
+                            goodsName,
+                            goodsPhotoUrl: imageUrl,
+                            goodsPrice,
+                            goodsSelectedOption,
+                          });
+                        }}
+                      >
+                        선택
+                      </button>
+                    </li>
+                  );
+                },
+              )}
             </ul>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { IoIosAdd, IoIosClose } from 'react-icons/io';
 import { useSetAtom } from 'jotai';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
+import { FaPlus } from 'react-icons/fa6';
 import Button from '@/components/ui/button';
 import TextArea from '@/components/ui/textarea';
 import { titleAtom } from '@/store/page-info';
@@ -36,6 +37,8 @@ const sectionWrapStyle = css`
 const sectionTitleWrapStyle = css`
   display: flex;
   margin-bottom: 12px;
+  align-items: center;
+  justify-content: space-between;
 
   .title {
     font-size: 14px;
@@ -118,6 +121,7 @@ export const itemInfoWrapStyle = css`
         font-size: 14px;
         line-height: 18px;
         height: auto;
+        word-break: break-all;
       }
 
       &-price {
@@ -177,6 +181,8 @@ const imageSliderWrapStyle = css`
       width: 24px;
       height: 24px;
       background-color: #fff;
+      z-index: 1;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
     }
 
     > input {
@@ -211,13 +217,10 @@ const chipSliderWrapStyle = css`
 const MagazineWrite = () => {
   const setTitle = useSetAtom(titleAtom);
   const navigate = useNavigate();
-  const [selectedItemData, setSelectedItemData] = useState<{
-    id: string;
-    goodsPhotoUrl: string;
-    goodsName: string;
-    goodsPrice: number;
-  } | null>(null);
-  const [showPopup, setShowPopup] = useState(false);
+  const [selectedItemData, setSelectedItemData] = useState<GoodsInfo | null>(
+    null,
+  );
+  const [showPopup, setShowPopup] = useState(true);
   const [folders, setFolders] = useState<
     { folderId: string; folderName: string }[]
   >([]);
@@ -227,7 +230,12 @@ const MagazineWrite = () => {
     folder: '',
   });
   const { images, content, folder } = data;
-  const { goodsPhotoUrl, goodsName, goodsPrice = 0 } = selectedItemData || {};
+  const {
+    goodsPhotoUrl,
+    goodsName,
+    goodsPrice = 0,
+    goodsSelectedOption,
+  } = selectedItemData || {};
   const isWriteAvailable =
     images.length > 0 && content && folder && selectedItemData;
 
@@ -261,6 +269,7 @@ const MagazineWrite = () => {
     }
 
     handleChangeData('images', [...images, file.replace('uploads', '')]);
+    target.value = '';
   };
 
   const handleClickChip = (folder: string) => {
@@ -268,15 +277,18 @@ const MagazineWrite = () => {
   };
 
   const handleWrite = async () => {
-    const { success, result, message } = await postMagazine({
+    const { success, message } = await postMagazine({
       folder,
       content,
       goodsId: selectedItemData?.id,
       images,
     });
 
-    alert(message);
-    if (success) navigate(`../magazine/${result}`);
+    if (!success) {
+      alert(message);
+      return;
+    }
+    navigate('../my-page');
   };
 
   const handleSelect = (goodsInfo: GoodsInfo) => {
@@ -318,6 +330,11 @@ const MagazineWrite = () => {
                   <p className="item-price">
                     {formatNumber(goodsPrice)}
                     <span className="item-price-unit">원</span>
+                    {goodsSelectedOption && (
+                      <p className="item-option">
+                        선택 옵션 : {goodsSelectedOption}
+                      </p>
+                    )}
                   </p>
                 </>
               ) : (
@@ -368,9 +385,10 @@ const MagazineWrite = () => {
         <div css={sectionWrapStyle}>
           <div css={sectionTitleWrapStyle}>
             <h4 className="title">업로드할 폴더 선택</h4>
+            <FaPlus />
           </div>
           <div css={chipSliderWrapStyle}>
-            {folders.map(({ folderId, folderName }) => (
+            {folders?.map(({ folderId, folderName }) => (
               <button
                 key={folderId}
                 className={classNames('chip', {

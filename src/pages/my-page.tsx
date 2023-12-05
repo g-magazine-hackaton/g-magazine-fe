@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { FcFolder } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaPlus } from 'react-icons/fa6';
 import { FolderAtom } from '@/store/folder';
 import { MyMagazineAtom } from '@/store/my-magazine';
 import { fetch } from '@/apis/api';
@@ -164,7 +165,7 @@ const MyPage: FC = () => {
                     {filteredMagazines.length}개
                   </span>
                   <Link to="../magazine/write">
-                    <img src="plus.png" alt="업로드 아이콘" />
+                    <FaPlus />
                   </Link>
                 </FolderHeader>
                 <MyPageMagazineSlide
