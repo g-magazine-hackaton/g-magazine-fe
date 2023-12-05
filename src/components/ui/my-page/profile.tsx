@@ -6,12 +6,13 @@ import { VscActivateBreakpoints } from 'react-icons/vsc';
 import { FaUserPlus } from 'react-icons/fa';
 
 import { Link } from 'react-router-dom';
+import { css } from '@emotion/react';
 import Button from '../button';
 import ScrapSheet from '@/components/ui/my-page/scrap-sheet';
 import { MyProfileAtom } from '@/store/my-profile';
 import { ROOT_PATH } from '@/temp/global-variables';
 import { formatNumber } from '@/lib/utils';
-import { IMAGE_URL } from '@/apis/urls';
+import Image from '../image';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -46,8 +47,10 @@ const ProfileImageBox = styled.div`
   }
 `;
 
-const ProfileImage = styled.img`
+const imageStyle = css`
   border-radius: 6px;
+  width: 100%;
+  height: 100%;
 `;
 
 const UserInfoArea = styled.div`
@@ -173,9 +176,10 @@ const MyPageProfile = () => {
   return (
     <HeaderWrapper>
       <ProfileImageBox>
-        <ProfileImage
-          src={IMAGE_URL + myProfile.profileUrl}
+        <Image
+          src={myProfile.profileUrl}
           alt="Profile Image"
+          css={imageStyle}
         />
         <Link to="../profile">
           <Button className="edit-button">수정</Button>

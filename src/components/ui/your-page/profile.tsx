@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { FaUserPlus } from 'react-icons/fa';
 import { useSetAtom, useAtom, useAtomValue } from 'jotai';
+import { css } from '@emotion/react';
 import { YourProfileAtom } from '@/store/your-profile';
 import { titleAtom } from '@/store/page-info';
 import { ROOT_PATH } from '@/temp/global-variables';
@@ -10,7 +11,7 @@ import { fetch } from '@/apis/api';
 import { formatNumber } from '@/lib/utils';
 import { postFollow } from '@/apis/consumer';
 import { MyProfileAtom } from '@/store/my-profile';
-import { IMAGE_URL } from '@/apis/urls';
+import Image from '../image';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -44,9 +45,10 @@ const ProfileImageBox = styled.div`
   }
 `;
 
-const ProfileImage = styled.img`
+const imageStyle = css`
   border-radius: 6px;
-  min-height: 100px;
+  width: 100%;
+  height: 100%;
 `;
 
 const UserInfoArea = styled.div`
@@ -188,9 +190,10 @@ const YourPageProfile = () => {
   return (
     <HeaderWrapper>
       <ProfileImageBox>
-        <ProfileImage
-          src={IMAGE_URL + yourProfile.profileUrl}
+        <Image
+          src={yourProfile.profileUrl}
           alt="Profile Image"
+          css={imageStyle}
         />
       </ProfileImageBox>
       <UserInfoArea>

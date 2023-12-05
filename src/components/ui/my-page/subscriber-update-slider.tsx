@@ -27,8 +27,8 @@ const sliderStyle = css`
     border-radius: 4px;
     position: relative;
     overflow: hidden;
-
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
     > img {
       width: 100%;
       height: 90px;
@@ -82,6 +82,7 @@ const sliderStyle = css`
 
 const imageStyle = css`
   width: 100%;
+  border-radius: 0;
 `;
 
 interface SlideProps {

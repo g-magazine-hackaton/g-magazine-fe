@@ -31,6 +31,7 @@ const sliderStyle = css`
     .image {
       width: 100%;
       height: 90px;
+      border-radius: 0;
     }
 
     > span {

@@ -52,7 +52,7 @@ const Image = ({
     className={classNames('image', className)}
   >
     <img
-      src={src.includes('//') ? src : IMAGE_URL + src}
+      src={src?.includes('//') ? src : IMAGE_URL + src}
       alt={alt}
       {...(isLazy && {
         loading: 'lazy',
