@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import Image from '../image';
+import { formatNumber } from '@/lib/utils';
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 const mockData = [
@@ -149,7 +150,7 @@ const MainCarousel = () => {
                 <div className="gds-item-card__info-inner">
                   <span className="gds-item-card__price">
                     <em className="gds-item-card__price-num">
-                      {itemPrice.toLocaleString()}
+                      {formatNumber(itemPrice)}
                     </em>
                     원
                   </span>

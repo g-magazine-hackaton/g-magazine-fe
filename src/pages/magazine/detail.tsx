@@ -13,6 +13,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { getMagazineDetail, postLike } from '@/apis/magazine';
 import Image from '@/components/ui/image';
+import { formatNumber } from '@/lib/utils';
 
 const imageSliderWrapStyle = css`
   position: relative;
@@ -42,7 +43,8 @@ const productInfoStyle = css`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding: 8px;
+  padding: 12px 8px;
+  border-bottom: 1px solid #ddd;
 
   .image {
     position: relative;
@@ -104,7 +106,7 @@ const contentWrapStyle = css`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 8px;
+  padding: 12px 8px;
 
   .button-box {
     display: flex;
@@ -255,7 +257,7 @@ const MagazineDetail = () => {
           </div>
           <div className="info-box">
             <p className="item-price">
-              {goodsPrice?.toLocaleString()}
+              {formatNumber(goodsPrice)}
               <span className="item-price-unit">원</span>
             </p>
             <p className="item-name">{goodsName}</p>

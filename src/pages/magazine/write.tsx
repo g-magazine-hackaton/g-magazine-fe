@@ -374,7 +374,7 @@ const MagazineWrite = () => {
             <h4 className="title">본문 작성하기</h4>
           </div>
           <TextArea
-            rows={4}
+            rows={7}
             className="content-area"
             placeholder="구매하신 상품에 대한 내용만 작성 가능하며, 윤리적, 법적, G마켓 내부 규정에 어긋나는 내용을 작성하실 경우 안내 없이 삭제될 수 있습니다. (최소 10자)"
             value={content}
