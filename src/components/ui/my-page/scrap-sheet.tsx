@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, SyntheticEvent } from 'react';
+import React, { useEffect } from 'react';
 import Sheet from 'react-modal-sheet';
 import styled from '@emotion/styled';
 import Paper from '@mui/material/Paper';
@@ -125,7 +125,7 @@ const ScrapSheet: React.FC<ScrapSheetProps> = ({ isOpen, setOpen }) => {
     <Sheet
       isOpen={isOpen}
       onClose={() => setOpen(false)}
-      snapPoints={[600, 400, 100, 0]}
+      snapPoints={[500, 500, 500, 0]}
     >
       <Sheet.Container>
         <Sheet.Header />

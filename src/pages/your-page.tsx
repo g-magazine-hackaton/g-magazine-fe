@@ -1,24 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
+import { useAtom } from 'jotai';
 import styled from '@emotion/styled';
-import Lottie from 'react-lottie';
-import InfiniteScroll from 'react-infinite-scroll-component';
+
 import YourPageProfileComponent from '@/components/ui/your-page/profile';
-import { YourMagazineListMockData } from '@/temp/your-magazine';
-import loadingAnimation from '@/assets/loading.json';
+import { IMAGE_URL } from '@/apis/urls';
 
-const defaultOptions = {
-  loop: true,
-  autoplay: true,
-  animationData: loadingAnimation,
-  rendererSettings: {
-    preserveAspectRatio: 'xMidYMid slice',
-  },
-};
-
-const LottieWrapper = styled.div`
-  margin: 12px 0;
-`;
+import { FolderAtom } from '@/store/folder';
+import { fetch } from '@/apis/api';
+import { YourMagazineAtom } from '@/store/your-magazine';
 
 const TabContainer = styled.div`
   display: flex;
@@ -75,75 +65,73 @@ const GridItem = styled.div`
   }
 `;
 
-interface Magazine {
-  category: string;
-  image: string;
-}
-
 const YourPage: React.FC = () => {
-  const [tabIdx, setTabIdx] = useState<number>(0);
-  const [items, setItems] = useState<Magazine[]>([]);
-  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [tabIdx, setTabIdx] = useState<string>('1');
+  const [myFolder, setMyFolder] = useAtom(FolderAtom);
+  const [yourMagazine, setYourMagazine] = useAtom(YourMagazineAtom);
 
-  useEffect(() => {
-    setItems(YourMagazineListMockData.slice(0, 21));
-  }, []);
-
-  const tabs = [
-    '전체',
-    '메종키츠네',
-    '웨스트비비안우드',
-    '구찌',
-    '디올',
-    '까르띠에',
-  ];
-
-  const fetchMoreData = () => {
-    if (items.length >= YourMagazineListMockData.length) {
-      setHasMore(false);
-      return;
+  const fetchGetYourMagazine = async () => {
+    try {
+      const {
+        data: { data, success, message },
+      } = await fetch.get(`/api/api/magazine/all?consumerId=consumer1`);
+      if (success) {
+        setYourMagazine(data.magazines);
+      } else {
+        console.log(message);
+      }
+    } catch (error) {
+      console.error('Error', error);
     }
-    setTimeout(() => {
-      setItems(
-        items.concat(
-          YourMagazineListMockData.slice(items.length, items.length + 21),
-        ),
-      );
-    }, 300);
   };
+
+  const fetchGetYourFolder = async () => {
+    try {
+      const {
+        data: { data, success, message },
+      } = await fetch.get(`/api/api/magazine/folders?consumerId=consumer2`);
+      if (success) {
+        setMyFolder(data.folders);
+      } else {
+        console.log(message);
+      }
+    } catch (error) {
+      console.error('Error', error);
+    }
+  };
+
+  const getMagazinesForFolder = () => {
+    return yourMagazine.filter((magazine) => magazine.folderId === tabIdx);
+  };
+
+  useLayoutEffect(() => {
+    fetchGetYourMagazine();
+    fetchGetYourFolder();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
       <YourPageProfileComponent />
       <TabContainer>
-        {tabs.map((tab, index) => (
+        {myFolder.map((tab, index) => (
           <TabStyle
-            key={tab}
-            onClick={() => setTabIdx(index)}
-            active={index === tabIdx}
+            key={tab.id}
+            onClick={() => setTabIdx(tab.folderId)}
+            active={index + 1 === Number(tabIdx)}
           >
-            {tab}
+            {tab.folderName}
           </TabStyle>
         ))}
       </TabContainer>
-      <InfiniteScroll
-        dataLength={items.length}
-        next={fetchMoreData}
-        hasMore={hasMore}
-        loader={
-          <LottieWrapper>
-            <Lottie options={defaultOptions} height={36} width={72} />
-          </LottieWrapper>
-        }
-      >
-        <GridContainer>
-          {items.map((item, index) => (
-            <GridItem key={index}>
-              <img src={item.image} alt={item.category} />
-            </GridItem>
-          ))}
-        </GridContainer>
-      </InfiniteScroll>
+
+      <GridContainer>
+        {getMagazinesForFolder().map((item, index) => (
+          <GridItem key={index}>
+            <img src={IMAGE_URL + item.photoUrls[0]} alt={item.category} />
+          </GridItem>
+        ))}
+      </GridContainer>
     </>
   );
 };
