@@ -121,7 +121,9 @@ const SubscriberUpdateSlider: FC = () => {
       const {
         data: { data, success, message },
       } = await fetch.get(
-        `/api/api/consumer/followings/recent-update?consumerId=consumer1`,
+        `/api/api/consumer/followings/recent-update?consumerId=${
+          localStorage.getItem('id') || 'consumer1'
+        }`,
       );
       if (success) {
         setUpdateMagazine(data.consumer);

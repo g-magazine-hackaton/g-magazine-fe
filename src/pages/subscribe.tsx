@@ -90,7 +90,7 @@ const ProfileImage = styled.img`
 
 const UserName = styled.span`
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 const Description = styled.span`
@@ -141,7 +141,7 @@ const SubscribeItemComponent: React.FC<ISubscribeItemProps> = ({ user }) => (
       alt={user.consumerNickname}
     />
     <div
-      style={{ display: 'flex', flexDirection: 'column', marginLeft: '18px' }}
+      style={{ display: 'flex', flexDirection: 'column', marginLeft: '14px' }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <UserName>{user.consumerNickname}</UserName>

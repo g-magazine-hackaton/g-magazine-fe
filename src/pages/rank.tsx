@@ -83,7 +83,7 @@ const RankItem = styled.li`
 
 const UserName = styled.span`
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 const Description = styled.span`
@@ -154,7 +154,7 @@ const RankItemComponent: React.FC<IRankItemProps> = ({ user, rank }) => (
     <RankNumber>{rank}</RankNumber>
     <Image css={imageStyle} src={user.profileUrl} alt={user.consumerNickname} />
     <div
-      style={{ display: 'flex', flexDirection: 'column', marginLeft: '18px' }}
+      style={{ display: 'flex', flexDirection: 'column', marginLeft: '14px' }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <UserName>{user.consumerNickname}</UserName>
