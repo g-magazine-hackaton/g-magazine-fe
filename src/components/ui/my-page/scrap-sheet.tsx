@@ -36,26 +36,10 @@ const SectionTitle = styled.div`
 
 const ImageWarp = styled.div`
   position: relative;
-  width: 100%;
-  height: 0;
 
-  padding-bottom: 100%;
-  border-radius: 8px;
-  overflow: hidden;
-
-  &::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    content: '';
-    background-color: rgba(0, 0, 0, 0.04);
-  }
-
-  > .image {
+  .image {
     width: 100%;
-    height: auto;
+    height: 100%;
   }
 `;
 
@@ -66,12 +50,7 @@ const MasonrySection: React.FC<MasonrySectionProps> = ({ title, data }) => (
       {data.map((x: { photoUrls: string }, index: number) => (
         <Item key={index}>
           <ImageWarp>
-            <Image
-              src={x.photoUrls}
-              alt={x.photoUrls}
-              className="image"
-              height="auto"
-            />
+            <Image src={x.photoUrls} alt={x.photoUrls} className="image" />
           </ImageWarp>
         </Item>
       ))}

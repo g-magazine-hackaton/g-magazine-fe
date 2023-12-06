@@ -87,21 +87,8 @@ export const itemInfoWrapStyle = css`
   gap: 10px;
 
   .image {
-    position: relative;
     width: 120px;
     height: 120px;
-    border-radius: 8px;
-    overflow: hidden;
-
-    &::after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      content: '';
-      background-color: rgba(0, 0, 0, 0.04);
-    }
   }
 
   .info-box {

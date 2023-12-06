@@ -47,21 +47,8 @@ const productInfoStyle = css`
   border-bottom: 1px solid #ddd;
 
   .image {
-    position: relative;
     width: 80px;
     height: 80px;
-    border-radius: 8px;
-    overflow: hidden;
-
-    &::after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      content: '';
-      background-color: rgba(0, 0, 0, 0.04);
-    }
   }
 
   .info-box {

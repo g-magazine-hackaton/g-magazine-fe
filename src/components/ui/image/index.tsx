@@ -16,6 +16,7 @@ const imageWrapStyle = css`
   > img {
     width: inherit;
     height: inherit;
+    position: absolute;
   }
 
   &:not(:has(img)) {
@@ -25,12 +26,10 @@ const imageWrapStyle = css`
   }
 
   &::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
     background: rgba(0, 0, 0, 0.04);
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
     content: '';
   }
 `;
