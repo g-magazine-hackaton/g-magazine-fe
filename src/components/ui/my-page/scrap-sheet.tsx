@@ -55,6 +55,7 @@ const ImageWarp = styled.div`
 
   > .image {
     width: 100%;
+    height: auto;
   }
 `;
 

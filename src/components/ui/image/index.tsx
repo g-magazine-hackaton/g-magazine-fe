@@ -21,6 +21,7 @@ const imageWrapStyle = css`
   &:not(:has(img)) {
     border-radius: 10px;
     border: 1px dashed #ddd;
+    min-width: 120px;
   }
 
   &::after {

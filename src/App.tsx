@@ -48,7 +48,7 @@ function App() {
   }, [setMyProfile]);
 
   useLayoutEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0 });
     fetchGetMyPageProfile();
   }, [fetchGetMyPageProfile, pathname]);
 

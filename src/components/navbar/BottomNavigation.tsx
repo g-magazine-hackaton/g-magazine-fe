@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import { NavLink } from 'react-router-dom';
-import { ROOT_PATH } from '@/temp/global-variables';
 
 const bottomNavigationStyle = css`
   position: fixed;
@@ -30,10 +29,6 @@ const bottomNavigationStyle = css`
 
     .link__home {
       background-position: -108px -50px;
-
-      &.active {
-        background-position: 0px -108px;
-      }
     }
 
     .link__search {
@@ -60,7 +55,7 @@ const BottomNavigation = () => {
       <div className="box__bottom-navigation-inner">
         <ul className="list">
           <li className="list-item">
-            <NavLink to={`${ROOT_PATH}/`} className="link link__home" />
+            <NavLink to="#none" className="link link__home" />
           </li>
           <li className="list-item">
             <NavLink to="#none" className="link link__search" />
