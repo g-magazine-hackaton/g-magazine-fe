@@ -141,7 +141,7 @@ const SubscribeItemComponent: React.FC<ISubscribeItemProps> = ({ user }) => (
       alt={user.consumerNickname}
     />
     <div
-      style={{ display: 'flex', flexDirection: 'column', marginLeft: '14px' }}
+      style={{ display: 'flex', flexDirection: 'column', marginLeft: '10px' }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <UserName>{user.consumerNickname}</UserName>

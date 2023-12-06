@@ -67,7 +67,6 @@ const PowerWrap = styled.span`
 const RankNumber = styled.span`
   font-weight: 700;
   font-size: 24px;
-  margin-right: 1rem;
 `;
 
 const RankItem = styled.li`
@@ -76,6 +75,8 @@ const RankItem = styled.li`
   padding: 1rem;
   border-radius: 8px;
   display: flex;
+  gap: 0 6px;
+  flex-wrap: wrap;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: Gmarket Sans;
@@ -154,7 +155,11 @@ const RankItemComponent: React.FC<IRankItemProps> = ({ user, rank }) => (
     <RankNumber>{rank}</RankNumber>
     <Image css={imageStyle} src={user.profileUrl} alt={user.consumerNickname} />
     <div
-      style={{ display: 'flex', flexDirection: 'column', marginLeft: '14px' }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '54%',
+      }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <UserName>{user.consumerNickname}</UserName>
