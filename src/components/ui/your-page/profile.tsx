@@ -100,6 +100,10 @@ const GreetingBox = styled.div`
     font-size: 18px;
     font-weight: 700;
   }
+
+  .introduce {
+    font-family: Pretendard;
+  }
 `;
 const ContentBox = styled.ul`
   margin-top: 20px;
@@ -233,7 +237,7 @@ const YourPageProfile = () => {
               }}
             />
           </div>
-          {yourProfile.profileContent}
+          <p className="introduce">{yourProfile.profileContent}</p>
         </GreetingBox>
         <ContentBox>
           <li>

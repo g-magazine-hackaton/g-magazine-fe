@@ -100,6 +100,7 @@ const Description = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-family: Pretendard;
 `;
 
 const Badge = styled.img`
