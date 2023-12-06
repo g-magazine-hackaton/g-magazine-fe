@@ -1,5 +1,6 @@
 import { SerializedStyles, css } from '@emotion/react';
 import classNames from 'classnames';
+import { CSSProperties } from 'react';
 import { IMAGE_URL } from '@/apis/urls';
 
 const imageWrapStyle = css`
@@ -40,6 +41,7 @@ const Image = ({
   isLazy = false,
   css,
   height,
+  style,
   className = '',
 }: {
   height?: string;
@@ -48,10 +50,12 @@ const Image = ({
   isLazy?: boolean;
   css?: SerializedStyles;
   className?: string;
+  style?: CSSProperties;
 }) => (
   <div
     css={{ ...imageWrapStyle, ...css }}
     className={classNames('image', className)}
+    style={style}
   >
     <img
       src={src?.includes('//') ? src : IMAGE_URL + src}

@@ -54,7 +54,6 @@ const GridContainer = styled.div`
 
 const GridItem = styled.div`
   width: 100%;
-  height: 100%;
 
   .image {
     height: 100%;
@@ -139,6 +138,7 @@ const YourPage: React.FC = () => {
                   src={item.photoUrls[0]}
                   alt={item.category}
                   className="image"
+                  style={{ maxHeight: '33vw' }}
                 />
               </Link>
             </GridItem>
