@@ -896,7 +896,6 @@ Error generating stack: `+o.message+`
   background-color: #fff;
 `,EF=X.div`
   width: 100%;
-  height: 100%;
 
   .image {
     height: 100%;
