@@ -93,7 +93,7 @@ const UserName = styled.span`
   white-space: nowrap;
 
   @media (max-width: 420px) {
-    width: 40%;
+    max-width: 40%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
