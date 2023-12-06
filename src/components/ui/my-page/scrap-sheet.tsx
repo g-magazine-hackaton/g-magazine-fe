@@ -31,6 +31,7 @@ const SectionTitle = styled.div`
   margin-bottom: 8px;
   text-align: center;
   padding: 8px 0;
+  font-family: Gmarket Sans;
 `;
 
 const ImageWarp = styled.div`

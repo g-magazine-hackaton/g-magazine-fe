@@ -234,7 +234,7 @@ const MagazineWrite = () => {
     goodsPhotoUrl,
     goodsName,
     goodsPrice = 0,
-    goodsSelectedOption,
+    goodsOption,
   } = selectedItemData || {};
   const isWriteAvailable =
     images.length > 0 && content && folder && selectedItemData;
@@ -330,12 +330,10 @@ const MagazineWrite = () => {
                   <p className="item-price">
                     {formatNumber(goodsPrice)}
                     <span className="item-price-unit">원</span>
-                    {goodsSelectedOption && (
-                      <p className="item-option">
-                        선택 옵션 : {goodsSelectedOption}
-                      </p>
-                    )}
                   </p>
+                  {goodsOption && (
+                    <p className="item-option">선택 옵션 : {goodsOption}</p>
+                  )}
                 </>
               ) : (
                 <p style={{ textAlign: 'center' }}>상품을 선택해 주세요</p>

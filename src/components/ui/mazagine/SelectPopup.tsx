@@ -99,19 +99,13 @@ const SelectPopup = ({ onSelect, onClose }) => {
       <div css={popupStyle}>
         <div css={popupInnerStyle}>
           <div className="popup-header">
-            <span>매거진 상품 선택</span>
+            <span>내 구매 목록</span>
             <IoMdClose className="close-icon" onClick={onClose} />
           </div>
           <div className="popup-body">
             <ul css={itemInfoListStyle}>
               {goods?.map(
-                ({
-                  id,
-                  goodsName,
-                  goodsPhotoUrl,
-                  goodsPrice,
-                  goodsSelectedOption,
-                }) => {
+                ({ id, goodsName, goodsPhotoUrl, goodsPrice, goodsOption }) => {
                   const imageUrl = goodsPhotoUrl.split(',')[0];
                   return (
                     <li key={id} css={itemInfoWrapStyle}>
@@ -135,7 +129,7 @@ const SelectPopup = ({ onSelect, onClose }) => {
                             goodsName,
                             goodsPhotoUrl: imageUrl,
                             goodsPrice,
-                            goodsSelectedOption,
+                            goodsOption,
                           });
                         }}
                       >
