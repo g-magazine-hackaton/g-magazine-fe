@@ -44,11 +44,6 @@ export default defineConfig({
   base: "/g-magazine-fe/",
   server: {
     proxy: {
-      '/g-magazine-fe/fonts': {
-        target:'http://script.gmarket.com/fonts/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/g-magazine-fe\/fonts/, '')
-      },
       '/uploads':{
         target: 'http://13.125.206.214:7001/uploads/',
         changeOrigin: true,
