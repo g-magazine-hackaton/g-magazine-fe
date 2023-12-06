@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useLayoutEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import styled from '@emotion/styled';
-
 import YourPageProfileComponent from '@/components/ui/your-page/profile';
 
 import { FolderAtom } from '@/store/folder';
@@ -138,11 +137,13 @@ const YourPage: React.FC = () => {
         {(tabIdx === '0' ? yourMagazine : getMagazinesForFolder()).map(
           (item, index) => (
             <GridItem key={index}>
-              <Image
-                src={item.photoUrls[0]}
-                alt={item.category}
-                className="image"
-              />
+              <Link to={`../magazine/${item.docId}`}>
+                <Image
+                  src={item.photoUrls[0]}
+                  alt={item.category}
+                  className="image"
+                />
+              </Link>
             </GridItem>
           ),
         )}
