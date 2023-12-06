@@ -15,6 +15,7 @@ import { titleAtom } from '@/store/page-info';
 import { ROOT_PATH } from '@/temp/global-variables';
 import { fetch } from '@/apis/api';
 import Image from '@/components/ui/image';
+import { IMAGE_URL } from '@/apis/urls';
 
 const PageContainer = styled.div`
   display: flex;
@@ -85,6 +86,10 @@ const RankItem = styled.li`
 const UserName = styled.span`
   font-weight: 600;
   font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 54%;
 `;
 
 const Description = styled.span`
@@ -143,6 +148,7 @@ interface IUserProfile {
   consumerNickname: string;
   profileContent: string;
   profileUrl: string;
+  consumerRankImageUrl: string;
   consumerId: string;
 }
 
@@ -164,7 +170,7 @@ const RankItemComponent: React.FC<IRankItemProps> = ({ user, rank }) => (
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <UserName>{user.consumerNickname}</UserName>
         <Badge
-          src="https://cdn-icons-png.flaticon.com/512/5899/5899666.png"
+          src={IMAGE_URL + user.consumerRankImageUrl}
           alt={user.consumerNickname}
         />
         <PowerWrap>파워컨슈머</PowerWrap>
