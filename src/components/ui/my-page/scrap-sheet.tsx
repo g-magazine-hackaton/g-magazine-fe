@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import Sheet from 'react-modal-sheet';
 import styled from '@emotion/styled';
+import Masonry from '@mui/lab/Masonry';
 import Paper from '@mui/material/Paper';
 import { useAtom } from 'jotai';
 import { Box } from '@mui/material';
@@ -42,16 +43,10 @@ const ImageWarp = styled.div`
   }
 `;
 
-const Masonry = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-`;
-
 const MasonrySection: React.FC<MasonrySectionProps> = ({ title, data }) => (
   <Box sx={{ width: '100%', margin: '0 4px' }}>
     <SectionTitle>나의 스크랩</SectionTitle>
-    <Masonry>
+    <Masonry columns={3} spacing={1}>
       {data.map((x: { photoUrls: string }, index: number) => (
         <Item key={index}>
           <ImageWarp>
