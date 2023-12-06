@@ -372,7 +372,6 @@ Error generating stack: `+o.message+`
   > img {
     width: inherit;
     height: inherit;
-    max-height: 132px;
     position: absolute;
   }
 
