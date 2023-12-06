@@ -96,7 +96,8 @@ const ContentBox = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(72px, auto));
   gap: 8px;
-  button {
+
+  .button {
     width: 100%;
     padding: 2px 8px;
     border-radius: 6px;
@@ -106,6 +107,8 @@ const ContentBox = styled.ul`
     font-weight: 600;
     font-size: 14px;
     min-width: max-content;
+    display: block;
+    text-align: center;
   }
 `;
 
@@ -180,17 +183,19 @@ const MyPageProfile = () => {
         </GreetingBox>
         <ContentBox>
           <li>
-            <button>
-              <Link to={`${ROOT_PATH}/subscribe`}>내 구독</Link>
+            <Link className="button" to={`${ROOT_PATH}/subscribe`}>
+              내 구독
+            </Link>
+          </li>
+          <li>
+            <button className="button" onClick={() => setOpen(true)}>
+              스크랩
             </button>
           </li>
           <li>
-            <button onClick={() => setOpen(true)}>스크랩</button>
-          </li>
-          <li>
-            <button>
-              <Link to={`${ROOT_PATH}/rank`}>컨슈머 랭킹</Link>
-            </button>
+            <Link className="button" to={`${ROOT_PATH}/rank`}>
+              컨슈머 랭킹
+            </Link>
           </li>
         </ContentBox>
       </UserInfoArea>
