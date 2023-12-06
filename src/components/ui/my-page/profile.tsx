@@ -105,6 +105,7 @@ const ContentBox = styled.ul`
     color: #222;
     font-weight: 600;
     font-size: 14px;
+    min-width: max-content;
   }
 `;
 

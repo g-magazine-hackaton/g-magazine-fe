@@ -120,6 +120,7 @@ const ContentBox = styled.ul`
     border: 2px solid #dee2e6;
     font-weight: 600;
     font-size: 14px;
+    min-width: max-content;
   }
 `;
 
