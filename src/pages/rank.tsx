@@ -81,6 +81,8 @@ const RankItem = styled.li`
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: Gmarket Sans;
+  display: grid;
+  grid-template-columns: 28px 52px calc(100% - 160px) 72px;
 `;
 
 const UserName = styled.span`
@@ -89,7 +91,13 @@ const UserName = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 54%;
+
+  @media (max-width: 420px) {
+    width: 40%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;
 
 const Description = styled.span`
@@ -157,6 +165,7 @@ interface IRankItemProps {
   user: IUserProfile;
   rank: number;
 }
+
 const RankItemComponent: React.FC<IRankItemProps> = ({ user, rank }) => (
   <RankItem>
     <RankNumber>{rank}</RankNumber>
@@ -165,7 +174,6 @@ const RankItemComponent: React.FC<IRankItemProps> = ({ user, rank }) => (
       style={{
         display: 'flex',
         flexDirection: 'column',
-        width: '54%',
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>

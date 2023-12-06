@@ -80,6 +80,11 @@ const SubscribeItem = styled.li`
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: Gmarket Sans;
+
+  @media (max-width: 410px) {
+    display: grid;
+    grid-template-columns: 52px calc(100% - 118px) 72px;
+  }
 `;
 
 const ProfileImage = styled.img`
@@ -91,6 +96,13 @@ const ProfileImage = styled.img`
 const UserName = styled.span`
   font-weight: 600;
   font-size: 16px;
+
+  @media (max-width: 420px) {
+    max-width: 52%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;
 
 const Description = styled.span`
