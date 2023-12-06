@@ -95,7 +95,9 @@ const ScrapSheet: React.FC<ScrapSheetProps> = ({ isOpen, setOpen }) => {
     try {
       const {
         data: { data, success, message },
-      } = await fetch.get(`/api/api/consumer/consumer1/scraps`);
+      } = await fetch.get(
+        `/api/api/consumer/${localStorage.getItem('id') || 'consumer1'}/scraps`,
+      );
       if (success) {
         setMyScrap(data.scrappedMagazineIds);
       } else {

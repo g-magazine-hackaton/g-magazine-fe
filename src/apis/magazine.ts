@@ -22,7 +22,9 @@ export const getGoods = async () => {
 export const getFolders = async () => {
   try {
     const { data } = await fetch.get(
-      '/api/api/magazine/folders?consumerId=consumer1',
+      `/api/api/magazine/folders?consumerId=${
+        localStorage.getItem('id') || 'consumer1'
+      }`,
     );
     return data;
   } catch (e) {
@@ -34,7 +36,7 @@ export const getFolders = async () => {
 export const postMagazine = async ({ folder, content, goodsId, images }) => {
   try {
     const { data } = await fetch.post('/api/api/magazine/save', {
-      consumerId: 'consumer1',
+      consumerId: localStorage.getItem('id') || 'consumer1',
       magazineContent: content,
       folderId: folder,
       goodsIds: [goodsId],
@@ -51,7 +53,9 @@ export const postMagazine = async ({ folder, content, goodsId, images }) => {
 export const getMagazineDetail = async (magazineId: string) => {
   try {
     const { data } = await fetch.get(
-      `/api/api/magazine/detail?consumerId=consumer1&magazineId=${magazineId}`,
+      `/api/api/magazine/detail?consumerId=${
+        localStorage.getItem('id') || 'consumer1'
+      }&magazineId=${magazineId}`,
     );
     return data;
   } catch (e) {
@@ -67,7 +71,7 @@ export const getMagazineDetail = async (magazineId: string) => {
 export const postLike = async ({ id, isLike }) => {
   try {
     const { data } = await fetch.post('/api/api/magazine/like', {
-      consumerId: 'consumer1',
+      consumerId: localStorage.getItem('id') || 'consumer1',
       magazineId: id,
       isPlus: isLike,
     });

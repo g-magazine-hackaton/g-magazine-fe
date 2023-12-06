@@ -177,9 +177,9 @@ const YourPageProfile = () => {
       const {
         data: { data, success, message },
       } = await fetch.get(
-        `/api/api/consumer/detail?consumerId=${
-          pathname.split('/')[3]
-        }&myId=consumer1`,
+        `/api/api/consumer/detail?consumerId=${pathname.split('/')[3]}&myId=${
+          localStorage.getItem('id') || 'consumer1'
+        }`,
       );
       if (success) {
         setCount(data.consumer.followerConsumerIds?.length);

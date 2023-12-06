@@ -32,7 +32,11 @@ function App() {
     try {
       const {
         data: { data, success, message },
-      } = await fetch.get(`/api/api/consumer/me?consumerId=consumer1`);
+      } = await fetch.get(
+        `/api/api/consumer/me?consumerId=${
+          localStorage.getItem('id') || 'consumer1'
+        }`,
+      );
       if (success) {
         setMyProfile(data.consumer);
       } else {

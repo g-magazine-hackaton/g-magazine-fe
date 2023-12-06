@@ -193,7 +193,11 @@ const SubScribePage: React.FC = () => {
     try {
       const {
         data: { data, success, message },
-      } = await fetch.get(`/api/api/consumer/followings?consumerId=consumer1`);
+      } = await fetch.get(
+        `/api/api/consumer/followings?consumerId=${
+          localStorage.getItem('id') || 'consumer1'
+        }`,
+      );
       if (success) {
         setFollowing(data.consumer);
       } else {

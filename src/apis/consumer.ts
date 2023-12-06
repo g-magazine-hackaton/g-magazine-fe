@@ -5,7 +5,7 @@ export const postFollow = async ({ consumerId, isFollow }) => {
     const { data } = await fetch.post('/api/api/consumer/follow', {
       consumerId,
       isFollow,
-      myId: 'consumer1',
+      myId: localStorage.getItem('id') || 'consumer1',
     });
     return data;
   } catch (e) {

@@ -101,7 +101,11 @@ const MyPage: FC = () => {
     try {
       const {
         data: { data, success, message },
-      } = await fetch.get(`/api/api/magazine/folders?consumerId=consumer1`);
+      } = await fetch.get(
+        `/api/api/magazine/folders?consumerId=${
+          localStorage.getItem('id') || 'consumer1'
+        }`,
+      );
       if (success) {
         setMyFolder(data.folders);
       } else {
@@ -116,7 +120,11 @@ const MyPage: FC = () => {
     try {
       const {
         data: { data, success, message },
-      } = await fetch.get(`/api/api/magazine/all?consumerId=consumer1`);
+      } = await fetch.get(
+        `/api/api/magazine/all?consumerId=${
+          localStorage.getItem('id') || 'consumer1'
+        }`,
+      );
       if (success) {
         setMyMagazine(data.magazines);
         setIsDataLoaded(true);

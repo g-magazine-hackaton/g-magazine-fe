@@ -4,7 +4,7 @@ import { fetch } from './api';
 export const postProfile = async ({ nickName, content, photoUrl }) => {
   try {
     const { data } = await fetch.post('/api/api/consumer/profile/update', {
-      consumerId: 'consumer1',
+      consumerId: localStorage.getItem('id') || 'consumer1',
       nickName,
       content,
       photoUrl,
