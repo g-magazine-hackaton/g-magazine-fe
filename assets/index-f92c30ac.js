@@ -1511,6 +1511,7 @@ Error generating stack: `+o.message+`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-family: Pretendard;
 `,mV=X.img`
   width: 20px;
   height: 20px;
