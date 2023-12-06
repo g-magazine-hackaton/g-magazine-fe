@@ -128,6 +128,10 @@ const SubscribeIcon = styled.span`
   color: #fff;
   font-weight: 600;
   margin-right: 3px;
+
+  @media (max-width: 390px) {
+    display: none;
+  }
 `;
 
 const MyPageProfile = () => {
