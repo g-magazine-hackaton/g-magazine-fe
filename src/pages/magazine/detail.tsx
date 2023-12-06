@@ -265,12 +265,6 @@ const MagazineDetail = () => {
           좋아요 <strong>{likedCnt}</strong>개
         </p>
         <p className="content">{magazineContent}</p>
-        <div className="comment-box">
-          <div className="comment">
-            <span className="comment-user">지후니</span>
-            <span className="comment-content">귀여워요 ^^</span>
-          </div>
-        </div>
         <p className="comment-text">댓글 13개 모두 보기</p>
       </div>
       <div css={commentWrapStyle}>

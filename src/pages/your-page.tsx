@@ -54,12 +54,9 @@ const GridContainer = styled.div`
 
 const GridItem = styled.div`
   width: 100%;
-  height: 132px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100%;
 
-  > .image {
+  .image {
     height: 100%;
     width: 100%;
   }
