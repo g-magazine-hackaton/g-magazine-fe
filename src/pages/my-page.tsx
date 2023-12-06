@@ -167,27 +167,42 @@ const MyPage: FC = () => {
             업로드
           </Button>
         </Heading>
-        {myFolder.length > 0 &&
-          myFolder?.map((item, idx) => {
-            const filteredMagazines = getMagazinesForFolder(item.folderId);
-            return (
-              <React.Fragment key={`${idx + 1} my-magazine`}>
-                <FolderHeader>
-                  <span>
-                    <em>{myFolder[idx]?.folderName}</em>{' '}
-                    {filteredMagazines.length}개
-                  </span>
-                  <Link to="../magazine/write">
-                    <FaPlus />
-                  </Link>
-                </FolderHeader>
-                <MyPageMagazineSlide
-                  item={filteredMagazines}
-                  isDataLoaded={isDataLoaded}
-                />
-              </React.Fragment>
-            );
-          })}
+        {myFolder.length > 0 && (
+          <>
+            <FolderHeader>
+              <span>
+                <em>전체</em> {myMagazine.length}개
+              </span>
+              <Link to="../magazine/write">
+                <FaPlus />
+              </Link>
+            </FolderHeader>
+            <MyPageMagazineSlide
+              item={myMagazine}
+              isDataLoaded={isDataLoaded}
+            />
+            {myFolder?.map((item, idx) => {
+              const filteredMagazines = getMagazinesForFolder(item.folderId);
+              return (
+                <React.Fragment key={`${idx + 1} my-magazine`}>
+                  <FolderHeader>
+                    <span>
+                      <em>{myFolder[idx]?.folderName}</em>{' '}
+                      {filteredMagazines.length}개
+                    </span>
+                    <Link to="../magazine/write">
+                      <FaPlus />
+                    </Link>
+                  </FolderHeader>
+                  <MyPageMagazineSlide
+                    item={filteredMagazines}
+                    isDataLoaded={isDataLoaded}
+                  />
+                </React.Fragment>
+              );
+            })}
+          </>
+        )}
       </MyPageSection>
       {/* <Guides /> */}
     </div>

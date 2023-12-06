@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useState, useEffect, useLayoutEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { FaUserPlus } from 'react-icons/fa';
 import { useSetAtom, useAtom, useAtomValue } from 'jotai';
 import { css } from '@emotion/react';
@@ -10,6 +11,7 @@ import { formatNumber } from '@/lib/utils';
 import { postFollow } from '@/apis/consumer';
 import { MyProfileAtom } from '@/store/my-profile';
 import Image from '../image';
+
 import { IMAGE_URL } from '@/apis/urls';
 
 const HeaderWrapper = styled.div`
@@ -146,6 +148,8 @@ const YourPageProfile = () => {
   const [yourProfile, setYourProfile] = useAtom(YourProfileAtom);
   const setTitle = useSetAtom(titleAtom);
 
+  const { pathname } = useLocation();
+
   const onClickFollowToggle = async () => {
     const toggledFollow = !isFollow;
     const { success } = await postFollow({
@@ -173,7 +177,9 @@ const YourPageProfile = () => {
       const {
         data: { data, success, message },
       } = await fetch.get(
-        `/api/api/consumer/detail?consumerId=consumer2&myId=consumer1`,
+        `/api/api/consumer/detail?consumerId=${
+          pathname.split('/')[3]
+        }&myId=consumer1`,
       );
       if (success) {
         setCount(data.consumer.followerConsumerIds?.length);

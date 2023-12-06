@@ -144,7 +144,7 @@ const SubscriberUpdateSlider: FC = () => {
         <div ref={sliderRef} className="keen-slider">
           {updatMagazine.map((slide) => (
             <Fragment key={slide.consumerNickname}>
-              <Link to={`${ROOT_PATH}/my-page/seller`}>
+              <Link to={`${ROOT_PATH}/my-page/${slide.consumerId}`}>
                 <Slide {...slide} />
               </Link>
             </Fragment>

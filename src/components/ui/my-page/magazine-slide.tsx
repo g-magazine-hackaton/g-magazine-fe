@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { css } from '@emotion/react';
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 
 import { useKeenSlider } from 'keen-slider/react';
 import { Link } from 'react-router-dom';
@@ -103,6 +104,7 @@ const MyPageMagazineSlide: FC<MyPageMagazineSlideProps> = ({
   item,
   isDataLoaded,
 }) => {
+  if (!isDataLoaded) return null;
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3.8,

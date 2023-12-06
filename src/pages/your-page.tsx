@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useLayoutEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import styled from '@emotion/styled';
 
@@ -66,15 +67,18 @@ const GridItem = styled.div`
 `;
 
 const YourPage: React.FC = () => {
-  const [tabIdx, setTabIdx] = useState<string>('1');
+  const [tabIdx, setTabIdx] = useState<string>('0');
   const [myFolder, setMyFolder] = useAtom(FolderAtom);
   const [yourMagazine, setYourMagazine] = useAtom(YourMagazineAtom);
+  const { pathname } = useLocation();
 
   const fetchGetYourMagazine = async () => {
     try {
       const {
         data: { data, success, message },
-      } = await fetch.get(`/api/api/magazine/all?consumerId=consumer1`);
+      } = await fetch.get(
+        `/api/api/magazine/all?consumerId=${pathname.split('/')[3]}`,
+      );
       if (success) {
         setYourMagazine(data.magazines);
       } else {
@@ -89,7 +93,9 @@ const YourPage: React.FC = () => {
     try {
       const {
         data: { data, success, message },
-      } = await fetch.get(`/api/api/magazine/folders?consumerId=consumer2`);
+      } = await fetch.get(
+        `/api/api/magazine/folders?consumerId=${pathname.split('/')[3]}`,
+      );
       if (success) {
         setMyFolder(data.folders);
       } else {
@@ -114,6 +120,9 @@ const YourPage: React.FC = () => {
     <>
       <YourPageProfileComponent />
       <TabContainer>
+        <TabStyle onClick={() => setTabIdx('0')} active={tabIdx === '0'}>
+          전체
+        </TabStyle>
         {myFolder.map((tab, index) => (
           <TabStyle
             key={tab.id}
@@ -126,15 +135,17 @@ const YourPage: React.FC = () => {
       </TabContainer>
 
       <GridContainer>
-        {getMagazinesForFolder().map((item, index) => (
-          <GridItem key={index}>
-            <Image
-              src={item.photoUrls[0]}
-              alt={item.category}
-              className="image"
-            />
-          </GridItem>
-        ))}
+        {(tabIdx === '0' ? yourMagazine : getMagazinesForFolder()).map(
+          (item, index) => (
+            <GridItem key={index}>
+              <Image
+                src={item.photoUrls[0]}
+                alt={item.category}
+                className="image"
+              />
+            </GridItem>
+          ),
+        )}
       </GridContainer>
     </>
   );

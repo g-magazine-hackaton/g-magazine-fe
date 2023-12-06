@@ -58,10 +58,10 @@ const PowerWrap = styled.span`
   border-radius: 10px;
   line-height: 16px;
   font-size: 12px;
-  color: #fff;
   font-weight: 600;
   margin-left: 2px;
-  background-color: #ff5454;
+  border: 1px solid #363535;
+  color: #363535;
 `;
 
 const RankNumber = styled.span`
@@ -142,6 +142,7 @@ interface IUserProfile {
   consumerNickname: string;
   profileContent: string;
   profileUrl: string;
+  consumerId: string;
 }
 
 interface IRankItemProps {
@@ -168,7 +169,7 @@ const RankItemComponent: React.FC<IRankItemProps> = ({ user, rank }) => (
     </div>
 
     <ActionButton>
-      <Link to={`${ROOT_PATH}/my-page/seller`}>매거진</Link>
+      <Link to={`${ROOT_PATH}/my-page/${user.consumerId}`}>매거진</Link>
     </ActionButton>
   </RankItem>
 );

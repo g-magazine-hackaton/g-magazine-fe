@@ -41,10 +41,10 @@ const PowerWrap = styled.span`
   border-radius: 10px;
   line-height: 16px;
   font-size: 12px;
-  color: #fff;
   font-weight: 600;
   margin-left: 2px;
-  background-color: #ff5454;
+  border: 1px solid #363535;
+  color: #363535;
 `;
 
 const SubscribeWrap = styled.span`
@@ -128,6 +128,7 @@ interface IUserProfile {
   profileUrl: string;
   consumerRankImageUrl: string;
   consumerRank: number;
+  consumerId: string;
 }
 
 interface ISubscribeItemProps {
@@ -155,7 +156,7 @@ const SubscribeItemComponent: React.FC<ISubscribeItemProps> = ({ user }) => (
     </div>
 
     <ActionButton>
-      <Link to={`${ROOT_PATH}/my-page/seller`}>매거진</Link>
+      <Link to={`${ROOT_PATH}/my-page/${user.consumerId}`}>매거진</Link>
     </ActionButton>
   </SubscribeItem>
 );
