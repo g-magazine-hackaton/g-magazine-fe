@@ -116,7 +116,6 @@ const Navbar = () => {
     '/profile',
     '/write',
     '/rank',
-    '/seller',
     '/subscribe',
     '/magazine/',
   ].find((path) => pathname.includes(path));

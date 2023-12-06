@@ -1,6 +1,27 @@
 import { css } from '@emotion/react';
 
+const fontFace = `
+  @font-face {
+    font-family: 'Gmarket Sans';
+    font-weight: 500;
+    font-style: normal;
+    src: local('GmarketSansMedium'),
+      url(/g-magazine-fe/public/GmarketSansMedium.woff2) format('woff2');
+    font-display: swap;
+  } 
+  @font-face {
+    font-family: 'Gmarket Sans';
+    font-weight: 700;
+    font-style: normal;
+    src: local('GmarketSansBold'),
+      url(/g-magazine-fe/public/GmarketSansBold.woff2) format('woff2');
+    font-display: swap;
+  }
+`;
+
 const globalStyle = css`
+  ${fontFace}
+
   body {
     color: #111;
     font-size: 14px;

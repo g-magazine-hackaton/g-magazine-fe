@@ -21,7 +21,7 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   background-image: linear-gradient(170deg, #497cff 26%, #002041 79%);
   color: white;
-  padding: 16px 18px;
+  padding: 64px 18px 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-family: Gmarket Sans;
 `;
