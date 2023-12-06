@@ -111,6 +111,7 @@ const MyPageMagazineSlide: FC<MyPageMagazineSlideProps> = ({
       spacing: 8,
     },
   });
+
   return (
     <div>
       {isDataLoaded && (
@@ -124,7 +125,10 @@ const MyPageMagazineSlide: FC<MyPageMagazineSlideProps> = ({
         >
           {item.map((slide, idx) => (
             <React.Fragment key={`${idx + 1} my-slide-magazine`}>
-              <Slide photoUrls={IMAGE_URL + slide.photoUrls} id={slide.docId} />
+              <Slide
+                photoUrls={IMAGE_URL + slide.photoUrls[0]}
+                id={slide.docId}
+              />
             </React.Fragment>
           ))}
         </div>

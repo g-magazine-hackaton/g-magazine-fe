@@ -133,6 +133,7 @@ const contentWrapStyle = css`
 
   .content {
     min-height: 80px;
+    white-space: pre;
   }
 
   .comment-text {
